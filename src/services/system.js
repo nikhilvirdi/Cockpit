@@ -1,4 +1,5 @@
 const os = require('os');
+const formatUptime = require('../utils/formatUptime');
 
 // os module methods:
 
@@ -12,17 +13,58 @@ console.log('Free memory:', os.freemem());
 console.log('Uptime:', os.uptime());
  */
 
+function getMemoryInfo(){
+
+    const totalMemory = os.totalmem();
+    const freeMemory = os.freemem();
+
+    const usedMemory = totalMemory - freeMemory;
+    const memoryUsage = Number(((usedMemory / totalMemory) * 100).toFixed(2));
+    const totalMemoryGB  = totalMemory/(1024**3);
+    const freeMemoryGB = freeMemory / (1024**3);
+    const usedMemoryGB = usedMemory / (1024**3);
+
+    return{
+        // totalMemory: totalMemory,
+        // freeMemory: freeMemory,
+        // usedMemory: usedMemory,
+        memoryUsage: memoryUsage,
+        totalMemoryGB: Number(totalMemoryGB.toFixed(2)),
+        freeMemoryGB: Number(freeMemoryGB.toFixed(2)),
+        usedMemoryGB: Number(usedMemoryGB.toFixed(2)),
+    }
+}
+
+
+
+
 function getSystemInfo(){
+
+    // const uptimeSecond = os.uptime();
+    // const days = Math.floor(uptimeSecond / 86400);
+    // const hours = Math.floor((uptimeSecond % 86400)/3600);
+    // const minutes = Math.floor((uptimeSecond % 3600)/60);
+
+    // const uptime = `${days} days, ${hours} hours, ${minutes} minutes`;
+
+    const memoryInfo = getMemoryInfo();
+    const uptime = formatUptime(os.uptime());
+
     return{
         platform : os.platform(),
+        osRelease: os.release(),
         architecture: os.arch(),
         hostname: os.hostname(),
+        processId: process.pid,
+        environment: process.env.NODE_ENV || 'development',
+        serverStartTime: new Date(Date.now()-(process.uptime()*1000)).toISOString(),
+        processMemoryMB: Number((process.memoryUsage().rss/(1024**2)).toFixed(2)),
+        nodeVersion: process.version,
         cpuCount: os.cpus().length,
-        totalMemory: os.totalmem(),
-        freeMemory: os.freemem(),
-        uptime: os.uptime()
+        cpuModel: os.cpus()[0].model,
+        ...memoryInfo,
+        uptime: uptime
     };
 }
 
 module.exports = getSystemInfo;
-
