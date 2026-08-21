@@ -7,11 +7,38 @@ const formatUptime = require('../utils/formatUptime');
 console.log('Platform:', os.platform());
 console.log('Architecture:', os.arch());
 console.log('Hostname:', os.hostname());
+console.log('OS release:', os.release());
+console.log('CPU information:', os.cpus());
 console.log('CPU count:', os.cpus().length);
 console.log('Total memory:', os.totalmem());
 console.log('Free memory:', os.freemem());
-console.log('Uptime:', os.uptime());
- */
+console.log('System uptime:', os.uptime());
+console.log('Home directory:', os.homedir());
+console.log('Temporary directory:', os.tmpdir());
+console.log('Operating system user info:', os.userInfo());
+console.log('Network interfaces:', os.networkInterfaces());
+console.log('Endianness:', os.endianness());
+console.log('Null device:', os.devNull);
+*/
+
+// process module methods:
+
+/**
+console.log('Process ID:', process.pid);
+console.log('Parent process ID:', process.ppid);
+console.log('Node.js version:', process.version);
+console.log('Environment variables:', process.env);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('Process uptime:', process.uptime());
+console.log('Process memory usage:', process.memoryUsage());
+console.log('Process CPU usage:', process.cpuUsage());
+console.log('Command-line arguments:', process.argv);
+console.log('Current working directory:', process.cwd());
+console.log('Node.js executable path:', process.execPath);
+console.log('Operating system platform:', process.platform);
+console.log('CPU architecture:', process.arch);
+console.log('Process resource usage:', process.resourceUsage());
+*/
 
 function getMemoryInfo(){
 
@@ -34,9 +61,6 @@ function getMemoryInfo(){
         usedMemoryGB: Number(usedMemoryGB.toFixed(2)),
     }
 }
-
-
-
 
 function getSystemInfo(){
 

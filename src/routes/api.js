@@ -1,61 +1,126 @@
+const getProjects = require('../services/projects');
 const getSystemInfo = require('../services/system');
 
-function handleApiRoute(req,res){
-    if(req.method === 'GET' && req.url === '/api/system'){
-        const systemInfo = getSystemInfo();
-        res.writeHead(200,{
-            'Content-Type' : 'application/json'
-        });
-        res.end(JSON.stringify(systemInfo));
-        return;
-    }
-
-    if(req.method === 'GET' && req.url === '/api/status'){
-        res.writeHead(200,{
-            'Content-Type' : 'application/json'
-        });
-        res.end(JSON.stringify({
-            status : 'running'
-        }));
-        return;
-    }
-
-    if(req.method === 'POST' && req.url === '/api/test'){
-        let body = '';
-        req.on('data', (chunk)=>{
-            body += chunk;
-        });
-        req.on('end',()=>{
-            try{
-                const data = JSON.parse(body);
-                console.log('Received Data:', data);
-                res.writeHead(200,{
-                    'Content-Type' : 'application/json'
-                });
-                res.end(JSON.stringify({
-                    message : 'Data Received',
-                    data : data
-                }));
-            }
-            catch(error){
-                res.writeHead(400,{
-                    'Content-Type' : 'application/json'
-                });
-                res.end(JSON.stringify({
-                    error : 'Invalid JSON'
-                }));
-            }
-        });
-        return;
-    }
-    res.writeHead(404,{
-        'Content-Type' : 'application/json'
+function sendJson(res, statusCode, data) {
+    res.writeHead(statusCode, {
+        'Content-Type': 'application/json'
     });
-    res.end(JSON.stringify({
-        error: 'API route not found'
-    }));
+
+    res.end(JSON.stringify(data));
+}
+
+function handleApiRoute(req, res) {
+
+    try {
+
+        if(req.method === 'GET' && req.url === '/api/system') {
+
+            const systemInfo = getSystemInfo();
+
+            sendJson(res, 200, systemInfo);
+            return;
+        }
+
+        if(req.method === 'GET' && req.url === '/api/projects') {
+
+            const projects = getProjects();
+
+            sendJson(res, 200, projects);
+            return;
+        }
+
+        if(req.method === 'GET' && req.url === '/api/status') {
+
+            sendJson(res, 200, {
+                status: 'running'
+            });
+
+            return;
+        }
+
+        if(req.method === 'GET' && req.url.startsWith('/api/projects/')) {
+
+            const projectName = decodeURIComponent(
+                req.url.substring('/api/projects/'.length)
+            );
+
+            const projects = getProjects();
+
+            const project = projects.find(
+                project => project.name === projectName
+            );
+
+            if(!project) {
+
+                sendJson(res, 404, {
+                    error: 'Project not found'
+                });
+
+                return;
+            }
+
+            sendJson(res, 200, project);
+            return;
+        }
+
+        if(req.method === 'GET' && req.url === '/api/summary') {
+
+            const projects = getProjects();
+
+            const summary = {
+                totalProjects: projects.length,
+
+                gitRepositories: projects.filter(
+                    project => project.isGitRepository
+                ).length,
+
+                cleanRepositories: projects.filter(
+                    project => project.gitStatus === 'clean'
+                ).length,
+
+                modifiedRepositories: projects.filter(
+                    project => project.gitStatus === 'modified'
+                ).length,
+
+                languages: {},
+
+                projectTypes: {}
+            };
+
+            for(const project of projects) {
+
+                if(summary.languages[project.language]) {
+                    summary.languages[project.language]++;
+                }
+                else {
+                    summary.languages[project.language] = 1;
+                }
+
+                if(summary.projectTypes[project.projectType]) {
+                    summary.projectTypes[project.projectType]++;
+                }
+                else {
+                    summary.projectTypes[project.projectType] = 1;
+                }
+            }
+
+            sendJson(res, 200, summary);
+            return;
+        }
+
+        sendJson(res, 404, {
+            error: 'API route not found'
+        });
+
+    }
+    catch(error) {
+
+        console.error('API error:', error);
+
+        sendJson(res, 500, {
+            error: 'Internal server error'
+        });
+    }
 }
 
 module.exports = handleApiRoute;
-
-
