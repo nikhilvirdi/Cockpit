@@ -143,10 +143,33 @@ async function handleApiRoute(req, res) {
                 .substring('/api/files'.length)
                 .replace(/^\/+/, '');
 
-            const files = getFiles(directory);
+            try {
 
-            sendJson(res, 200, files);
-            return;
+                const files = getFiles(directory);
+
+                sendJson(res, 200, files);
+                return;
+            }
+            catch(error) {
+
+                if(error.message === 'Invalid directory path') {
+                    sendJson(res, 400, {
+                        error: 'Invalid directory path'
+                    });
+
+                    return;
+                }
+
+                if(error.code === 'ENOENT') {
+                    sendJson(res, 404, {
+                        error: 'Directory not found'
+                    });
+
+                    return;
+                }
+
+                throw error;
+            }
         }
         if(req.method === 'GET' && req.url === '/api/logs') {
 
@@ -216,6 +239,7 @@ async function handleApiRoute(req, res) {
 }
 
 module.exports = handleApiRoute;
+
 
 
 
