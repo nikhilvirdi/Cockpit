@@ -1,6 +1,8 @@
 const getProjects = require('../services/projects/projects');
 const getSystemInfo = require('../services/system/system');
 const getProcesses = require('../services/processes/processes');
+const getLogs = require('../services/logs/logs');
+const logger = require('../utils/logger');
 
 
 function sendJson(res, statusCode, data) {
@@ -71,6 +73,13 @@ async function handleApiRoute(req, res) {
             return;
         }
 
+        if(req.method === 'GET' && req.url === '/api/logs') {
+
+            const logs = getLogs();
+
+            sendJson(res, 200, logs);
+            return;
+        }
         if(req.method === 'GET' && req.url === '/api/summary') {
 
             const projects = getProjects();
@@ -123,7 +132,7 @@ async function handleApiRoute(req, res) {
     }
     catch(error) {
  
-        console.error('API error:', error);
+        logger.error(`API error: ${error.message}`);
 
         sendJson(res, 500, {
             error: 'Internal server error'
@@ -132,3 +141,7 @@ async function handleApiRoute(req, res) {
 }
 
 module.exports = handleApiRoute;
+
+
+
+
