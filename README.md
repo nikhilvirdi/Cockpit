@@ -1,8 +1,8 @@
-# About Cockpit
+## About Cockpit
 
 Cockpit is a local developer utility built with Node.js. It gives you one place to inspect and interact with your development environment instead of jumping between the terminal, file explorer, process monitor, and log files. It can show project and Git status, browse files, inspect running processes and system information, monitor logs and local services, and run selected developer commands. The project is being built from scratch with pure Node.js and a simple HTML/CSS/JavaScript frontend, so the goal is also to put the core Node.js concepts into practice before moving on to Express.
 
-## Stack
+### Stack
 
 | Part               | Technology                    |
 | ------------------ | ----------------------------- |
