@@ -18,3 +18,20 @@ Cockpit is a local developer utility built with Node.js. It gives you one place 
 | Version Control    | Git / GitHub                  |
 
 The stack deliberately has **zero runtime dependencies**. No Express, frontend framework, database, UI library, or WebSocket library.
+
+## Setup
+
+1. Copy the example configuration file:
+   ```bash
+   cp config/cockpit.example.json config/cockpit.json
+   ```
+   *(On Windows Command Prompt / PowerShell: `copy config\cockpit.example.json config\cockpit.json`)*
+
+2. Open `config/cockpit.json` and edit `projectDirectories` to point to your local project folders. You can also customize the monitored services and ports if needed.
+
+3. Start Cockpit:
+   ```bash
+   npm start
+   ```
+
+4. Open `http://127.0.0.1:4000` (or your configured port) in your browser.

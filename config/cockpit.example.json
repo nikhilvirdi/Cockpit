@@ -18,19 +18,6 @@
     },
 
     "projectDirectories": [
-        "C:\\ASTRA-NET",
-        "C:\\GridLab",
-        "C:\\Husk",
-        "C:\\JHusk_dump",
-        "C:\\JHuskConsumerTest",
-        "C:\\pbtLibBattle",
-        "C:\\RedFlag-CI",
-        "C:\\redflag-ci-test-repo",
-        "C:\\stenod",
-        "C:\\temp-api-repo",
-        "C:\\temp-auth-repo",
-        "C:\\jhusk_testing",
-        "C:\\Thynkly.io",
-        "C:\\Pipeline Anatomy"
+        "C:\\Users\\YourName\\Projects\\example-project"
     ]
 }
