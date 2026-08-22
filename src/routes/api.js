@@ -1,5 +1,7 @@
 const getProjects = require('../services/projects/projects');
 const getSystemInfo = require('../services/system/system');
+const getProcesses = require('../services/processes/processes');
+
 
 function sendJson(res, statusCode, data) {
     res.writeHead(statusCode, {
@@ -9,7 +11,7 @@ function sendJson(res, statusCode, data) {
     res.end(JSON.stringify(data));
 }
 
-function handleApiRoute(req, res) {
+async function handleApiRoute(req, res) {
 
     try {
 
@@ -60,6 +62,12 @@ function handleApiRoute(req, res) {
             }
 
             sendJson(res, 200, project);
+            return;
+        }
+
+        if(req.method === 'GET' && req.url === '/api/processes'){
+            const proceesses = await getProcesses();
+            sendJson(res,200,proceesses);
             return;
         }
 
