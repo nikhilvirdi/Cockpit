@@ -38,7 +38,9 @@ function detectProject(projectPath){
 
                 matches.push({
                     rule: rule,
-                    marker: marker
+                    marker: marker,
+                    markerCount: rule.markers.length,
+                    priority: rule.priority !== undefined ? rule.priority : 5
                 });
             }
         }
@@ -48,7 +50,17 @@ function detectProject(projectPath){
         return null;
     }
 
-    const bestMatch = matches[0];
+    const bestMatch = matches.reduce((best, current) => {
+        if (current.markerCount < best.markerCount) {
+            return current;
+        }
+        if (current.markerCount === best.markerCount) {
+            if (current.priority < best.priority) {
+                return current;
+            }
+        }
+        return best;
+    });
 
     return {
         language: bestMatch.rule.language,

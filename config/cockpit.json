@@ -1,6 +1,23 @@
 {
-    "projectDirectories": 
-    [
+    "server": {
+        "port": 4000,
+        "host": "127.0.0.1"
+    },
+
+    "services": [
+        { "name": "Cockpit",    "host": "127.0.0.1", "port": 4000  },
+        { "name": "PostgreSQL", "host": "127.0.0.1", "port": 5432  },
+        { "name": "Redis",      "host": "127.0.0.1", "port": 6379  },
+        { "name": "MongoDB",    "host": "127.0.0.1", "port": 27017 }
+    ],
+
+    "allowedCommands": {
+        "nodeVersion": "node --version",
+        "npmVersion":  "npm --version",
+        "gitVersion":  "git --version"
+    },
+
+    "projectDirectories": [
         "C:\\ASTRA-NET",
         "C:\\GridLab",
         "C:\\Husk",

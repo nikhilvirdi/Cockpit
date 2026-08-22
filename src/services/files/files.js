@@ -1,16 +1,24 @@
 const fs = require('fs');
 const path = require('path');
 
-const rootDirectory = path.resolve(__dirname, '../../..');
+const fsConfig = require('../../../config/cockpit.json');
+const rootDirectories = fsConfig.projectDirectories.map(dir => path.resolve(dir));
 
 function getFiles(directory = '') {
 
-    const requestedPath = path.resolve(rootDirectory, directory);
+    let requestedPath;
+    let validRoot;
 
-    if(
-        requestedPath !== rootDirectory &&
-        !requestedPath.startsWith(rootDirectory + path.sep)
-    ) {
+    for (const rootDir of rootDirectories) {
+        const resolved = path.resolve(rootDir, directory);
+        if (resolved.startsWith(rootDir + path.sep) || resolved === rootDir) {
+            requestedPath = resolved;
+            validRoot = rootDir;
+            break;
+        }
+    }
+
+    if (!requestedPath) {
         throw new Error('Invalid directory path');
     }
 
@@ -26,7 +34,7 @@ function getFiles(directory = '') {
         return {
             name: entry.name,
             type: entry.isDirectory() ? 'directory' : 'file',
-            path: path.relative(rootDirectory, entryPath),
+            path: path.relative(validRoot, entryPath),
             size: entry.isFile() ? stats.size : null,
             modifiedAt: stats.mtime.toISOString()
         };

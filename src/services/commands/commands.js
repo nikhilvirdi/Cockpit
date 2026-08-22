@@ -1,49 +1,91 @@
-const { exec } = require('child_process');
-
-const commands = {
-    nodeVersion: 'node --version',
-    npmVersion: 'npm --version',
-    gitVersion: 'git --version'
-};
+const { spawn, execFile } = require('child_process');
+const crypto = require('crypto');
+const { getConfig } = require('../../../config/loadConfig');
+const eventBus = require('../../events/bus');
 
 function executeCommand(commandName) {
     return new Promise((resolve, reject) => {
+        const config = getConfig();
+        const commands = config.allowedCommands || {};
+        
+        const commandString = commands[commandName];
 
-        const command = commands[commandName];
-
-        if(!command) {
+        if (!commandString) {
             reject(new Error('Command not allowed'));
             return;
         }
 
-        exec(
-            command,
-            {
-                windowsHide: true
-            },
-            (error, stdout, stderr) => {
+        const commandId = crypto.randomUUID();
+        const timeoutMs = config.commandTimeoutMs || 60000;
 
-                if(error) {
-                    resolve({
-                        command: commandName,
-                        success: false,
-                        stdout: stdout.trim(),
-                        stderr: stderr.trim(),
-                        exitCode: error.code ?? 1
-                    });
+        const child = spawn(commandString, {
+            shell: true,
+            windowsHide: true
+        });
 
-                    return;
-                }
+        // Resolve immediately to acknowledge start
+        resolve({ commandId, status: 'started' });
 
-                resolve({
-                    command: commandName,
-                    success: true,
-                    stdout: stdout.trim(),
-                    stderr: stderr.trim(),
-                    exitCode: 0
-                });
+        // Stream stdout
+        child.stdout.on('data', (chunk) => {
+            eventBus.emit('command:output', {
+                commandId,
+                stream: 'stdout',
+                data: chunk.toString()
+            });
+        });
+
+        // Stream stderr
+        child.stderr.on('data', (chunk) => {
+            eventBus.emit('command:output', {
+                commandId,
+                stream: 'stderr',
+                data: chunk.toString()
+            });
+        });
+
+        // Timeout safety
+        const timer = setTimeout(() => {
+            if (process.platform === 'win32') {
+                execFile('taskkill', ['/PID', child.pid.toString(), '/T', '/F'], { windowsHide: true }, () => {});
+            } else {
+                try {
+                    child.kill('SIGKILL');
+                } catch (e) {}
             }
-        );
+
+            eventBus.emit('command:output', {
+                commandId,
+                stream: 'stderr',
+                data: `\n[Cockpit] Command timed out after ${timeoutMs}ms and was forcibly killed.\n`
+            });
+        }, timeoutMs);
+
+        // Completion
+        child.on('close', (code) => {
+            clearTimeout(timer);
+            eventBus.emit('command:output', {
+                commandId,
+                stream: 'exit',
+                exitCode: code,
+                success: code === 0
+            });
+        });
+
+        child.on('error', (err) => {
+            clearTimeout(timer);
+            eventBus.emit('command:output', {
+                commandId,
+                stream: 'stderr',
+                data: `\n[Cockpit] Failed to spawn command: ${err.message}\n`
+            });
+            eventBus.emit('command:output', {
+                commandId,
+                stream: 'exit',
+                exitCode: 1,
+                success: false
+            });
+        });
     });
 }
 

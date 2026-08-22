@@ -1,47 +1,32 @@
 const net = require('net');
+const { getConfig } = require('../../../config/loadConfig');
+const eventBus = require('../../events/bus');
 
-const services = [
-    {
-        name: 'Cockpit',
-        host: '127.0.0.1',
-        port: 4000
-    },
-    {
-        name: 'PostgreSQL',
-        host: '127.0.0.1',
-        port: 5432
-    },
-    {
-        name: 'Redis',
-        host: '127.0.0.1',
-        port: 6379
-    },
-    {
-        name: 'MongoDB',
-        host: '127.0.0.1',
-        port: 27017
-    }
-];
+const config = getConfig();
+const services = config.services || [];
+const TIMEOUT_MS = 1000;
 
 function checkPort(host, port) {
     return new Promise(resolve => {
-
+        const startTime = Date.now();
         const socket = new net.Socket();
 
-        socket.setTimeout(1000);
+        socket.setTimeout(TIMEOUT_MS);
 
         socket.on('connect', () => {
+            const responseTime = Date.now() - startTime;
             socket.destroy();
-            resolve(true);
+            resolve({ success: true, responseTime });
         });
 
         socket.on('timeout', () => {
             socket.destroy();
-            resolve(false);
+            resolve({ success: false, responseTime: TIMEOUT_MS });
         });
 
         socket.on('error', () => {
-            resolve(false);
+            socket.destroy();
+            resolve({ success: false, responseTime: null });
         });
 
         socket.connect(port, host);
@@ -54,7 +39,7 @@ async function getServices() {
 
     for(const service of services) {
 
-        const isRunning = await checkPort(
+        const result = await checkPort(
             service.host,
             service.port
         );
@@ -63,11 +48,57 @@ async function getServices() {
             name: service.name,
             host: service.host,
             port: service.port,
-            status: isRunning ? 'running' : 'stopped'
+            status: result.success ? 'running' : 'stopped',
+            responseTime: result.responseTime
         });
     }
 
     return results;
 }
+
+// -----------------------------------------------------------------------------
+// Real-time Event Publisher
+// -----------------------------------------------------------------------------
+
+// Map to cache the last known status of each service ('host:port' -> 'status')
+const previousStatus = new Map();
+
+setInterval(async () => {
+    // Gate: Only poll if someone is actively listening
+    if (eventBus.listenerCount('service:statusChanged') === 0) return;
+
+    try {
+        const currentServices = await getServices();
+        const changes = [];
+
+        for (const service of currentServices) {
+            const key = `${service.host}:${service.port}`;
+            const oldStatus = previousStatus.get(key);
+
+            // Only emit if the status actually changed
+            if (oldStatus && oldStatus !== service.status) {
+                changes.push({
+                    name: service.name,
+                    host: service.host,
+                    port: service.port,
+                    oldStatus: oldStatus,
+                    newStatus: service.status
+                });
+            }
+
+            // Always update cache
+            previousStatus.set(key, service.status);
+        }
+
+        if (changes.length > 0) {
+            // Emit each changed service individually (matches payload schema design)
+            for (const change of changes) {
+                eventBus.emit('service:statusChanged', change);
+            }
+        }
+    } catch (error) {
+        console.error('Service monitor polling error:', error);
+    }
+}, 5000);
 
 module.exports = getServices;

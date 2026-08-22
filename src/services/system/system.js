@@ -73,6 +73,8 @@ function getSystemInfo(){
 
     const memoryInfo = getMemoryInfo();
     const uptime = formatUptime(os.uptime());
+    const cpus = os.cpus();
+    const cpuModel = cpus.length > 0 ? cpus[0].model : 'unknown';
 
     return{
         platform : os.platform(),
@@ -84,8 +86,8 @@ function getSystemInfo(){
         serverStartTime: new Date(Date.now()-(process.uptime()*1000)).toISOString(),
         processMemoryMB: Number((process.memoryUsage().rss/(1024**2)).toFixed(2)),
         nodeVersion: process.version,
-        cpuCount: os.cpus().length,
-        cpuModel: os.cpus()[0].model,
+        cpuCount: cpus.length,
+        cpuModel: cpuModel,
         ...memoryInfo,
         uptime: uptime
     };

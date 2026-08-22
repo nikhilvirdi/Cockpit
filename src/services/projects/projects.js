@@ -1,42 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
-const getFileStats = require('./fileStats');
-const getFileTypes = require('./fileTypes');
+const getFileMetrics = require('./fileMetrics');
 const detectProject = require('./projectDetector');
-
-const MAX_SCAN_DEPTH = 3;
-
-const IGNORED_DIRECTORIES = new Set([
-    '.git',
-    '.github',
-    '.vscode',
-    '.idea',
-    'node_modules',
-    'dist',
-    'build',
-    'target',
-    'coverage',
-    '.next',
-    '.nuxt',
-    '.cache',
-    '.gradle',
-    '__pycache__',
-    '.pytest_cache',
-    '.venv',
-    'venv',
-    'env',
-    'vendor',
-    'bin',
-    'obj'
-]);
+const { MAX_SCAN_DEPTH, IGNORED_DIRECTORIES } = require('./scanConstants');
+const { getConfig } = require('../../../config/loadConfig');
+const eventBus = require('../../events/bus');
 
 function getProjectDirectories(){
-
-    const configPath = path.resolve(__dirname, '../../../config/cockpit.json');
-    const configData = fs.readFileSync(configPath, 'utf-8');
-    const config = JSON.parse(configData);
-
+    const config = getConfig();
     return config.projectDirectories;
 }
 
@@ -149,8 +121,7 @@ function getProjectInfo(projectPath, projectName, detectedProject){
     }
 
     const gitInfo = getGitInfo(projectPath);
-    const fileStats = getFileStats(projectPath);
-    const fileTypes = getFileTypes(projectPath);
+    const { fileCount, directoryCount, fileTypes } = getFileMetrics(projectPath);
 
     return{
         name: projectName,
@@ -160,7 +131,8 @@ function getProjectInfo(projectPath, projectName, detectedProject){
         projectType: detectedProject.projectType,
         detectionSource: detectedProject.detectionSource,
         ...gitInfo,
-        ...fileStats,
+        fileCount: fileCount,
+        directoryCount: directoryCount,
         fileTypes: fileTypes
     };
 }
@@ -245,7 +217,64 @@ function getProjects(){
     return projects;
 }
 
+// -----------------------------------------------------------------------------
+// Real-time Event Publisher
+// -----------------------------------------------------------------------------
+
+const activeWatchers = new Set();
+
+function startFileWatchers() {
+    if (activeWatchers.size > 0) return; // Already watching
+
+    const projectDirectories = getProjectDirectories();
+    const isRecursiveSupported = process.platform === 'win32' || process.platform === 'darwin';
+
+    for (const projectDir of projectDirectories) {
+        if (!fs.existsSync(projectDir)) continue;
+
+        try {
+            // Note: On Linux, recursive: true is not natively supported by Node's fs.watch.
+            // Rather than pulling in a dependency like chokidar (violating zero-dependency rule),
+            // we fall back to watching just the root directory.
+            const watcher = fs.watch(projectDir, { recursive: isRecursiveSupported }, (eventType, filename) => {
+                if (!filename || IGNORED_DIRECTORIES.has(filename.split(path.sep)[0])) return;
+                
+                eventBus.emit('file:changed', {
+                    project: projectDir,
+                    eventType,
+                    relativePath: filename
+                });
+            });
+
+            watcher.on('error', (err) => {
+                console.error(`Watcher error on ${projectDir}:`, err.message);
+            });
+
+            activeWatchers.add(watcher);
+        } catch (error) {
+            console.error(`Failed to watch directory ${projectDir}:`, error.message);
+        }
+    }
+}
+
+function stopFileWatchers() {
+    for (const watcher of activeWatchers) {
+        watcher.close();
+    }
+    activeWatchers.clear();
+}
+
+// Lazy initialization: Only spin up OS file watchers if at least one client is listening
+eventBus.on('newListener', (event) => {
+    if (event === 'file:changed' && activeWatchers.size === 0) {
+        startFileWatchers();
+    }
+});
+
+eventBus.on('removeListener', (event) => {
+    if (event === 'file:changed' && eventBus.listenerCount('file:changed') === 0) {
+        stopFileWatchers();
+    }
+});
+
 module.exports = getProjects;
-
-
-
