@@ -3,9 +3,32 @@ const getSystemInfo = require('../services/system/system');
 const getProcesses = require('../services/processes/processes');
 const getLogs = require('../services/logs/logs');
 const getServices = require('../services/services/services');
+const getFiles = require('../services/files/files');
 const logger = require('../utils/logger');
+const { executeCommand } = require('../services/commands/commands');
 
 
+function readJsonBody(req) {
+    return new Promise((resolve, reject) => {
+        let body = '';
+
+        req.on('data', chunk => {
+            body += chunk;
+        });
+
+        req.on('end', () => {
+            try {
+
+                resolve(JSON.parse(body));
+            }
+            catch(error) {
+                reject(new Error('Invalid JSON'));
+            }
+        });
+
+        req.on('error', reject);
+    });
+}
 function sendJson(res, statusCode, data) {
     res.writeHead(statusCode, {
         'Content-Type': 'application/json'
@@ -18,6 +41,39 @@ async function handleApiRoute(req, res) {
 
     try {
 
+
+        if(req.method === 'POST' && req.url === '/api/commands') {
+
+            const body = await readJsonBody(req);
+
+            if(!body.command) {
+                sendJson(res, 400, {
+                    error: 'Command is required'
+                });
+
+                return;
+            }
+
+            try {
+
+                const result = await executeCommand(body.command);
+
+                sendJson(res, 200, result);
+                return;
+            }
+            catch(error) {
+
+                if(error.message === 'Command not allowed') {
+                    sendJson(res, 400, {
+                        error: 'Command not allowed'
+                    });
+
+                    return;
+                }
+
+                throw error;
+            }
+        }
         if(req.method === 'GET' && req.url === '/api/system') {
 
             const systemInfo = getSystemInfo();
@@ -79,6 +135,17 @@ async function handleApiRoute(req, res) {
             const services = await getServices();
 
             sendJson(res, 200, services);
+            return;
+        }
+        if(req.method === 'GET' && req.url.startsWith('/api/files')) {
+
+            const directory = req.url
+                .substring('/api/files'.length)
+                .replace(/^\/+/, '');
+
+            const files = getFiles(directory);
+
+            sendJson(res, 200, files);
             return;
         }
         if(req.method === 'GET' && req.url === '/api/logs') {
@@ -149,6 +216,15 @@ async function handleApiRoute(req, res) {
 }
 
 module.exports = handleApiRoute;
+
+
+
+
+
+
+
+
+
 
 
 
