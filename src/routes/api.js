@@ -2,6 +2,7 @@ const getProjects = require('../services/projects/projects');
 const getSystemInfo = require('../services/system/system');
 const getProcesses = require('../services/processes/processes');
 const getLogs = require('../services/logs/logs');
+const getServices = require('../services/services/services');
 const logger = require('../utils/logger');
 
 
@@ -73,6 +74,13 @@ async function handleApiRoute(req, res) {
             return;
         }
 
+        if(req.method === 'GET' && req.url === '/api/services') {
+
+            const services = await getServices();
+
+            sendJson(res, 200, services);
+            return;
+        }
         if(req.method === 'GET' && req.url === '/api/logs') {
 
             const logs = getLogs();
@@ -141,6 +149,8 @@ async function handleApiRoute(req, res) {
 }
 
 module.exports = handleApiRoute;
+
+
 
 
 
