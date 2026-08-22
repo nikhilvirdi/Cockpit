@@ -1,5 +1,5 @@
 const os = require('os');
-const formatUptime = require('../utils/formatUptime');
+const formatUptime = require('../../utils/formatUptime');
 
 // os module methods:
 

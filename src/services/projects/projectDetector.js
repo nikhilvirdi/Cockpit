@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const detectionRules = require('../../config/detectionRules');
+const detectionRules = require('../../../config/detectionRules');
 
 function detectProject(projectPath){
 

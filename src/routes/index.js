@@ -11,7 +11,7 @@ function handleRoute(req,res){
 
 
     if(req.method === 'GET' && req.url === '/'){
-        fs.readFile('./public/index.html', (error,data)=>{
+        fs.readFile(path.resolve(__dirname, '../../public/index.html'), (error,data)=>{
             if(error){
                 res.writeHead(500,{
                     'Content-Type' : 'text/plain'
@@ -42,7 +42,9 @@ function handleRoute(req,res){
     const filePath = path.resolve(publicPath, requestedPath);
 
 
-    if(!filePath.startsWith(publicPath)){
+    const relativePath = path.relative(publicPath, filePath);
+
+    if(relativePath.startsWith('..') || path.isAbsolute(relativePath)){
         res.writeHead(403,{
             'Content-Type' : 'text/plain'
         });

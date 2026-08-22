@@ -33,7 +33,7 @@ const IGNORED_DIRECTORIES = new Set([
 
 function getProjectDirectories(){
 
-    const configPath = path.resolve(__dirname, '../../config/cockpit.json');
+    const configPath = path.resolve(__dirname, '../../../config/cockpit.json');
     const configData = fs.readFileSync(configPath, 'utf-8');
     const config = JSON.parse(configData);
 
@@ -246,4 +246,6 @@ function getProjects(){
 }
 
 module.exports = getProjects;
+
+
 

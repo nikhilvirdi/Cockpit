@@ -1,5 +1,5 @@
-const getProjects = require('../services/projects');
-const getSystemInfo = require('../services/system');
+const getProjects = require('../services/projects/projects');
+const getSystemInfo = require('../services/system/system');
 
 function sendJson(res, statusCode, data) {
     res.writeHead(statusCode, {
@@ -114,7 +114,7 @@ function handleApiRoute(req, res) {
 
     }
     catch(error) {
-
+ 
         console.error('API error:', error);
 
         sendJson(res, 500, {
