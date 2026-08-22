@@ -18,3 +18,60 @@ Cockpit is a local developer utility built with Node.js. It gives you one place 
 | Version Control    | Git / GitHub                  |
 
 The stack deliberately has **zero runtime dependencies**. No Express, frontend framework, database, UI library, or WebSocket library.
+
+## Current API Data
+
+Cockpit currently exposes three core APIs:
+
+### `/api/system`
+
+Returns system and Cockpit runtime information:
+
+- `platform`
+- `osRelease`
+- `architecture`
+- `hostname`
+- `processId`
+- `environment`
+- `serverStartTime`
+- `processMemoryMB`
+- `nodeVersion`
+- `cpuCount`
+- `cpuModel`
+- `memoryUsage`
+- `totalMemoryGB`
+- `freeMemoryGB`
+- `usedMemoryGB`
+- `uptime`
+
+### `/api/projects`
+
+Returns information about detected local development projects:
+
+- `name`
+- `version`
+- `path`
+- `language`
+- `projectType`
+- `detectionSource`
+- `isGitRepository`
+- `currentBranch`
+- `gitStatus`
+- `modifiedFiles`
+- `untrackedFiles`
+- `lastCommit`
+- `fileCount`
+- `directoryCount`
+- `fileTypes`
+
+### `/api/processes`
+
+Returns information about currently running processes:
+
+- `name`
+- `pid`
+- `sessionName`
+- `sessionNumber`
+- `memory`
+- `cpuTime`
+- `cpuPercent`
