@@ -1,86 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cockpit</title>
-  <link rel="stylesheet" href="/css/98.css">
-  <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8">
+    <title>Cockpit</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="window" style="width:100vw; height:100vh; margin:0;">
-    <div class="title-bar">
-      <div class="title-bar-text">Cockpit</div>
-      <div class="title-bar-controls">
-        <button aria-label="Minimize"></button>
-        <button aria-label="Maximize"></button>
-        <button aria-label="Close"></button>
-      </div>
-    </div>
 
-    <div class="menu-bar-row">
-      <div class="menu-item-container">
-        <button class="menu-btn" data-menu="file">File</button>
-        <div class="menu-dropdown" id="menu-file" style="display: none;">
-          <div class="menu-dropdown-item" data-action="file-refresh">Refresh Current View</div>
-          <div class="menu-dropdown-item" data-action="file-export-json">Export View as JSON</div>
-          <div class="menu-dropdown-item" data-action="file-open-project">Open Project...</div>
-        </div>
-      </div>
-      <div class="menu-item-container">
-        <button class="menu-btn" data-menu="view">View</button>
-        <div class="menu-dropdown" id="menu-view" style="display: none;">
-          <div class="menu-dropdown-item" data-action="view-toggle-sidebar">Toggle Sidebar</div>
-          <div class="menu-dropdown-item" data-action="view-compact-mode">Compact Mode</div>
-          <div class="menu-dropdown-item" data-action="view-live-updates">Live Updates On/Off</div>
-        </div>
-      </div>
-      <div class="menu-item-container">
-        <button class="menu-btn" data-menu="tools">Tools</button>
-        <div class="menu-dropdown" id="menu-tools" style="display: none;">
-          <div class="menu-dropdown-item" data-action="tools-run-command">Run Command...</div>
-          <div class="menu-dropdown-item" data-action="tools-terminate-process">Terminate Process...</div>
-          <div class="menu-dropdown-item" data-action="tools-search-files">Search Files...</div>
-          <div class="menu-dropdown-item" data-action="tools-check-services">Check All Services</div>
-        </div>
-      </div>
-      <div class="menu-item-container">
-        <button class="menu-btn" data-menu="help">Help</button>
-        <div class="menu-dropdown" id="menu-help" style="display: none;">
-          <div class="menu-dropdown-item" data-action="help-about">About Cockpit</div>
-          <div class="menu-dropdown-item" data-action="help-docs">Documentation</div>
-          <div class="menu-dropdown-item" data-action="help-api">API Reference</div>
-          <a class="menu-dropdown-item" href="https://github.com/nikhilvirdi/Cockpit/issues" target="_blank" rel="noopener" style="text-decoration: none; color: inherit; display: block;">Report an Issue</a>
-        </div>
-      </div>
-    </div>
+    <main>
+        <h1>Cockpit</h1>
+        <p class="tagline">Your dev environment, at a glance.</p>
 
-    <div class="app-body" style="display:flex; height:calc(100% - 60px);">
-      <nav id="sidebar" class="sidebar">
-        <ul id="sidebar-list">
-          <li data-page="overview" class="sidebar-item active">Overview</li>
-          <li data-page="projects" class="sidebar-item">Projects</li>
-          <li data-page="files" class="sidebar-item">Files</li>
-          <li data-page="processes" class="sidebar-item">Processes</li>
-          <li data-page="logs" class="sidebar-item">Logs</li>
-          <li data-page="services" class="sidebar-item">Services</li>
-          <li data-page="commands" class="sidebar-item">Commands</li>
-          <li data-page="system" class="sidebar-item">System</li>
-        </ul>
-      </nav>
+        <section>
+            <h2>Projects</h2>
+            <table id="projects-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Branch</th>
+                        <th>Status</th>
+                        <th>Last Commit</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
 
-      <main id="page-content" class="page-content">
-        <!-- active page renders here -->
-      </main>
-    </div>
+        <section>
+            <h2>Services</h2>
+            <table id="services-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Host</th>
+                        <th>Port</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
 
-    <div class="status-bar">
-      <p class="status-bar-field" id="status-left">Ready</p>
-      <p class="status-bar-field" id="status-middle"></p>
-      <p class="status-bar-field" id="status-right">●</p>
-    </div>
-  </div>
-
-  <script type="module" src="/js/router.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,166 +1,70 @@
-@import url('98.css');
-
-/* Do not override 98.css's button/panel/title-bar visuals. Only add layout & shell rules: */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    background: #008080; /* Classic Win95 Teal desktop behind window if any margin */
-}
-
 * {
-    box-sizing: border-box;
-}
-
-.window {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Menu Bar */
-.menu-bar-row {
-    display: flex;
-    background: silver;
-    padding: 1px 2px;
-    border-bottom: 1px solid #808080;
-    gap: 2px;
-}
-
-.menu-item-container {
-    position: relative;
-}
-
-.menu-btn {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    min-height: unset;
-    min-width: unset;
-    padding: 2px 6px;
-    font-family: inherit;
-    font-size: 11px;
-    cursor: default;
-    color: #000;
-    text-shadow: none;
-}
-
-.menu-btn:not(:disabled):hover {
-    background: #000080;
-    color: #fff;
-    box-shadow: none;
-}
-
-.menu-btn:not(:disabled):active {
-    box-shadow: none;
-    text-shadow: none;
-}
-
-.menu-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: silver;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
-    padding: 2px;
-    z-index: 100;
-    min-width: 160px;
-    white-space: nowrap;
-}
-
-.menu-dropdown-item {
-    padding: 3px 12px;
-    font-size: 11px;
-    cursor: default;
-    color: #222;
-}
-
-.menu-dropdown-item:hover {
-    background: navy;
-    color: white;
-}
-
-/* Main Layout */
-.app-body {
-    display: flex;
-    flex: 1;
-    min-height: 0;
-    gap: 4px;
-    padding: 4px 0;
-}
-
-.sidebar {
-    width: 180px;
-    flex-shrink: 0;
-    overflow-y: auto;
-    background: #fff;
-    box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
-}
-
-#sidebar-list {
     margin: 0;
     padding: 0;
-    list-style: none;
+    box-sizing: border-box;
 }
 
-.sidebar-item {
-    padding: 4px 8px;
-    cursor: pointer;
-    list-style: none;
-    font-size: 11px;
-    user-select: none;
+body {
+    background-color: #0a0a0a;
+    color: #e5e5e5;
+    font-family: "Berkeley Mono", "JetBrains Mono", "Consolas", monospace;
+    font-size: 14px;
+    padding: 24px 40px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.sidebar-item.active {
-    background: navy;
-    color: white;
+main {
+    max-width: 1100px;
 }
 
-.page-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px;
-    background: #fff;
-    box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
-    min-width: 0;
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
-/* Status Bar */
-.status-bar {
-    margin-top: 2px;
+.tagline {
+    color: #888;
+    margin-bottom: 40px;
 }
 
-#status-right {
-    max-width: 28px;
-    text-align: center;
-    flex-grow: 0;
-    color: #008000;
-    font-weight: bold;
+section {
+    margin-bottom: 40px;
 }
 
-/* Sidebar Toggle */
-.sidebar.hidden {
-    display: none !important;
+h2 {
+    font-size: 13px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
 }
 
-/* Compact Mode */
-body.compact table th,
-body.compact table td {
-    padding: 1px 4px !important;
-    font-size: 10px !important;
+table {
+    border-collapse: collapse;
+    width: 100%;
 }
 
-body.compact .sidebar-item {
-    padding: 2px 6px !important;
-    font-size: 10px !important;
+th {
+    text-align: left;
+    color: #666;
+    font-weight: normal;
+    padding: 4px 16px 4px 0;
+    border-bottom: 1px solid #222;
 }
 
-body.compact .page-content {
-    padding: 4px !important;
+td {
+    padding: 4px 16px 4px 0;
+    color: #ccc;
 }
 
-body.compact fieldset {
-    padding: 4px !important;
+.status-clean, .status-running {
+    color: #7fd97f;
 }
 
+.status-modified, .status-stopped {
+    color: #d97f7f;
+}
