@@ -1,14 +1,23 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { execFileSync } = require('child_process');
 const getFileMetrics = require('./fileMetrics');
 const detectProject = require('./projectDetector');
 const { MAX_SCAN_DEPTH, IGNORED_DIRECTORIES } = require('./scanConstants');
 const { getConfig } = require('../../../config/loadConfig');
 
-function getProjectDirectories(){
+let cachedProjects = null;
+
+function getScanRoots(){
     const config = getConfig();
-    return config.projectDirectories;
+    const roots = config.scanRoots;
+
+    if(Array.isArray(roots) && roots.length > 0){
+        return roots;
+    }
+
+    return [os.homedir()];
 }
 
 function getGitInfo(projectPath){
@@ -38,7 +47,8 @@ function getGitInfo(projectPath){
             '--show-current'
         ], {
             cwd: projectPath,
-            encoding: 'utf-8'
+            encoding: 'utf-8',
+            stdio: ['pipe', 'pipe', 'ignore']
         }).trim();
 
         const status = execFileSync('git', [
@@ -46,7 +56,8 @@ function getGitInfo(projectPath){
             '--porcelain'
         ], {
             cwd: projectPath,
-            encoding: 'utf-8'
+            encoding: 'utf-8',
+            stdio: ['pipe', 'pipe', 'ignore']
         }).trim();
 
         if(status === ''){
@@ -73,7 +84,8 @@ function getGitInfo(projectPath){
             '--format=%h|%s|%cI'
         ], {
             cwd: projectPath,
-            encoding: 'utf-8'
+            encoding: 'utf-8',
+            stdio: ['pipe', 'pipe', 'ignore']
         }).trim();
 
         if(commitData){
@@ -126,9 +138,9 @@ function getProjectInfo(projectPath, projectName, detectedProject){
         name: projectName,
         version: version,
         path: projectPath,
-        language: detectedProject.language,
-        projectType: detectedProject.projectType,
-        detectionSource: detectedProject.detectionSource,
+        language: detectedProject ? detectedProject.language : 'unknown',
+        projectType: detectedProject ? detectedProject.projectType : 'unknown',
+        detectionSource: detectedProject ? detectedProject.detectionSource : null,
         ...gitInfo,
         fileCount: fileCount,
         directoryCount: directoryCount,
@@ -142,20 +154,29 @@ function scanDirectory(directoryPath, currentDepth, projects){
         return;
     }
 
-    let detectedProject = null;
+    const isScanRootContainer = directoryPath === os.homedir() || directoryPath === path.parse(directoryPath).root;
+    let hasGit = false;
 
-    try{
-        detectedProject = detectProject(directoryPath);
-    }
-    catch(error){
-        console.log('Project scan error:', directoryPath);
-        console.log(error.message);
-        return;
+    if(!isScanRootContainer){
+        try{
+            hasGit = fs.existsSync(path.join(directoryPath, '.git'));
+        }
+        catch(error){
+            hasGit = false;
+        }
     }
 
-    if(detectedProject){
+    if(hasGit){
 
         const projectName = path.basename(directoryPath);
+        let detectedProject = null;
+
+        try{
+            detectedProject = detectProject(directoryPath);
+        }
+        catch(error){
+            detectedProject = null;
+        }
 
         projects.push(
             getProjectInfo(
@@ -185,7 +206,7 @@ function scanDirectory(directoryPath, currentDepth, projects){
             continue;
         }
 
-        if(IGNORED_DIRECTORIES.has(entry.name)){
+        if(entry.name.startsWith('.') || entry.name.startsWith('$') || IGNORED_DIRECTORIES.has(entry.name)){
             continue;
         }
 
@@ -199,21 +220,41 @@ function scanDirectory(directoryPath, currentDepth, projects){
     }
 }
 
-function getProjects(){
+function getProjects(rescan = false){
 
-    const projectDirectories = getProjectDirectories();
+    if(cachedProjects !== null && !rescan){
+        return cachedProjects;
+    }
+
+    const scanRoots = getScanRoots();
     const projects = [];
 
-    for(const projectDirectory of projectDirectories){
+    for(const scanRoot of scanRoots){
+
+        if(!fs.existsSync(scanRoot)){
+            continue;
+        }
 
         scanDirectory(
-            projectDirectory,
+            scanRoot,
             0,
             projects
         );
     }
 
-    return projects;
+    const seen = new Set();
+    const uniqueProjects = [];
+
+    for(const project of projects){
+        const normalized = path.resolve(project.path).toLowerCase();
+        if(!seen.has(normalized)){
+            seen.add(normalized);
+            uniqueProjects.push(project);
+        }
+    }
+
+    cachedProjects = uniqueProjects;
+    return cachedProjects;
 }
 
 module.exports = getProjects;

@@ -15,9 +15,12 @@ async function handleApiRoute(req, res) {
 
     try {
 
-        if(req.method === 'GET' && req.url === '/api/projects') {
+        if(req.method === 'GET' && (req.url === '/api/projects' || req.url.startsWith('/api/projects?'))) {
 
-            const projects = getProjects();
+            const url = new URL(req.url, 'http://localhost');
+            const rescan = url.searchParams.get('rescan') === 'true';
+
+            const projects = getProjects(rescan);
 
             sendJson(res, 200, projects);
             return;

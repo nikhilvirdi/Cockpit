@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 
 let cachedConfig = null;
 
@@ -15,12 +16,7 @@ function getFrontendConfig() {
     const config = getConfig();
 
     return {
-        projectDirectories: config.projectDirectories || [],
-        services: (config.services || []).map(service => ({
-            name: service.name,
-            host: service.host,
-            port: service.port
-        })),
+        scanRoots: config.scanRoots || [os.homedir()],
         server: {
             port: config.server?.port || 4000,
             host: config.server?.host || '127.0.0.1'

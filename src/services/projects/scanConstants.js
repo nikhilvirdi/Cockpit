@@ -1,4 +1,4 @@
-const MAX_SCAN_DEPTH = 3;
+const MAX_SCAN_DEPTH = 5;
 
 const IGNORED_DIRECTORIES = new Set([
     '.git',
@@ -21,7 +21,18 @@ const IGNORED_DIRECTORIES = new Set([
     'env',
     'vendor',
     'bin',
-    'obj'
+    'obj',
+    'AppData',
+    'Application Data',
+    'Local Settings',
+    '$Recycle.Bin',
+    'System Volume Information',
+    'Recovery',
+    'Windows',
+    'Program Files',
+    'Program Files (x86)',
+    'ProgramData',
+    'Users'
 ]);
 
 module.exports = {
