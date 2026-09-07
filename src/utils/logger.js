@@ -1,8 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const eventBus = require('../events/bus');
-
 const logDir      = path.join(__dirname, '../../logs');
 const logFilePath = path.join(logDir, 'cockpit.log');
 
@@ -27,13 +25,6 @@ function writeLog(level, message) {
     const timestamp = new Date().toISOString();
     const logEntry  = `${timestamp} [${level}] ${message}\n`;
     logStream.write(logEntry);
-
-    // Emit event for real-time SSE updates
-    eventBus.emit('log:new', {
-        timestamp,
-        level,
-        message
-    });
 }
 
 function info(message) {

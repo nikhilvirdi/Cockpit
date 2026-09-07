@@ -11,12 +11,6 @@
         { "name": "MongoDB",    "host": "127.0.0.1", "port": 27017 }
     ],
 
-    "allowedCommands": {
-        "nodeVersion": "node --version",
-        "npmVersion":  "npm --version",
-        "gitVersion":  "git --version"
-    },
-
     "projectDirectories": [
         "C:\\Users\\YourName\\Projects\\example-project"
     ]

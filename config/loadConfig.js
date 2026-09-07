@@ -16,7 +16,6 @@ function getFrontendConfig() {
 
     return {
         projectDirectories: config.projectDirectories || [],
-        allowedCommands: Object.keys(config.allowedCommands || {}),
         services: (config.services || []).map(service => ({
             name: service.name,
             host: service.host,
