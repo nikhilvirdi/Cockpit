@@ -5,8 +5,21 @@ function renderProjects(projects) {
     for (const project of projects) {
         const row = document.createElement('tr');
 
-        const statusClass = project.gitStatus === 'clean' ? 'status-clean' : 'status-modified';
-        const statusText = project.isGitRepository ? project.gitStatus : 'no git';
+        let statusClass = 'status-modified';
+        let statusText = 'no git';
+
+        if (project.isGitRepository) {
+            if (project.gitStatus === 'clean') {
+                statusClass = 'status-clean';
+                statusText = 'clean';
+            } else if (project.gitStatus === 'modified') {
+                statusClass = 'status-modified';
+                statusText = 'modified';
+            } else {
+                statusClass = 'status-error';
+                statusText = 'error';
+            }
+        }
         const commitText = project.lastCommit ? project.lastCommit.message : '-';
 
         row.innerHTML = `

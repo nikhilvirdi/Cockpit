@@ -11,9 +11,9 @@ body {
     font-size: 14px;
     padding: 24px 40px;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
+    overflow-y: auto;
 }
 
 main {
@@ -65,6 +65,6 @@ td {
     color: #7fd97f;
 }
 
-.status-modified, .status-stopped {
+.status-modified, .status-stopped, .status-error {
     color: #d97f7f;
 }
