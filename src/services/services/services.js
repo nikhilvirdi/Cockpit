@@ -1,8 +1,14 @@
 const net = require('net');
-const { getConfig } = require('../../../config/loadConfig');
 
-const config = getConfig();
-const services = config.services || [];
+const services = [
+    { name: 'PostgreSQL',    host: '127.0.0.1', port: 5432  },
+    { name: 'MySQL',         host: '127.0.0.1', port: 3306  },
+    { name: 'MongoDB',       host: '127.0.0.1', port: 27017 },
+    { name: 'Redis',         host: '127.0.0.1', port: 6379  },
+    { name: 'Elasticsearch', host: '127.0.0.1', port: 9200  },
+    { name: 'RabbitMQ',      host: '127.0.0.1', port: 5672  },
+    { name: 'Kafka',         host: '127.0.0.1', port: 9092  }
+];
 const TIMEOUT_MS = 1000;
 
 function checkPort(host, port) {
