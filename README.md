@@ -1,7 +1,6 @@
 ## Cockpit
 
-<img width="340"  alt="image" src="https://github.com/user-attachments/assets/6fbaba0f-dd46-46f9-a06b-dfe55a7f3f9b" />
-
+<img width="400" alt="cockpit" src="https://github.com/user-attachments/assets/b092d9b9-64f2-42b0-932a-148284d51bb3" />
 
 Cockpit is a local developer utility built with Node.js. It gives you one place to check the state of your dev projects instead of jumping between terminal tabs; whether your local git repos have uncommitted changes, and whether the dev services you rely on are actually running.
 
