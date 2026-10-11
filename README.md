@@ -7,7 +7,7 @@ Cockpit is a local developer utility built with Node.js. It gives you one place 
 
 Cockpit automatically scans your filesystem for git-tracked projects (no manual list to maintain) and checks a fixed set of common dev service ports on localhost.
 
-## Stack
+### Stack
 
 | Part | Technology |
 |---|---|
@@ -18,11 +18,11 @@ Cockpit automatically scans your filesystem for git-tracked projects (no manual 
 
 The stack deliberately has zero runtime dependencies. No Express, frontend framework, database, UI library, or WebSocket library.
 
-## Configuration
+### Configuration
 
 Copy `config/cockpit.example.json` to `config/cockpit.json` and set `scanRoots` — the folders Cockpit should search for git repositories (defaults to your home directory if omitted).
 
-## Usage
+### Usage
 
     npm start
 
