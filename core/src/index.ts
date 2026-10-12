@@ -6,6 +6,7 @@ export {
   detectEntryPoints,
   computeCentrality
 } from './analysis';
+export { extractDeclaredEnvKeys, traceEnvUsage } from './envUsage';
 export { resolveImportTarget, tryCandidatePath } from './resolver';
 export { loadTsConfig, TsConfigInfo } from './tsconfig';
 export { walkDirectory, isSourceFile, toPosixPath } from './scanner';
@@ -20,5 +21,12 @@ export {
   NodeCentralityFanIn,
   NodeCentralityFanOut,
   CentralityAnalysis,
-  AnalysisOptions
+  AnalysisOptions,
+  DeclaredEnvKey,
+  DirectUsagePattern,
+  DirectEnvUsage,
+  TransitiveEnvUsage,
+  EnvUsageItem,
+  DynamicAccess,
+  EnvUsageResult
 } from './types';

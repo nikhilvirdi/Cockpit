@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { Project } from 'ts-morph';
 import {
   DependencyGraph,
   AnalyzedGraph,
@@ -8,8 +9,10 @@ import {
   NodeCentralityFanIn,
   NodeCentralityFanOut,
   CentralityAnalysis,
-  AnalysisOptions
+  AnalysisOptions,
+  EnvUsageResult
 } from './types';
+import { traceEnvUsage } from './envUsage';
 
 /**
  * Detects all elementary cycles in the graph using Johnson's algorithm with Tarjan's SCC.
@@ -467,8 +470,28 @@ export function analyzeDependencyGraph(
     centrality
   };
 
+  // 5. Env/config usage tracing
+  const rootDir = options?.rootDir ? path.resolve(options.rootDir) : process.cwd();
+  let project: Project = (graph as any)._project;
+
+  if (!project) {
+    project = new Project({
+      skipAddingFilesFromTsConfig: true,
+      compilerOptions: { allowJs: true }
+    });
+    for (const node of nodes) {
+      if (fs.existsSync(node.path)) {
+        project.addSourceFileAtPath(node.path);
+      }
+    }
+  }
+
+  const envUsage: EnvUsageResult = traceEnvUsage(project, nodes, edges, rootDir);
+
   return {
-    ...graph,
-    analysis
+    nodes,
+    edges,
+    analysis,
+    envUsage
   };
 }

@@ -103,6 +103,42 @@ function main() {
       console.log('    None');
     }
 
+    // 5. Env Usage Tracing Summary
+    console.log('\n================ Env Usage Tracing Summary ===============');
+    const { envUsage } = graph;
+    const directUsages = (envUsage?.usages || []).filter(u => u.kind === 'direct');
+    const transitiveUsages = (envUsage?.usages || []).filter(u => u.kind === 'transitive');
+    const declaredKeys = envUsage?.declaredKeys || [];
+    const dynamicAccesses = envUsage?.dynamicAccesses || [];
+
+    console.log(`Declared keys count: ${declaredKeys.length}`);
+    if (declaredKeys.length > 0) {
+      declaredKeys.forEach((d, i) => {
+        console.log(`  [${i + 1}] ${d.key} (in: ${d.declaredIn.join(', ')})`);
+      });
+    }
+
+    console.log(`\nDirect usage count: ${directUsages.length}`);
+    if (directUsages.length > 0) {
+      directUsages.forEach((u, i) => {
+        console.log(`  [${i + 1}] ${u.key} in ${u.file} (${u.pattern})`);
+      });
+    }
+
+    console.log(`\nTransitive usage count: ${transitiveUsages.length}`);
+    if (transitiveUsages.length > 0) {
+      transitiveUsages.forEach((u, i) => {
+        console.log(`  [${i + 1}] ${u.key} in ${u.file} (via ${u.via})`);
+      });
+    }
+
+    console.log(`\nDynamic access count: ${dynamicAccesses.length}`);
+    if (dynamicAccesses.length > 0) {
+      dynamicAccesses.forEach((d, i) => {
+        console.log(`  [${i + 1}] ${d.file}: ${d.note}`);
+      });
+    }
+
     // If --output flag provided, write full JSON to disk
     if (outputPath) {
       const resolvedOutput = path.resolve(outputPath);

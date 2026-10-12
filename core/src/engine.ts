@@ -147,8 +147,11 @@ export function buildDependencyGraph(targetPath: string, options?: GraphEngineOp
     return a.to.localeCompare(b.to);
   });
 
-  return {
+  const graph: DependencyGraph = {
     nodes,
     edges
   };
+  (graph as any)._project = project;
+
+  return graph;
 }
