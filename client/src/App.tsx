@@ -2,6 +2,12 @@ import { useEffect, useRef, useState, useMemo } from 'react';
 import cytoscape from 'cytoscape';
 import type { Core, EventObject } from 'cytoscape';
 import sampleGraphData from './sample-graph.json';
+import {
+  walkDirectoryHandle,
+  filterFileList,
+  createZipBundle,
+  type ScannedFile
+} from './folderScanner';
 
 interface GraphNode {
   id: string;
@@ -54,13 +60,18 @@ interface SelectedNodeInfo {
   outgoing: string[];
 }
 
+type InputMode = 'github' | 'folder';
+
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<Core | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const [inputMode, setInputMode] = useState<InputMode>('github');
   const [graphData, setGraphData] = useState<GraphData>(sampleGraphData as GraphData);
   const [repoUrl, setRepoUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingStatus, setLoadingStatus] = useState<string>('Cloning & Analyzing...');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [currentSource, setCurrentSource] = useState<string>('sample-graph.json');
   const [selectedNode, setSelectedNode] = useState<SelectedNodeInfo | null>(null);
@@ -106,12 +117,14 @@ export default function App() {
       };
     }, [graphData]);
 
-  const handleAnalyze = async (e?: React.FormEvent) => {
+  // Mode 1: GitHub URL Analysis
+  const handleAnalyzeGithub = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const url = repoUrl.trim();
     if (!url) return;
 
     setLoading(true);
+    setLoadingStatus('Cloning & Analyzing GitHub repo...');
     setErrorMessage(null);
     setSelectedNode(null);
 
@@ -124,7 +137,7 @@ export default function App() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || `Server responded with status ${res.status}`);
+        throw new Error(data.error || `Server error (${res.status})`);
       }
 
       setGraphData(data as GraphData);
@@ -137,6 +150,100 @@ export default function App() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Upload and analyze scanned files
+  const processAndUploadFiles = async (files: ScannedFile[], folderName: string) => {
+    if (files.length === 0) {
+      setErrorMessage('No supported source files (.ts, .tsx, .js, .jsx) found in the selected folder.');
+      return;
+    }
+
+    // Size guard: 50MB client-side check
+    const totalBytes = files.reduce((acc, curr) => acc + curr.file.size, 0);
+    const maxBytes = 50 * 1024 * 1024;
+    if (totalBytes > maxBytes) {
+      const sizeMb = (totalBytes / (1024 * 1024)).toFixed(1);
+      setErrorMessage(`Selected source files exceed the 50MB limit (${sizeMb}MB). Please select a smaller folder.`);
+      return;
+    }
+
+    setLoading(true);
+    setErrorMessage(null);
+    setSelectedNode(null);
+
+    try {
+      setLoadingStatus(`Packaging ${files.length} files (${(totalBytes / 1024).toFixed(0)} KB)...`);
+      const zipBlob = await createZipBundle(files);
+
+      setLoadingStatus(`Uploading & Analyzing ${folderName}...`);
+      const formData = new FormData();
+      formData.append('bundle', zipBlob, `${folderName}.zip`);
+
+      const res = await fetch('/api/analyze-upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || `Upload analysis failed (${res.status})`);
+      }
+
+      setGraphData(data as GraphData);
+      setCurrentSource(folderName);
+    } catch (err: any) {
+      console.error('Local folder analysis error:', err);
+      setErrorMessage(err.message || 'Failed to analyze local folder');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Mode 2: Local Folder Picker (window.showDirectoryPicker with fallback)
+  const handlePickLocalFolder = async () => {
+    setErrorMessage(null);
+
+    // Feature detect window.showDirectoryPicker
+    if ('showDirectoryPicker' in window) {
+      try {
+        const dirHandle = await (window as any).showDirectoryPicker({
+          mode: 'read'
+        });
+
+        const folderName = dirHandle.name || 'local-folder';
+        setLoading(true);
+        setLoadingStatus(`Scanning folder ${folderName}...`);
+
+        const files = await walkDirectoryHandle(dirHandle);
+        await processAndUploadFiles(files, folderName);
+      } catch (err: any) {
+        if (err.name === 'AbortError') {
+          // User cancelled folder picker dialog
+          return;
+        }
+        console.warn('showDirectoryPicker failed, falling back to input:', err);
+        fileInputRef.current?.click();
+      }
+    } else {
+      // Fallback for browsers without showDirectoryPicker
+      fileInputRef.current?.click();
+    }
+  };
+
+  // Handle fallback file input change
+  const handleFallbackInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (!fileList || fileList.length === 0) return;
+
+    const firstPath = fileList[0].webkitRelativePath || fileList[0].name;
+    const folderName = firstPath.split('/')[0] || 'local-folder';
+
+    const files = filterFileList(fileList);
+    // Reset file input value so picking the same folder again triggers onChange
+    e.target.value = '';
+
+    await processAndUploadFiles(files, folderName);
   };
 
   useEffect(() => {
@@ -374,7 +481,18 @@ export default function App() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      {/* Top Header & GitHub URL Analyzer Bar */}
+      {/* Hidden file input for webkitdirectory fallback */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        id="hidden-folder-input"
+        {...({ webkitdirectory: '', directory: '' } as any)}
+        multiple
+        onChange={handleFallbackInputChange}
+        style={{ display: 'none' }}
+      />
+
+      {/* Top Header & Input Controls */}
       <header
         style={{
           display: 'flex',
@@ -422,58 +540,122 @@ export default function App() {
             </div>
           </div>
 
-          {/* GitHub Repo Input & Action Form */}
-          <form
-            onSubmit={handleAnalyze}
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, maxWidth: '480px' }}
-          >
-            <input
-              id="github-url-input"
-              type="text"
-              value={repoUrl}
-              onChange={(e) => setRepoUrl(e.target.value)}
-              placeholder="https://github.com/owner/repository"
-              disabled={loading}
-              style={{
-                flex: 1,
-                background: '#0f172a',
-                color: '#f8fafc',
-                border: '1px solid #334155',
-                borderRadius: '6px',
-                padding: '6px 10px',
-                fontSize: '12px',
-                outline: 'none'
-              }}
-            />
-            <button
-              id="analyze-repo-button"
-              type="submit"
-              disabled={loading || !repoUrl.trim()}
-              style={{
-                background: loading ? '#475569' : '#2563eb',
-                color: '#ffffff',
-                border: 'none',
-                borderRadius: '6px',
-                padding: '6px 14px',
-                fontSize: '12px',
-                fontWeight: 600,
-                cursor: loading || !repoUrl.trim() ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {loading ? (
-                <>
-                  <span style={{ display: 'inline-block', width: '10px', height: '10px', border: '2px solid #fff', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-                  <span>Cloning & Analyzing...</span>
-                </>
-              ) : (
-                'Analyze'
-              )}
-            </button>
-          </form>
+          {/* Input Mode Selector & Action Forms */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: 1, maxWidth: '560px' }}>
+            {/* Mode Switch Tabs */}
+            <div style={{ display: 'flex', background: '#0f172a', padding: '3px', borderRadius: '6px', border: '1px solid #334155' }}>
+              <button
+                type="button"
+                id="mode-github-tab"
+                onClick={() => setInputMode('github')}
+                style={{
+                  background: inputMode === 'github' ? '#2563eb' : 'transparent',
+                  color: inputMode === 'github' ? '#ffffff' : '#94a3b8',
+                  border: 'none',
+                  padding: '4px 10px',
+                  borderRadius: '4px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                GitHub URL
+              </button>
+              <button
+                type="button"
+                id="mode-folder-tab"
+                onClick={() => setInputMode('folder')}
+                style={{
+                  background: inputMode === 'folder' ? '#2563eb' : 'transparent',
+                  color: inputMode === 'folder' ? '#ffffff' : '#94a3b8',
+                  border: 'none',
+                  padding: '4px 10px',
+                  borderRadius: '4px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  cursor: 'pointer'
+                }}
+              >
+                Local Folder
+              </button>
+            </div>
+
+            {/* GitHub Mode Form */}
+            {inputMode === 'github' ? (
+              <form
+                onSubmit={handleAnalyzeGithub}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}
+              >
+                <input
+                  id="github-url-input"
+                  type="text"
+                  value={repoUrl}
+                  onChange={(e) => setRepoUrl(e.target.value)}
+                  placeholder="https://github.com/owner/repository"
+                  disabled={loading}
+                  style={{
+                    flex: 1,
+                    background: '#0f172a',
+                    color: '#f8fafc',
+                    border: '1px solid #334155',
+                    borderRadius: '6px',
+                    padding: '6px 10px',
+                    fontSize: '12px',
+                    outline: 'none'
+                  }}
+                />
+                <button
+                  id="analyze-repo-button"
+                  type="submit"
+                  disabled={loading || !repoUrl.trim()}
+                  style={{
+                    background: loading ? '#475569' : '#2563eb',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    padding: '6px 14px',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    cursor: loading || !repoUrl.trim() ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  {loading ? 'Analyzing...' : 'Analyze'}
+                </button>
+              </form>
+            ) : (
+              /* Local Folder Mode Action Button */
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
+                <button
+                  type="button"
+                  id="pick-folder-button"
+                  onClick={handlePickLocalFolder}
+                  disabled={loading}
+                  style={{
+                    flex: 1,
+                    background: loading ? '#475569' : '#059669',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    padding: '6px 14px',
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  <span>📁</span>
+                  <span>{loading ? loadingStatus : 'Select Local Folder to Analyze'}</span>
+                </button>
+              </div>
+            )}
+          </div>
 
           {/* Legend & Controls */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>

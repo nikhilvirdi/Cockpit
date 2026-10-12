@@ -10,6 +10,8 @@
   "scripts": {
     "build": "npm --workspace=core run build",
     "test": "npm --workspace=core run test",
-    "test:core": "npm --workspace=core run test"
+    "test:core": "npm --workspace=core run test",
+    "start:server": "npm --workspace=server start",
+    "dev:client": "npm --workspace=client run dev"
   }
 }

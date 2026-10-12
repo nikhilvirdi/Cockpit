@@ -8,9 +8,11 @@
     "test": "node test/api.test.js"
   },
   "dependencies": {
+    "@cockpit/core": "*",
+    "adm-zip": "^0.6.1",
     "cors": "^2.8.6",
     "express": "^4.21.2",
-    "simple-git": "^4.0.2",
-    "@cockpit/core": "*"
+    "multer": "^2.4.0",
+    "simple-git": "^4.0.2"
   }
 }
