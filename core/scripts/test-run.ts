@@ -3,15 +3,26 @@ import * as fs from 'fs';
 import { buildDependencyGraph, analyzeDependencyGraph } from '../src';
 
 function main() {
-  const inputArg = process.argv[2];
+  const args = process.argv.slice(2);
+  let inputTarget = '';
+  let outputPath = '';
 
-  if (!inputArg) {
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--output' || args[i] === '-o') {
+      outputPath = args[i + 1] || '';
+      i++;
+    } else if (!inputTarget && !args[i].startsWith('-')) {
+      inputTarget = args[i];
+    }
+  }
+
+  if (!inputTarget) {
     console.log('No directory path supplied as argument.');
-    console.log('Usage: npx tsx scripts/test-run.ts <path-to-repo>');
+    console.log('Usage: npx tsx scripts/test-run.ts <path-to-repo> [--output <path-to-json>]');
     console.log('Defaulting to core package directory for demonstration:\n');
   }
 
-  const targetPath = path.resolve(inputArg || path.join(__dirname, '..'));
+  const targetPath = path.resolve(inputTarget || path.join(__dirname, '..'));
 
   if (!fs.existsSync(targetPath)) {
     console.error(`Error: Target path does not exist: ${targetPath}`);
@@ -90,6 +101,14 @@ function main() {
       });
     } else {
       console.log('    None');
+    }
+
+    // If --output flag provided, write full JSON to disk
+    if (outputPath) {
+      const resolvedOutput = path.resolve(outputPath);
+      fs.mkdirSync(path.dirname(resolvedOutput), { recursive: true });
+      fs.writeFileSync(resolvedOutput, JSON.stringify(graph, null, 2), 'utf8');
+      console.log(`\nWrote complete graph JSON to: ${resolvedOutput}`);
     }
 
     console.log('==========================================================\n');

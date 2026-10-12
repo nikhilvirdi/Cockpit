@@ -1,0 +1,387 @@
+{
+  "nodes": [
+    {
+      "id": "scripts/test-run.ts",
+      "path": "C:/Cockpit/core/scripts/test-run.ts"
+    },
+    {
+      "id": "src/analysis.ts",
+      "path": "C:/Cockpit/core/src/analysis.ts"
+    },
+    {
+      "id": "src/engine.ts",
+      "path": "C:/Cockpit/core/src/engine.ts"
+    },
+    {
+      "id": "src/index.ts",
+      "path": "C:/Cockpit/core/src/index.ts"
+    },
+    {
+      "id": "src/resolver.ts",
+      "path": "C:/Cockpit/core/src/resolver.ts"
+    },
+    {
+      "id": "src/scanner.ts",
+      "path": "C:/Cockpit/core/src/scanner.ts"
+    },
+    {
+      "id": "src/tsconfig.ts",
+      "path": "C:/Cockpit/core/src/tsconfig.ts"
+    },
+    {
+      "id": "src/types.ts",
+      "path": "C:/Cockpit/core/src/types.ts"
+    },
+    {
+      "id": "test/analysis.test.ts",
+      "path": "C:/Cockpit/core/test/analysis.test.ts"
+    },
+    {
+      "id": "test/engine.test.ts",
+      "path": "C:/Cockpit/core/test/engine.test.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/app/users/page.tsx",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/app/users/page.tsx"
+    },
+    {
+      "id": "test/fixtures/analysis-project/pages/dashboard.tsx",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/pages/dashboard.tsx"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/cli.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/cli.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/cycle/node1.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/cycle/node1.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/cycle/node2.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/cycle/node2.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/index.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/index.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/legacy/deadCode.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/legacy/deadCode.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/routes.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/routes.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/server.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/server.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/services/serviceA.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/services/serviceA.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/services/serviceB.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/services/serviceB.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/services/serviceC.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/services/serviceC.ts"
+    },
+    {
+      "id": "test/fixtures/analysis-project/src/utils/orphanUtil.ts",
+      "path": "C:/Cockpit/core/test/fixtures/analysis-project/src/utils/orphanUtil.ts"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/barrel/deep.ts",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/barrel/deep.ts"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/barrel/index.ts",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/barrel/index.ts"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/cjsModule.js",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/cjsModule.js"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/components/Button.tsx",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/components/Button.tsx"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/dynamicTarget.ts",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/dynamicTarget.ts"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/helpers/helper.ts",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/helpers/helper.ts"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/index.ts",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/index.ts"
+    },
+    {
+      "id": "test/fixtures/sample-project/src/utils/a.ts",
+      "path": "C:/Cockpit/core/test/fixtures/sample-project/src/utils/a.ts"
+    },
+    {
+      "id": "test/run-all.ts",
+      "path": "C:/Cockpit/core/test/run-all.ts"
+    }
+  ],
+  "edges": [
+    {
+      "from": "scripts/test-run.ts",
+      "to": "src/index.ts"
+    },
+    {
+      "from": "src/analysis.ts",
+      "to": "src/types.ts"
+    },
+    {
+      "from": "src/engine.ts",
+      "to": "src/resolver.ts"
+    },
+    {
+      "from": "src/engine.ts",
+      "to": "src/scanner.ts"
+    },
+    {
+      "from": "src/engine.ts",
+      "to": "src/tsconfig.ts"
+    },
+    {
+      "from": "src/engine.ts",
+      "to": "src/types.ts"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/analysis.ts"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/engine.ts"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/resolver.ts"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/scanner.ts"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/tsconfig.ts"
+    },
+    {
+      "from": "src/index.ts",
+      "to": "src/types.ts"
+    },
+    {
+      "from": "src/resolver.ts",
+      "to": "src/tsconfig.ts"
+    },
+    {
+      "from": "test/analysis.test.ts",
+      "to": "src/index.ts"
+    },
+    {
+      "from": "test/engine.test.ts",
+      "to": "src/index.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/cli.ts",
+      "to": "test/fixtures/analysis-project/src/services/serviceA.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/cycle/node1.ts",
+      "to": "test/fixtures/analysis-project/src/cycle/node2.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/cycle/node2.ts",
+      "to": "test/fixtures/analysis-project/src/cycle/node1.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/index.ts",
+      "to": "test/fixtures/analysis-project/src/routes.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/server.ts",
+      "to": "test/fixtures/analysis-project/src/routes.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/services/serviceA.ts",
+      "to": "test/fixtures/analysis-project/src/services/serviceB.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/services/serviceB.ts",
+      "to": "test/fixtures/analysis-project/src/services/serviceC.ts"
+    },
+    {
+      "from": "test/fixtures/analysis-project/src/services/serviceC.ts",
+      "to": "test/fixtures/analysis-project/src/services/serviceA.ts"
+    },
+    {
+      "from": "test/fixtures/sample-project/src/barrel/index.ts",
+      "to": "test/fixtures/sample-project/src/barrel/deep.ts"
+    },
+    {
+      "from": "test/fixtures/sample-project/src/cjsModule.js",
+      "to": "test/fixtures/sample-project/src/helpers/helper.ts"
+    },
+    {
+      "from": "test/fixtures/sample-project/src/index.ts",
+      "to": "test/fixtures/sample-project/src/barrel/index.ts"
+    },
+    {
+      "from": "test/fixtures/sample-project/src/index.ts",
+      "to": "test/fixtures/sample-project/src/cjsModule.js"
+    },
+    {
+      "from": "test/fixtures/sample-project/src/utils/a.ts",
+      "to": "test/fixtures/sample-project/src/helpers/helper.ts"
+    },
+    {
+      "from": "test/run-all.ts",
+      "to": "test/analysis.test.ts"
+    },
+    {
+      "from": "test/run-all.ts",
+      "to": "test/engine.test.ts"
+    }
+  ],
+  "analysis": {
+    "cycles": [
+      [
+        "test/fixtures/analysis-project/src/cycle/node1.ts",
+        "test/fixtures/analysis-project/src/cycle/node2.ts"
+      ],
+      [
+        "test/fixtures/analysis-project/src/services/serviceA.ts",
+        "test/fixtures/analysis-project/src/services/serviceB.ts",
+        "test/fixtures/analysis-project/src/services/serviceC.ts"
+      ]
+    ],
+    "orphans": [
+      "scripts/test-run.ts",
+      "test/fixtures/analysis-project/app/users/page.tsx",
+      "test/fixtures/analysis-project/pages/dashboard.tsx",
+      "test/fixtures/analysis-project/src/cli.ts",
+      "test/fixtures/analysis-project/src/legacy/deadCode.ts",
+      "test/fixtures/analysis-project/src/utils/orphanUtil.ts",
+      "test/fixtures/sample-project/src/components/Button.tsx",
+      "test/fixtures/sample-project/src/dynamicTarget.ts",
+      "test/fixtures/sample-project/src/utils/a.ts",
+      "test/run-all.ts"
+    ],
+    "entryPoints": [
+      {
+        "id": "src/analysis.ts",
+        "reason": "Express server entry (app.listen)"
+      },
+      {
+        "id": "src/index.ts",
+        "reason": "package.json main field"
+      },
+      {
+        "id": "test/fixtures/analysis-project/src/index.ts",
+        "reason": "Directory index file with no incoming imports"
+      },
+      {
+        "id": "test/fixtures/analysis-project/src/server.ts",
+        "reason": "Express server entry (app.listen)"
+      },
+      {
+        "id": "test/fixtures/sample-project/src/index.ts",
+        "reason": "Directory index file with no incoming imports"
+      }
+    ],
+    "centrality": {
+      "topFanIn": [
+        {
+          "id": "src/index.ts",
+          "fanIn": 3
+        },
+        {
+          "id": "src/tsconfig.ts",
+          "fanIn": 3
+        },
+        {
+          "id": "src/types.ts",
+          "fanIn": 3
+        },
+        {
+          "id": "src/resolver.ts",
+          "fanIn": 2
+        },
+        {
+          "id": "src/scanner.ts",
+          "fanIn": 2
+        },
+        {
+          "id": "test/fixtures/analysis-project/src/routes.ts",
+          "fanIn": 2
+        },
+        {
+          "id": "test/fixtures/analysis-project/src/services/serviceA.ts",
+          "fanIn": 2
+        },
+        {
+          "id": "test/fixtures/sample-project/src/helpers/helper.ts",
+          "fanIn": 2
+        },
+        {
+          "id": "src/analysis.ts",
+          "fanIn": 1
+        },
+        {
+          "id": "src/engine.ts",
+          "fanIn": 1
+        }
+      ],
+      "topFanOut": [
+        {
+          "id": "src/index.ts",
+          "fanOut": 6
+        },
+        {
+          "id": "src/engine.ts",
+          "fanOut": 4
+        },
+        {
+          "id": "test/fixtures/sample-project/src/index.ts",
+          "fanOut": 2
+        },
+        {
+          "id": "test/run-all.ts",
+          "fanOut": 2
+        },
+        {
+          "id": "scripts/test-run.ts",
+          "fanOut": 1
+        },
+        {
+          "id": "src/analysis.ts",
+          "fanOut": 1
+        },
+        {
+          "id": "src/resolver.ts",
+          "fanOut": 1
+        },
+        {
+          "id": "test/analysis.test.ts",
+          "fanOut": 1
+        },
+        {
+          "id": "test/engine.test.ts",
+          "fanOut": 1
+        },
+        {
+          "id": "test/fixtures/analysis-project/src/cli.ts",
+          "fanOut": 1
+        }
+      ]
+    }
+  }
+}
