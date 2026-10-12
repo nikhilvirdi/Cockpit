@@ -139,6 +139,26 @@ function main() {
       });
     }
 
+    // 6. Symbol-Level Usage Precision Summary
+    console.log('\n============== Symbol-Level Usage Precision ==============');
+    const symbolUsages = graph.symbolUsage || [];
+    console.log(`Total symbol usages found: ${symbolUsages.length}`);
+
+    const sampleCount = Math.min(5, symbolUsages.length);
+    if (sampleCount > 0) {
+      console.log(`Sample of ${sampleCount} symbol usages:`);
+      for (let i = 0; i < sampleCount; i++) {
+        const u = symbolUsages[i];
+        const typeTag = u.typeOnly ? ' [type-only]' : '';
+        const noteTag = u.note ? ` (${u.note})` : '';
+        console.log(
+          `  [${i + 1}] ${u.importedSymbol} from ${u.fromFile} -> in ${u.usedInFile}:${u.line} scope "${u.usedInScope}"${typeTag}${noteTag}`
+        );
+      }
+    } else {
+      console.log('No internal symbol usages found.');
+    }
+
     // If --output flag provided, write full JSON to disk
     if (outputPath) {
       const resolvedOutput = path.resolve(outputPath);

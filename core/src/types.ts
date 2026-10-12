@@ -83,9 +83,20 @@ export interface EnvUsageResult {
   dynamicAccesses: DynamicAccess[];
 }
 
+export interface SymbolUsageItem {
+  importedSymbol: string;
+  fromFile: string;
+  usedInFile: string;
+  usedInScope: string;
+  line: number;
+  typeOnly: boolean;
+  note?: string;
+}
+
 export interface AnalyzedGraph extends DependencyGraph {
   analysis: AnalysisResult;
   envUsage: EnvUsageResult;
+  symbolUsage: SymbolUsageItem[];
 }
 
 export interface AnalysisOptions {

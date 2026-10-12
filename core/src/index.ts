@@ -7,6 +7,7 @@ export {
   computeCentrality
 } from './analysis';
 export { extractDeclaredEnvKeys, traceEnvUsage } from './envUsage';
+export { traceSymbolUsages, getEnclosingScopeName, isTypeOnlyReference } from './symbolUsage';
 export { resolveImportTarget, tryCandidatePath } from './resolver';
 export { loadTsConfig, TsConfigInfo } from './tsconfig';
 export { walkDirectory, isSourceFile, toPosixPath } from './scanner';
@@ -28,5 +29,6 @@ export {
   TransitiveEnvUsage,
   EnvUsageItem,
   DynamicAccess,
-  EnvUsageResult
+  EnvUsageResult,
+  SymbolUsageItem
 } from './types';

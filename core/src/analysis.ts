@@ -10,9 +10,11 @@ import {
   NodeCentralityFanOut,
   CentralityAnalysis,
   AnalysisOptions,
-  EnvUsageResult
+  EnvUsageResult,
+  SymbolUsageItem
 } from './types';
 import { traceEnvUsage } from './envUsage';
+import { traceSymbolUsages } from './symbolUsage';
 
 /**
  * Detects all elementary cycles in the graph using Johnson's algorithm with Tarjan's SCC.
@@ -488,10 +490,14 @@ export function analyzeDependencyGraph(
 
   const envUsage: EnvUsageResult = traceEnvUsage(project, nodes, edges, rootDir);
 
+  // 6. Symbol-level usage tracing
+  const symbolUsage: SymbolUsageItem[] = traceSymbolUsages(project, nodes, edges, rootDir);
+
   return {
     nodes,
     edges,
     analysis,
-    envUsage
+    envUsage,
+    symbolUsage
   };
 }
