@@ -1,0 +1,15 @@
+{
+  "name": "cockpit",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "core",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "build": "npm --workspace=core run build",
+    "test": "npm --workspace=core run test",
+    "test:core": "npm --workspace=core run test"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@cockpit/core",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsx test/engine.test.ts",
+    "test:run": "tsx scripts/test-run.ts"
+  },
+  "dependencies": {
+    "ts-morph": "^25.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}
