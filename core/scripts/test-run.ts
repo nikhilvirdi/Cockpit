@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { buildDependencyGraph } from '../src';
+import { buildDependencyGraph, analyzeDependencyGraph } from '../src';
 
 function main() {
   const inputArg = process.argv[2];
@@ -22,7 +22,8 @@ function main() {
   const startTime = Date.now();
 
   try {
-    const graph = buildDependencyGraph(targetPath);
+    const rawGraph = buildDependencyGraph(targetPath);
+    const graph = analyzeDependencyGraph(rawGraph, { rootDir: targetPath });
     const duration = Date.now() - startTime;
 
     console.log('\n================ Dependency Graph Summary ================');
@@ -42,18 +43,59 @@ function main() {
       console.log('No internal edges found in the analyzed directory.');
     }
 
-    if (graph.nodes.length > 0) {
-      const nodeSampleSize = Math.min(5, graph.nodes.length);
-      console.log(`\nSample of ${nodeSampleSize} nodes:`);
-      for (let i = 0; i < nodeSampleSize; i++) {
-        const node = graph.nodes[i];
-        console.log(`  [${i + 1}] id: "${node.id}" (path: ${node.path})`);
-      }
+    console.log('\n================ Graph Analysis Summary ==================');
+    const { analysis } = graph;
+
+    // 1. Cycles
+    console.log(`Cycles detected: ${analysis.cycles.length}`);
+    if (analysis.cycles.length > 0) {
+      const exampleCycle = analysis.cycles[0];
+      const cycleString = [...exampleCycle, exampleCycle[0]].join('  -->  ');
+      console.log(`  Example cycle: ${cycleString}`);
     }
 
-    console.log('\nGraph engine execution completed successfully.');
+    // 2. Orphans
+    console.log(`\nOrphan files: ${analysis.orphans.length}`);
+    if (analysis.orphans.length > 0) {
+      analysis.orphans.forEach((orphan, i) => {
+        console.log(`  [${i + 1}] ${orphan}`);
+      });
+    }
+
+    // 3. Entry Points
+    console.log(`\nEntry points detected: ${analysis.entryPoints.length}`);
+    if (analysis.entryPoints.length > 0) {
+      analysis.entryPoints.forEach((ep, i) => {
+        console.log(`  [${i + 1}] ${ep.id} (${ep.reason})`);
+      });
+    }
+
+    // 4. Centrality (Top 3 fan-in / fan-out)
+    console.log('\nCentrality Metrics:');
+    const topFanIn3 = analysis.centrality.topFanIn.slice(0, 3);
+    console.log('  Top Fan-In (most depended upon):');
+    if (topFanIn3.length > 0) {
+      topFanIn3.forEach((item, i) => {
+        console.log(`    [${i + 1}] ${item.id} (fan-in: ${item.fanIn})`);
+      });
+    } else {
+      console.log('    None');
+    }
+
+    const topFanOut3 = analysis.centrality.topFanOut.slice(0, 3);
+    console.log('  Top Fan-Out (most dependencies):');
+    if (topFanOut3.length > 0) {
+      topFanOut3.forEach((item, i) => {
+        console.log(`    [${i + 1}] ${item.id} (fan-out: ${item.fanOut})`);
+      });
+    } else {
+      console.log('    None');
+    }
+
+    console.log('==========================================================\n');
+    console.log('Graph engine and analysis completed successfully.');
   } catch (err) {
-    console.error('Failed to build dependency graph:', err);
+    console.error('Failed to build or analyze dependency graph:', err);
     process.exit(1);
   }
 }
