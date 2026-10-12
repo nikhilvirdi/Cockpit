@@ -57,17 +57,21 @@ interface SelectedNodeInfo {
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<Core | null>(null);
+
+  const [graphData, setGraphData] = useState<GraphData>(sampleGraphData as GraphData);
+  const [repoUrl, setRepoUrl] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [currentSource, setCurrentSource] = useState<string>('sample-graph.json');
   const [selectedNode, setSelectedNode] = useState<SelectedNodeInfo | null>(null);
 
-  const graph = sampleGraphData as GraphData;
-
-  // Precompute relationships and sets
+  // Precompute relationships and sets based on active graphData
   const { cycleNodesSet, cycleEdgesSet, orphanSet, entryPointMap, incomingMap, outgoingMap } =
     useMemo(() => {
-      const cycleNodes = new Set<string>(graph.analysis.cycles.flat());
+      const cycleNodes = new Set<string>(graphData.analysis?.cycles?.flat() || []);
       const cycleEdges = new Set<string>();
 
-      for (const cycle of graph.analysis.cycles) {
+      for (const cycle of graphData.analysis?.cycles || []) {
         for (let i = 0; i < cycle.length; i++) {
           const from = cycle[i];
           const to = cycle[(i + 1) % cycle.length];
@@ -75,16 +79,16 @@ export default function App() {
         }
       }
 
-      const orphans = new Set<string>(graph.analysis.orphans);
+      const orphans = new Set<string>(graphData.analysis?.orphans || []);
       const entryPoints = new Map<string, string>();
-      for (const ep of graph.analysis.entryPoints) {
+      for (const ep of graphData.analysis?.entryPoints || []) {
         entryPoints.set(ep.id, ep.reason);
       }
 
       const incoming = new Map<string, string[]>();
       const outgoing = new Map<string, string[]>();
 
-      for (const edge of graph.edges) {
+      for (const edge of graphData.edges || []) {
         if (!incoming.has(edge.to)) incoming.set(edge.to, []);
         incoming.get(edge.to)!.push(edge.from);
 
@@ -100,7 +104,40 @@ export default function App() {
         incomingMap: incoming,
         outgoingMap: outgoing
       };
-    }, [graph]);
+    }, [graphData]);
+
+  const handleAnalyze = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const url = repoUrl.trim();
+    if (!url) return;
+
+    setLoading(true);
+    setErrorMessage(null);
+    setSelectedNode(null);
+
+    try {
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ repoUrl: url })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || `Server responded with status ${res.status}`);
+      }
+
+      setGraphData(data as GraphData);
+      const parts = url.replace(/\.git$/, '').split('/');
+      const shortName = parts.slice(-2).join('/');
+      setCurrentSource(shortName || url);
+    } catch (err: any) {
+      console.error('Analyze failed:', err);
+      setErrorMessage(err.message || 'Failed to analyze repository');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -109,7 +146,7 @@ export default function App() {
     const elements: cytoscape.ElementDefinition[] = [];
 
     // Nodes
-    for (const node of graph.nodes) {
+    for (const node of graphData.nodes || []) {
       const isCycle = cycleNodesSet.has(node.id);
       const isOrphan = orphanSet.has(node.id);
       const isEntryPoint = entryPointMap.has(node.id);
@@ -142,7 +179,7 @@ export default function App() {
     }
 
     // Edges
-    for (const edge of graph.edges) {
+    for (const edge of graphData.edges || []) {
       const edgeKey = `${edge.from}->${edge.to}`;
       const isCycle = cycleEdgesSet.has(edgeKey);
 
@@ -264,8 +301,7 @@ export default function App() {
         numIter: 1000
       },
       minZoom: 0.2,
-      maxZoom: 3,
-      wheelSensitivity: 0.3
+      maxZoom: 3
     });
 
     cyRef.current = cy;
@@ -295,7 +331,7 @@ export default function App() {
       cy.destroy();
       cyRef.current = null;
     };
-  }, [graph, cycleNodesSet, cycleEdgesSet, orphanSet, entryPointMap, incomingMap, outgoingMap]);
+  }, [graphData, cycleNodesSet, cycleEdgesSet, orphanSet, entryPointMap, incomingMap, outgoingMap]);
 
   const handleFit = () => {
     if (cyRef.current) {
@@ -338,91 +374,180 @@ export default function App() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh', overflow: 'hidden' }}>
-      {/* Top Header / Stats Toolbar */}
+      {/* Top Header & GitHub URL Analyzer Bar */}
       <header
         style={{
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '10px 18px',
+          flexDirection: 'column',
           background: '#1e293b',
           borderBottom: '1px solid #334155',
           flexShrink: 0
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <h1 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span>Cockpit</span>
-            <span style={{ fontSize: '12px', fontWeight: 400, color: '#94a3b8', background: '#0f172a', padding: '2px 8px', borderRadius: '4px' }}>
-              Dependency Graph
-            </span>
-          </h1>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 18px',
+            gap: '16px'
+          }}
+        >
+          {/* Logo & Source Title */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
+            <h1 style={{ margin: 0, fontSize: '18px', fontWeight: 600, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>Cockpit</span>
+              <span style={{ fontSize: '12px', fontWeight: 400, color: '#94a3b8', background: '#0f172a', padding: '2px 8px', borderRadius: '4px' }}>
+                {currentSource}
+              </span>
+            </h1>
 
-          {/* Quick Metrics */}
-          <div style={{ display: 'flex', gap: '8px', fontSize: '12px' }}>
-            <span style={{ background: '#334155', padding: '3px 8px', borderRadius: '4px' }}>
-              <strong>{graph.nodes.length}</strong> Nodes
-            </span>
-            <span style={{ background: '#334155', padding: '3px 8px', borderRadius: '4px' }}>
-              <strong>{graph.edges.length}</strong> Edges
-            </span>
-            <span style={{ background: graph.analysis.cycles.length > 0 ? '#7f1d1d' : '#334155', color: graph.analysis.cycles.length > 0 ? '#fca5a5' : '#f8fafc', padding: '3px 8px', borderRadius: '4px' }}>
-              <strong>{graph.analysis.cycles.length}</strong> Cycles
-            </span>
-            <span style={{ background: '#334155', color: '#94a3b8', padding: '3px 8px', borderRadius: '4px' }}>
-              <strong>{graph.analysis.orphans.length}</strong> Orphans
-            </span>
-            <span style={{ background: '#78350f', color: '#fcd34d', padding: '3px 8px', borderRadius: '4px' }}>
-              <strong>{graph.analysis.entryPoints.length}</strong> Entry Points
-            </span>
+            {/* Quick Metrics */}
+            <div style={{ display: 'flex', gap: '8px', fontSize: '12px' }}>
+              <span style={{ background: '#334155', padding: '3px 8px', borderRadius: '4px' }}>
+                <strong>{graphData.nodes?.length || 0}</strong> Nodes
+              </span>
+              <span style={{ background: '#334155', padding: '3px 8px', borderRadius: '4px' }}>
+                <strong>{graphData.edges?.length || 0}</strong> Edges
+              </span>
+              <span style={{ background: (graphData.analysis?.cycles?.length || 0) > 0 ? '#7f1d1d' : '#334155', color: (graphData.analysis?.cycles?.length || 0) > 0 ? '#fca5a5' : '#f8fafc', padding: '3px 8px', borderRadius: '4px' }}>
+                <strong>{graphData.analysis?.cycles?.length || 0}</strong> Cycles
+              </span>
+              <span style={{ background: '#334155', color: '#94a3b8', padding: '3px 8px', borderRadius: '4px' }}>
+                <strong>{graphData.analysis?.orphans?.length || 0}</strong> Orphans
+              </span>
+              <span style={{ background: '#78350f', color: '#fcd34d', padding: '3px 8px', borderRadius: '4px' }}>
+                <strong>{graphData.analysis?.entryPoints?.length || 0}</strong> Entry Points
+              </span>
+            </div>
+          </div>
+
+          {/* GitHub Repo Input & Action Form */}
+          <form
+            onSubmit={handleAnalyze}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, maxWidth: '480px' }}
+          >
+            <input
+              id="github-url-input"
+              type="text"
+              value={repoUrl}
+              onChange={(e) => setRepoUrl(e.target.value)}
+              placeholder="https://github.com/owner/repository"
+              disabled={loading}
+              style={{
+                flex: 1,
+                background: '#0f172a',
+                color: '#f8fafc',
+                border: '1px solid #334155',
+                borderRadius: '6px',
+                padding: '6px 10px',
+                fontSize: '12px',
+                outline: 'none'
+              }}
+            />
+            <button
+              id="analyze-repo-button"
+              type="submit"
+              disabled={loading || !repoUrl.trim()}
+              style={{
+                background: loading ? '#475569' : '#2563eb',
+                color: '#ffffff',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '6px 14px',
+                fontSize: '12px',
+                fontWeight: 600,
+                cursor: loading || !repoUrl.trim() ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {loading ? (
+                <>
+                  <span style={{ display: 'inline-block', width: '10px', height: '10px', border: '2px solid #fff', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+                  <span>Cloning & Analyzing...</span>
+                </>
+              ) : (
+                'Analyze'
+              )}
+            </button>
+          </form>
+
+          {/* Legend & Controls */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '11px', color: '#cbd5e1' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: 8, height: 8, borderRadius: 2, background: '#3b82f6', display: 'inline-block' }} />
+                <span>Standard</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: 8, height: 8, borderRadius: 2, background: '#ef4444', display: 'inline-block' }} />
+                <span>Cycle</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: 8, height: 8, transform: 'rotate(45deg)', background: '#f59e0b', display: 'inline-block' }} />
+                <span>Entry</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <span style={{ width: 8, height: 8, borderRadius: 2, background: '#475569', opacity: 0.5, display: 'inline-block' }} />
+                <span>Orphan</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '4px' }}>
+              <button
+                onClick={handleZoomIn}
+                style={{ background: '#334155', color: '#f8fafc', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
+                title="Zoom In"
+              >
+                +
+              </button>
+              <button
+                onClick={handleZoomOut}
+                style={{ background: '#334155', color: '#f8fafc', border: 'none', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
+                title="Zoom Out"
+              >
+                −
+              </button>
+              <button
+                onClick={handleFit}
+                style={{ background: '#334155', color: '#f8fafc', border: 'none', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px', fontWeight: 500 }}
+                title="Fit graph to view"
+              >
+                Fit
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Legend & Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px', color: '#cbd5e1' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ width: 10, height: 10, borderRadius: 2, background: '#3b82f6', display: 'inline-block' }} />
-              <span>Standard Node</span>
+        {/* Error Notification Banner */}
+        {errorMessage && (
+          <div
+            id="error-banner"
+            style={{
+              background: '#450a0a',
+              borderTop: '1px solid #7f1d1d',
+              color: '#fca5a5',
+              padding: '6px 18px',
+              fontSize: '12px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            <div>
+              <strong>Error:</strong> {errorMessage}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ width: 10, height: 10, borderRadius: 2, background: '#ef4444', display: 'inline-block' }} />
-              <span>Cycle</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ width: 10, height: 10, transform: 'rotate(45deg)', background: '#f59e0b', display: 'inline-block' }} />
-              <span>Entry Point</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <span style={{ width: 10, height: 10, borderRadius: 2, background: '#475569', opacity: 0.5, display: 'inline-block' }} />
-              <span>Orphan</span>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', gap: '6px' }}>
             <button
-              onClick={handleZoomIn}
-              style={{ background: '#334155', color: '#f8fafc', border: 'none', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer' }}
-              title="Zoom In"
+              onClick={() => setErrorMessage(null)}
+              style={{ background: 'transparent', border: 'none', color: '#fca5a5', cursor: 'pointer', fontSize: '14px' }}
             >
-              +
-            </button>
-            <button
-              onClick={handleZoomOut}
-              style={{ background: '#334155', color: '#f8fafc', border: 'none', padding: '4px 10px', borderRadius: '4px', cursor: 'pointer' }}
-              title="Zoom Out"
-            >
-              −
-            </button>
-            <button
-              onClick={handleFit}
-              style={{ background: '#2563eb', color: '#ffffff', border: 'none', padding: '4px 12px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px', fontWeight: 500 }}
-              title="Fit graph to view"
-            >
-              Fit View
+              ✕
             </button>
           </div>
-        </div>
+        )}
       </header>
 
       {/* Main Workspace (Graph Canvas + Side Panel) */}
@@ -473,8 +598,8 @@ export default function App() {
                 outline: 'none'
               }}
             >
-              <option value="">-- Click a node or select here ({graph.nodes.length} files) --</option>
-              {graph.nodes.map(n => {
+              <option value="">-- Click a node or select here ({graphData.nodes?.length || 0} files) --</option>
+              {graphData.nodes?.map(n => {
                 const tag = cycleNodesSet.has(n.id) ? ' 🔴 [Cycle]' : orphanSet.has(n.id) ? ' ⚪ [Orphan]' : entryPointMap.has(n.id) ? ' 🔶 [Entry]' : '';
                 return (
                   <option key={n.id} value={n.id}>
@@ -484,6 +609,7 @@ export default function App() {
               })}
             </select>
           </div>
+
           {selectedNode ? (
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
