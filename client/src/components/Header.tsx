@@ -1,3 +1,6 @@
+git add -A
+git commit -m "Move Engine toggle to top-left of header"
+git push origin main
 import type { GraphData, DeclaredEnvKey, DynamicAccess } from '../types';
 
 interface HeaderProps {
@@ -23,57 +26,6 @@ export default function Header({
 }: HeaderProps) {
   return (
     <header className="app-header">
-      {/* Stats Badges */}
-      <div className="header-stats-bar">
-        <div className="metrics-group">
-          <span className="metric-pill">
-            <strong>{graphData.nodes?.length || 0}</strong> Nodes
-          </span>
-          <span className="metric-pill">
-            <strong>{graphData.edges?.length || 0}</strong> Edges
-          </span>
-          <span className={`metric-pill ${(graphData.analysis?.cycles?.length || 0) > 0 ? 'danger' : ''}`}>
-            <strong>{graphData.analysis?.cycles?.length || 0}</strong> Cycles
-          </span>
-          <span className="metric-pill">
-            <strong>{graphData.analysis?.orphans?.length || 0}</strong> Orphans
-          </span>
-          <span className="metric-pill warning">
-            <strong>{graphData.analysis?.entryPoints?.length || 0}</strong> Entry Points
-          </span>
-          <span className="metric-pill info">
-            <strong>{totalSymbolsTraced}</strong> Symbols
-          </span>
-
-          {/* Dynamic Access Warnings Badge */}
-          {dynamicAccesses.length > 0 && (
-            <span
-              id="dynamic-access-badge"
-              className="metric-pill warning clickable"
-              onClick={onShowDynamicModal}
-              title="Click to inspect unresolvable dynamic process.env accesses"
-            >
-              <strong>{dynamicAccesses.length}</strong> Dynamic
-            </span>
-          )}
-
-          {/* Unused Declared Keys Badge */}
-          {unusedDeclaredKeys.length > 0 && (
-            <span
-              className="metric-pill warning clickable"
-              onClick={() => {
-                if (unusedDeclaredKeys[0]) {
-                  onSetEnvFilter(unusedDeclaredKeys[0].key);
-                }
-              }}
-              title={`${unusedDeclaredKeys.length} config keys declared in .env but never referenced in code`}
-            >
-              <strong>{unusedDeclaredKeys.length}</strong> Unused Keys
-            </span>
-          )}
-        </div>
-      </div>
-
       {/* Engine Switch Toggle */}
       <div
         id="engine-switch-toolbar"
@@ -126,6 +78,57 @@ export default function Header({
         >
           Reagraph (No Overlap 2D)
         </button>
+      </div>
+
+      {/* Stats Badges */}
+      <div className="header-stats-bar">
+        <div className="metrics-group">
+          <span className="metric-pill">
+            <strong>{graphData.nodes?.length || 0}</strong> Nodes
+          </span>
+          <span className="metric-pill">
+            <strong>{graphData.edges?.length || 0}</strong> Edges
+          </span>
+          <span className={`metric-pill ${(graphData.analysis?.cycles?.length || 0) > 0 ? 'danger' : ''}`}>
+            <strong>{graphData.analysis?.cycles?.length || 0}</strong> Cycles
+          </span>
+          <span className="metric-pill">
+            <strong>{graphData.analysis?.orphans?.length || 0}</strong> Orphans
+          </span>
+          <span className="metric-pill warning">
+            <strong>{graphData.analysis?.entryPoints?.length || 0}</strong> Entry Points
+          </span>
+          <span className="metric-pill info">
+            <strong>{totalSymbolsTraced}</strong> Symbols
+          </span>
+
+          {/* Dynamic Access Warnings Badge */}
+          {dynamicAccesses.length > 0 && (
+            <span
+              id="dynamic-access-badge"
+              className="metric-pill warning clickable"
+              onClick={onShowDynamicModal}
+              title="Click to inspect unresolvable dynamic process.env accesses"
+            >
+              <strong>{dynamicAccesses.length}</strong> Dynamic
+            </span>
+          )}
+
+          {/* Unused Declared Keys Badge */}
+          {unusedDeclaredKeys.length > 0 && (
+            <span
+              className="metric-pill warning clickable"
+              onClick={() => {
+                if (unusedDeclaredKeys[0]) {
+                  onSetEnvFilter(unusedDeclaredKeys[0].key);
+                }
+              }}
+              title={`${unusedDeclaredKeys.length} config keys declared in .env but never referenced in code`}
+            >
+              <strong>{unusedDeclaredKeys.length}</strong> Unused Keys
+            </span>
+          )}
+        </div>
       </div>
     </header>
   );

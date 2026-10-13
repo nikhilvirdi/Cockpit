@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 .app-header {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   background: var(--bg-header);
   border-bottom: 1px solid var(--border-default);
   flex-shrink: 0;
