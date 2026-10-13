@@ -1,0 +1,2378 @@
+{
+  "nodes": [
+    {
+      "id": "apps/api/scripts/ingest-light-pollution.js",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/scripts/ingest-light-pollution.js"
+    },
+    {
+      "id": "apps/api/scripts/ingest-stars.js",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/scripts/ingest-stars.js"
+    },
+    {
+      "id": "apps/api/src/app.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/app.test.ts"
+    },
+    {
+      "id": "apps/api/src/app.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/app.ts"
+    },
+    {
+      "id": "apps/api/src/brief/build-brief.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/build-brief.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/build-brief.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/build-brief.ts"
+    },
+    {
+      "id": "apps/api/src/brief/compose-brief.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/compose-brief.ts"
+    },
+    {
+      "id": "apps/api/src/brief/iss-card.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/iss-card.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/iss-card.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/iss-card.ts"
+    },
+    {
+      "id": "apps/api/src/brief/learning-moment.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/learning-moment.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/learning-moment.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/learning-moment.ts"
+    },
+    {
+      "id": "apps/api/src/brief/neo-imagery-card.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/neo-imagery-card.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/neo-imagery-card.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/neo-imagery-card.ts"
+    },
+    {
+      "id": "apps/api/src/brief/sky-anchor-card.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/sky-anchor-card.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/sky-anchor-card.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/sky-anchor-card.ts"
+    },
+    {
+      "id": "apps/api/src/brief/space-weather-card.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/space-weather-card.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/space-weather-card.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/space-weather-card.ts"
+    },
+    {
+      "id": "apps/api/src/brief/visual-passes-cache.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/visual-passes-cache.test.ts"
+    },
+    {
+      "id": "apps/api/src/brief/visual-passes-cache.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/brief/visual-passes-cache.ts"
+    },
+    {
+      "id": "apps/api/src/cache/store.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/cache/store.test.ts"
+    },
+    {
+      "id": "apps/api/src/cache/store.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/cache/store.ts"
+    },
+    {
+      "id": "apps/api/src/clients/celestrak/celestrak.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/celestrak/celestrak.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/celestrak/celestrak.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/celestrak/celestrak.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/celestrak/celestrak.schemas.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/celestrak/celestrak.schemas.ts"
+    },
+    {
+      "id": "apps/api/src/clients/celestrak/celestrak.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/celestrak/celestrak.types.ts"
+    },
+    {
+      "id": "apps/api/src/clients/celestrak/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/gibs/gibs.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/gibs/gibs.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/gibs/gibs.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/gibs/gibs.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/gibs/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/gibs/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/jpl-horizons/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/jpl-horizons/jpl-horizons.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/jpl-horizons/jpl-horizons.schemas.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/jpl-horizons/jpl-horizons.schemas.ts"
+    },
+    {
+      "id": "apps/api/src/clients/jpl-horizons/jpl-horizons.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/jpl-horizons/jpl-horizons.types.ts"
+    },
+    {
+      "id": "apps/api/src/clients/n2yo/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/n2yo/n2yo.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/n2yo/n2yo.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/n2yo/n2yo.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/n2yo/n2yo.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/n2yo/n2yo.schemas.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/n2yo/n2yo.schemas.ts"
+    },
+    {
+      "id": "apps/api/src/clients/n2yo/n2yo.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/n2yo/n2yo.types.ts"
+    },
+    {
+      "id": "apps/api/src/clients/nasa/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/nasa/nasa.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/nasa/nasa.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/nasa/nasa.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/nasa/nasa.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/nasa/nasa.schemas.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/nasa/nasa.schemas.ts"
+    },
+    {
+      "id": "apps/api/src/clients/nasa/nasa.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/nasa/nasa.types.ts"
+    },
+    {
+      "id": "apps/api/src/clients/open-meteo/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/open-meteo/open-meteo.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/open-meteo/open-meteo.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/open-meteo/open-meteo.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/open-meteo/open-meteo.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/open-meteo/open-meteo.schemas.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/open-meteo/open-meteo.schemas.ts"
+    },
+    {
+      "id": "apps/api/src/clients/open-meteo/open-meteo.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/open-meteo/open-meteo.types.ts"
+    },
+    {
+      "id": "apps/api/src/clients/space-track/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/space-track/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/space-track/space-track.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/space-track/space-track.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/space-track/space-track.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/space-track/space-track.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/space-track/space-track.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/space-track/space-track.types.ts"
+    },
+    {
+      "id": "apps/api/src/clients/static/light-pollution.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/static/light-pollution.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/static/light-pollution.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/static/light-pollution.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/static/stars-catalog-integrity.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/static/stars-catalog-integrity.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/swpc/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "id": "apps/api/src/clients/swpc/swpc.client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/swpc/swpc.client.test.ts"
+    },
+    {
+      "id": "apps/api/src/clients/swpc/swpc.client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/swpc/swpc.client.ts"
+    },
+    {
+      "id": "apps/api/src/clients/swpc/swpc.schemas.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/swpc/swpc.schemas.ts"
+    },
+    {
+      "id": "apps/api/src/clients/swpc/swpc.types.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/clients/swpc/swpc.types.ts"
+    },
+    {
+      "id": "apps/api/src/db/client.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/db/client.test.ts"
+    },
+    {
+      "id": "apps/api/src/db/client.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/db/client.ts"
+    },
+    {
+      "id": "apps/api/src/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/index.ts"
+    },
+    {
+      "id": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/integration/phase3-orchestration.test.ts"
+    },
+    {
+      "id": "apps/api/src/lib/fetch-with-retry.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/lib/fetch-with-retry.test.ts"
+    },
+    {
+      "id": "apps/api/src/lib/fetch-with-retry.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "id": "apps/api/src/lib/tle.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/lib/tle.ts"
+    },
+    {
+      "id": "apps/api/src/poller/fast-tier.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/poller/fast-tier.test.ts"
+    },
+    {
+      "id": "apps/api/src/poller/fast-tier.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/poller/fast-tier.ts"
+    },
+    {
+      "id": "apps/api/src/poller/slow-tier.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/poller/slow-tier.test.ts"
+    },
+    {
+      "id": "apps/api/src/poller/slow-tier.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/poller/slow-tier.ts"
+    },
+    {
+      "id": "apps/api/src/poller/store.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/poller/store.test.ts"
+    },
+    {
+      "id": "apps/api/src/poller/store.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/poller/store.ts"
+    },
+    {
+      "id": "apps/api/src/predictions/accuracy.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/predictions/accuracy.test.ts"
+    },
+    {
+      "id": "apps/api/src/predictions/accuracy.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/predictions/accuracy.ts"
+    },
+    {
+      "id": "apps/api/src/predictions/history.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/predictions/history.test.ts"
+    },
+    {
+      "id": "apps/api/src/predictions/history.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/predictions/history.ts"
+    },
+    {
+      "id": "apps/api/src/routes/brief.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/brief.test.ts"
+    },
+    {
+      "id": "apps/api/src/routes/brief.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/brief.ts"
+    },
+    {
+      "id": "apps/api/src/routes/health.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/health.test.ts"
+    },
+    {
+      "id": "apps/api/src/routes/health.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/health.ts"
+    },
+    {
+      "id": "apps/api/src/routes/outage.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/outage.test.ts"
+    },
+    {
+      "id": "apps/api/src/routes/satellites.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/satellites.test.ts"
+    },
+    {
+      "id": "apps/api/src/routes/satellites.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/satellites.ts"
+    },
+    {
+      "id": "apps/api/src/routes/stream.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/stream.test.ts"
+    },
+    {
+      "id": "apps/api/src/routes/stream.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/routes/stream.ts"
+    },
+    {
+      "id": "apps/api/src/test-support/db.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/test-support/db.ts"
+    },
+    {
+      "id": "apps/api/src/util/time-match.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/util/time-match.test.ts"
+    },
+    {
+      "id": "apps/api/src/util/time-match.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/src/util/time-match.ts"
+    },
+    {
+      "id": "apps/api/vitest.config.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/vitest.config.ts"
+    },
+    {
+      "id": "apps/api/vitest.workspace.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/api/vitest.workspace.ts"
+    },
+    {
+      "id": "apps/web/src/App.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/App.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/CausalChainFlow.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/CausalChainFlow.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/Hero.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/Hero.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/HorizonBand.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/HorizonBand.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/IssTrajectoryArc.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/IssTrajectoryArc.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/MeteorShowerCard.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/MeteorShowerCard.test.ts"
+    },
+    {
+      "id": "apps/web/src/components/brief/MeteorShowerCard.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/MeteorShowerCard.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/MoonPhaseGraphic.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/MoonPhaseGraphic.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/MoonTimeline.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/MoonTimeline.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/NeoDistanceScale.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/NeoDistanceScale.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/NeoSizeComparison.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/NeoSizeComparison.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/SkyQualityStatus.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/SkyQualityStatus.tsx"
+    },
+    {
+      "id": "apps/web/src/components/brief/SolarWindTelemetry.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/brief/SolarWindTelemetry.tsx"
+    },
+    {
+      "id": "apps/web/src/components/common/ConfidenceTicks.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/common/ConfidenceTicks.tsx"
+    },
+    {
+      "id": "apps/web/src/components/common/DataSourcesList.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/common/DataSourcesList.test.ts"
+    },
+    {
+      "id": "apps/web/src/components/common/DataSourcesList.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/common/DataSourcesList.tsx"
+    },
+    {
+      "id": "apps/web/src/components/common/FreshnessIndicator.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/common/FreshnessIndicator.tsx"
+    },
+    {
+      "id": "apps/web/src/components/common/LivePulse.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/common/LivePulse.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/AuroralRing.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/AuroralRing.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/CameraController.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/CameraController.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/CardinalMarks.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/CardinalMarks.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/CelestialMarkers.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/CelestialMarkers.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/ConstellationLines.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/ConstellationLines.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/DiegeticText.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/DiegeticText.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/DiegeticTextMirror.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/DiegeticTextMirror.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/diegeticTextStore.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/diegeticTextStore.ts"
+    },
+    {
+      "id": "apps/web/src/components/explore/HeliospherePulse.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/HeliospherePulse.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/OpeningSequence.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/OpeningSequence.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/SkyDome.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/SkyDome.tsx"
+    },
+    {
+      "id": "apps/web/src/components/explore/StarField.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/explore/StarField.tsx"
+    },
+    {
+      "id": "apps/web/src/components/nav/PersistentNav.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/components/nav/PersistentNav.tsx"
+    },
+    {
+      "id": "apps/web/src/hooks/useDeviceOrientation.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/hooks/useDeviceOrientation.test.ts"
+    },
+    {
+      "id": "apps/web/src/hooks/useDeviceOrientation.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/hooks/useDeviceOrientation.ts"
+    },
+    {
+      "id": "apps/web/src/hooks/useSatellites.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/hooks/useSatellites.ts"
+    },
+    {
+      "id": "apps/web/src/hooks/useSpaceWeather.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/hooks/useSpaceWeather.ts"
+    },
+    {
+      "id": "apps/web/src/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/index.ts"
+    },
+    {
+      "id": "apps/web/src/lib/api.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/api.ts"
+    },
+    {
+      "id": "apps/web/src/lib/brief-headline.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/brief-headline.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/brief-headline.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/brief-headline.ts"
+    },
+    {
+      "id": "apps/web/src/lib/color.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/color.ts"
+    },
+    {
+      "id": "apps/web/src/lib/config.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/config.ts"
+    },
+    {
+      "id": "apps/web/src/lib/constellation-lines.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/constellation-lines.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/constellation-lines.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/constellation-lines.ts"
+    },
+    {
+      "id": "apps/web/src/lib/dev-sim-satellites.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/dev-sim-satellites.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/dev-sim-satellites.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/dev-sim-satellites.ts"
+    },
+    {
+      "id": "apps/web/src/lib/explore-interaction.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/explore-interaction.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/explore-interaction.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/explore-interaction.ts"
+    },
+    {
+      "id": "apps/web/src/lib/format-preferences.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/format-preferences.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/format-preferences.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/format-preferences.ts"
+    },
+    {
+      "id": "apps/web/src/lib/horizon-band.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/horizon-band.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/horizon-band.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/horizon-band.ts"
+    },
+    {
+      "id": "apps/web/src/lib/iss-position.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/iss-position.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/iss-position.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/iss-position.ts"
+    },
+    {
+      "id": "apps/web/src/lib/landing-page.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/landing-page.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/landing-page.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/landing-page.ts"
+    },
+    {
+      "id": "apps/web/src/lib/learning-moments.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/learning-moments.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/learning-moments.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/learning-moments.ts"
+    },
+    {
+      "id": "apps/web/src/lib/meteor-showers.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/meteor-showers.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/meteor-showers.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/meteor-showers.ts"
+    },
+    {
+      "id": "apps/web/src/lib/motion.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/motion.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/motion.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/motion.ts"
+    },
+    {
+      "id": "apps/web/src/lib/opening-sequence.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/opening-sequence.ts"
+    },
+    {
+      "id": "apps/web/src/lib/pass-interpolation.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/pass-interpolation.ts"
+    },
+    {
+      "id": "apps/web/src/lib/semantic-zoom.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/semantic-zoom.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/semantic-zoom.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "id": "apps/web/src/lib/sky-quality.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/sky-quality.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/sky-quality.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/sky-quality.ts"
+    },
+    {
+      "id": "apps/web/src/lib/space-weather-status.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/space-weather-status.test.ts"
+    },
+    {
+      "id": "apps/web/src/lib/space-weather-status.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/lib/space-weather-status.ts"
+    },
+    {
+      "id": "apps/web/src/main.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/main.tsx"
+    },
+    {
+      "id": "apps/web/src/pages/AboutPage.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/pages/AboutPage.tsx"
+    },
+    {
+      "id": "apps/web/src/pages/BriefPage.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/pages/BriefPage.tsx"
+    },
+    {
+      "id": "apps/web/src/pages/ExplorePage.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/pages/ExplorePage.tsx"
+    },
+    {
+      "id": "apps/web/src/pages/SettingsPage.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/pages/SettingsPage.tsx"
+    },
+    {
+      "id": "apps/web/src/pages/StatusPage.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/pages/StatusPage.test.ts"
+    },
+    {
+      "id": "apps/web/src/pages/StatusPage.tsx",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/pages/StatusPage.tsx"
+    },
+    {
+      "id": "apps/web/src/store/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/store/index.ts"
+    },
+    {
+      "id": "apps/web/src/store/store.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/src/store/store.test.ts"
+    },
+    {
+      "id": "apps/web/vite.config.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/vite.config.ts"
+    },
+    {
+      "id": "apps/web/vitest.config.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/apps/web/vitest.config.ts"
+    },
+    {
+      "id": "packages/shared/src/constants.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/constants.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/aurora.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/aurora.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/aurora.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/aurora.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/causal-engine.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/causal-engine.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/causal-engine.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/causal-engine.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/cme-arrival.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/cme-arrival.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/cme-arrival.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/cme-arrival.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/moon-position.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/moon-position.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/moon-position.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/moon-position.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/neo.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/neo.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/neo.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/neo.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/sky-dome.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/sky-dome.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/sky-dome.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/star-position.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/star-position.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/star-position.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/star-position.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/sun-position.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/sun-position.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/sun-position.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/sun-position.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/twilight.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/twilight.test.ts"
+    },
+    {
+      "id": "packages/shared/src/engines/twilight.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/engines/twilight.ts"
+    },
+    {
+      "id": "packages/shared/src/geo.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/geo.test.ts"
+    },
+    {
+      "id": "packages/shared/src/geo.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/geo.ts"
+    },
+    {
+      "id": "packages/shared/src/index.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/index.test.ts"
+    },
+    {
+      "id": "packages/shared/src/index.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/index.ts"
+    },
+    {
+      "id": "packages/shared/src/math-utils.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/math-utils.test.ts"
+    },
+    {
+      "id": "packages/shared/src/math-utils.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/math-utils.ts"
+    },
+    {
+      "id": "packages/shared/src/vector.test.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/vector.test.ts"
+    },
+    {
+      "id": "packages/shared/src/vector.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/src/vector.ts"
+    },
+    {
+      "id": "packages/shared/vitest.config.ts",
+      "path": "C:/Users/Asus/AppData/Local/Temp/cockpit-repo-qPnIf2/packages/shared/vitest.config.ts"
+    }
+  ],
+  "edges": [
+    {
+      "from": "apps/api/src/app.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/app.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/app.ts",
+      "to": "apps/api/src/routes/brief.ts"
+    },
+    {
+      "from": "apps/api/src/app.ts",
+      "to": "apps/api/src/routes/health.ts"
+    },
+    {
+      "from": "apps/api/src/app.ts",
+      "to": "apps/api/src/routes/satellites.ts"
+    },
+    {
+      "from": "apps/api/src/app.ts",
+      "to": "apps/api/src/routes/stream.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.test.ts",
+      "to": "apps/api/src/brief/build-brief.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.test.ts",
+      "to": "apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/brief/iss-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/brief/learning-moment.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/brief/neo-imagery-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/brief/sky-anchor-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/brief/space-weather-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/build-brief.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/brief/build-brief.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/brief/visual-passes-cache.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/clients/static/light-pollution.client.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/compose-brief.ts",
+      "to": "apps/api/src/predictions/history.ts"
+    },
+    {
+      "from": "apps/api/src/brief/iss-card.test.ts",
+      "to": "apps/api/src/brief/iss-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/iss-card.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/iss-card.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/iss-card.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/iss-card.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/learning-moment.test.ts",
+      "to": "apps/api/src/brief/learning-moment.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.test.ts",
+      "to": "apps/api/src/brief/neo-imagery-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.test.ts",
+      "to": "apps/api/src/clients/gibs/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.test.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.ts",
+      "to": "apps/api/src/clients/gibs/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/neo-imagery-card.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.test.ts",
+      "to": "apps/api/src/brief/sky-anchor-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.test.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.test.ts",
+      "to": "apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.test.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.ts",
+      "to": "apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/sky-anchor-card.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.test.ts",
+      "to": "apps/api/src/brief/space-weather-card.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.test.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.test.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.ts",
+      "to": "apps/api/src/util/time-match.ts"
+    },
+    {
+      "from": "apps/api/src/brief/space-weather-card.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/visual-passes-cache.test.ts",
+      "to": "apps/api/src/brief/visual-passes-cache.ts"
+    },
+    {
+      "from": "apps/api/src/brief/visual-passes-cache.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/brief/visual-passes-cache.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/brief/visual-passes-cache.ts",
+      "to": "apps/api/src/cache/store.ts"
+    },
+    {
+      "from": "apps/api/src/brief/visual-passes-cache.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/cache/store.test.ts",
+      "to": "apps/api/src/cache/store.ts"
+    },
+    {
+      "from": "apps/api/src/cache/store.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.client.test.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.client.test.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.client.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.client.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.client.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.client.ts",
+      "to": "apps/api/src/lib/tle.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/celestrak.schemas.ts",
+      "to": "apps/api/src/lib/tle.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/index.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/index.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/celestrak/index.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/gibs/gibs.client.test.ts",
+      "to": "apps/api/src/clients/gibs/gibs.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/gibs/index.ts",
+      "to": "apps/api/src/clients/gibs/gibs.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/index.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/index.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/index.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.test.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.test.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts",
+      "to": "apps/api/src/clients/jpl-horizons/jpl-horizons.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/jpl-horizons/jpl-horizons.client.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/index.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/index.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/index.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/n2yo.client.test.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/n2yo.client.test.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/n2yo.client.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/n2yo.client.ts",
+      "to": "apps/api/src/clients/n2yo/n2yo.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/n2yo/n2yo.client.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/index.ts",
+      "to": "apps/api/src/clients/nasa/nasa.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/index.ts",
+      "to": "apps/api/src/clients/nasa/nasa.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/index.ts",
+      "to": "apps/api/src/clients/nasa/nasa.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/nasa.client.test.ts",
+      "to": "apps/api/src/clients/nasa/nasa.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/nasa.client.test.ts",
+      "to": "apps/api/src/clients/nasa/nasa.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/nasa.client.ts",
+      "to": "apps/api/src/clients/nasa/nasa.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/nasa.client.ts",
+      "to": "apps/api/src/clients/nasa/nasa.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/nasa/nasa.client.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/index.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/index.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/index.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/open-meteo.client.test.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/open-meteo.client.test.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/open-meteo.client.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/open-meteo.client.ts",
+      "to": "apps/api/src/clients/open-meteo/open-meteo.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/open-meteo/open-meteo.client.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/index.ts",
+      "to": "apps/api/src/clients/space-track/space-track.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/index.ts",
+      "to": "apps/api/src/clients/space-track/space-track.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/space-track.client.test.ts",
+      "to": "apps/api/src/clients/space-track/space-track.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/space-track.client.test.ts",
+      "to": "apps/api/src/clients/space-track/space-track.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/space-track.client.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/space-track.client.ts",
+      "to": "apps/api/src/clients/space-track/space-track.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/space-track.client.ts",
+      "to": "apps/api/src/lib/tle.ts"
+    },
+    {
+      "from": "apps/api/src/clients/space-track/space-track.types.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/static/light-pollution.client.test.ts",
+      "to": "apps/api/src/clients/static/light-pollution.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/index.ts",
+      "to": "apps/api/src/clients/swpc/swpc.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/index.ts",
+      "to": "apps/api/src/clients/swpc/swpc.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/index.ts",
+      "to": "apps/api/src/clients/swpc/swpc.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/swpc.client.test.ts",
+      "to": "apps/api/src/clients/swpc/swpc.client.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/swpc.client.test.ts",
+      "to": "apps/api/src/clients/swpc/swpc.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/swpc.client.test.ts",
+      "to": "apps/api/src/clients/swpc/swpc.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/swpc.client.ts",
+      "to": "apps/api/src/clients/swpc/swpc.schemas.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/swpc.client.ts",
+      "to": "apps/api/src/clients/swpc/swpc.types.ts"
+    },
+    {
+      "from": "apps/api/src/clients/swpc/swpc.client.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/db/client.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/cache/store.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/clients/space-track/index.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/poller/fast-tier.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/poller/slow-tier.ts"
+    },
+    {
+      "from": "apps/api/src/index.ts",
+      "to": "apps/api/src/predictions/accuracy.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/poller/fast-tier.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/poller/slow-tier.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/routes/health.ts"
+    },
+    {
+      "from": "apps/api/src/integration/phase3-orchestration.test.ts",
+      "to": "apps/api/src/routes/stream.ts"
+    },
+    {
+      "from": "apps/api/src/lib/fetch-with-retry.test.ts",
+      "to": "apps/api/src/lib/fetch-with-retry.ts"
+    },
+    {
+      "from": "apps/api/src/lib/tle.ts",
+      "to": "apps/api/src/clients/celestrak/celestrak.types.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.test.ts",
+      "to": "apps/api/src/poller/fast-tier.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/fast-tier.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.test.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.test.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.test.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.test.ts",
+      "to": "apps/api/src/poller/slow-tier.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/clients/gibs/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/clients/space-track/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/slow-tier.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.test.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.ts",
+      "to": "apps/api/src/clients/gibs/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/poller/store.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.test.ts",
+      "to": "apps/api/src/predictions/accuracy.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.test.ts",
+      "to": "apps/api/src/predictions/history.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.test.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/accuracy.ts",
+      "to": "apps/api/src/util/time-match.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/history.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/predictions/history.test.ts",
+      "to": "apps/api/src/predictions/history.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "apps/api/src/brief/build-brief.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "apps/api/src/clients/open-meteo/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.test.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.ts",
+      "to": "apps/api/src/brief/compose-brief.ts"
+    },
+    {
+      "from": "apps/api/src/routes/brief.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/health.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/routes/health.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/routes/health.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/health.test.ts",
+      "to": "apps/api/src/routes/health.ts"
+    },
+    {
+      "from": "apps/api/src/routes/health.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/brief/build-brief.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/clients/jpl-horizons/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/clients/nasa/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/poller/fast-tier.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/poller/slow-tier.ts"
+    },
+    {
+      "from": "apps/api/src/routes/outage.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/satellites.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/routes/satellites.test.ts",
+      "to": "apps/api/src/clients/celestrak/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/satellites.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/routes/satellites.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/satellites.test.ts",
+      "to": "apps/api/src/routes/satellites.ts"
+    },
+    {
+      "from": "apps/api/src/routes/satellites.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.test.ts",
+      "to": "apps/api/src/app.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.test.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.test.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.test.ts",
+      "to": "apps/api/src/db/client.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.test.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.test.ts",
+      "to": "apps/api/src/routes/stream.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.ts",
+      "to": "apps/api/src/clients/n2yo/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.ts",
+      "to": "apps/api/src/clients/swpc/index.ts"
+    },
+    {
+      "from": "apps/api/src/routes/stream.ts",
+      "to": "apps/api/src/poller/store.ts"
+    },
+    {
+      "from": "apps/api/src/util/time-match.test.ts",
+      "to": "apps/api/src/util/time-match.ts"
+    },
+    {
+      "from": "apps/web/src/components/brief/HorizonBand.tsx",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/components/brief/MeteorShowerCard.test.ts",
+      "to": "apps/web/src/components/brief/MeteorShowerCard.tsx"
+    },
+    {
+      "from": "apps/web/src/components/brief/MeteorShowerCard.test.ts",
+      "to": "apps/web/src/lib/meteor-showers.ts"
+    },
+    {
+      "from": "apps/web/src/components/brief/MeteorShowerCard.tsx",
+      "to": "apps/web/src/lib/meteor-showers.ts"
+    },
+    {
+      "from": "apps/web/src/components/common/DataSourcesList.test.ts",
+      "to": "apps/web/src/components/common/DataSourcesList.tsx"
+    },
+    {
+      "from": "apps/web/src/components/explore/AuroralRing.tsx",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/components/explore/CardinalMarks.tsx",
+      "to": "apps/web/src/components/explore/DiegeticText.tsx"
+    },
+    {
+      "from": "apps/web/src/components/explore/CelestialMarkers.tsx",
+      "to": "apps/web/src/components/explore/DiegeticText.tsx"
+    },
+    {
+      "from": "apps/web/src/components/explore/ConstellationLines.tsx",
+      "to": "apps/web/src/components/explore/DiegeticText.tsx"
+    },
+    {
+      "from": "apps/web/src/components/explore/DiegeticText.tsx",
+      "to": "apps/web/src/components/explore/diegeticTextStore.ts"
+    },
+    {
+      "from": "apps/web/src/components/explore/DiegeticTextMirror.tsx",
+      "to": "apps/web/src/components/explore/diegeticTextStore.ts"
+    },
+    {
+      "from": "apps/web/src/components/explore/HeliospherePulse.tsx",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/components/explore/StarField.tsx",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/hooks/useDeviceOrientation.test.ts",
+      "to": "apps/web/src/hooks/useDeviceOrientation.ts"
+    },
+    {
+      "from": "apps/web/src/lib/api.ts",
+      "to": "apps/web/src/lib/config.ts"
+    },
+    {
+      "from": "apps/web/src/lib/brief-headline.test.ts",
+      "to": "apps/web/src/lib/api.ts"
+    },
+    {
+      "from": "apps/web/src/lib/brief-headline.test.ts",
+      "to": "apps/web/src/lib/brief-headline.ts"
+    },
+    {
+      "from": "apps/web/src/lib/brief-headline.ts",
+      "to": "apps/web/src/lib/api.ts"
+    },
+    {
+      "from": "apps/web/src/lib/brief-headline.ts",
+      "to": "apps/web/src/lib/meteor-showers.ts"
+    },
+    {
+      "from": "apps/web/src/lib/brief-headline.ts",
+      "to": "apps/web/src/lib/sky-quality.ts"
+    },
+    {
+      "from": "apps/web/src/lib/constellation-lines.test.ts",
+      "to": "apps/web/src/lib/constellation-lines.ts"
+    },
+    {
+      "from": "apps/web/src/lib/constellation-lines.test.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/constellation-lines.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/constellation-lines.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/lib/dev-sim-satellites.test.ts",
+      "to": "apps/web/src/lib/dev-sim-satellites.ts"
+    },
+    {
+      "from": "apps/web/src/lib/dev-sim-satellites.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/explore-interaction.test.ts",
+      "to": "apps/web/src/lib/explore-interaction.ts"
+    },
+    {
+      "from": "apps/web/src/lib/format-preferences.test.ts",
+      "to": "apps/web/src/lib/format-preferences.ts"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.test.ts",
+      "to": "apps/web/src/components/brief/HorizonBand.tsx"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.test.ts",
+      "to": "apps/web/src/lib/api.ts"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.test.ts",
+      "to": "apps/web/src/lib/horizon-band.ts"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.test.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.ts",
+      "to": "apps/web/src/lib/api.ts"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/horizon-band.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/lib/iss-position.test.ts",
+      "to": "apps/web/src/lib/iss-position.ts"
+    },
+    {
+      "from": "apps/web/src/lib/landing-page.test.ts",
+      "to": "apps/web/src/lib/landing-page.ts"
+    },
+    {
+      "from": "apps/web/src/lib/learning-moments.test.ts",
+      "to": "apps/web/src/lib/brief-headline.ts"
+    },
+    {
+      "from": "apps/web/src/lib/learning-moments.test.ts",
+      "to": "apps/web/src/lib/learning-moments.ts"
+    },
+    {
+      "from": "apps/web/src/lib/learning-moments.ts",
+      "to": "apps/web/src/lib/brief-headline.ts"
+    },
+    {
+      "from": "apps/web/src/lib/meteor-showers.test.ts",
+      "to": "apps/web/src/lib/meteor-showers.ts"
+    },
+    {
+      "from": "apps/web/src/lib/meteor-showers.test.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/meteor-showers.test.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/lib/meteor-showers.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/meteor-showers.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/lib/motion.test.ts",
+      "to": "apps/web/src/lib/motion.ts"
+    },
+    {
+      "from": "apps/web/src/lib/semantic-zoom.test.ts",
+      "to": "apps/web/src/lib/semantic-zoom.ts"
+    },
+    {
+      "from": "apps/web/src/lib/sky-quality.test.ts",
+      "to": "apps/web/src/components/brief/SkyQualityStatus.tsx"
+    },
+    {
+      "from": "apps/web/src/lib/sky-quality.test.ts",
+      "to": "apps/web/src/lib/sky-quality.ts"
+    },
+    {
+      "from": "apps/web/src/lib/space-weather-status.test.ts",
+      "to": "apps/web/src/lib/space-weather-status.ts"
+    },
+    {
+      "from": "apps/web/src/main.tsx",
+      "to": "apps/web/src/App.tsx"
+    },
+    {
+      "from": "apps/web/src/pages/BriefPage.tsx",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "apps/web/src/pages/StatusPage.test.ts",
+      "to": "apps/web/src/pages/StatusPage.tsx"
+    },
+    {
+      "from": "apps/web/src/store/store.test.ts",
+      "to": "apps/web/src/store/index.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/aurora.test.ts",
+      "to": "packages/shared/src/engines/aurora.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/aurora.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/aurora.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/causal-engine.test.ts",
+      "to": "packages/shared/src/engines/causal-engine.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/causal-engine.ts",
+      "to": "packages/shared/src/engines/aurora.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/causal-engine.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/cme-arrival.test.ts",
+      "to": "packages/shared/src/engines/cme-arrival.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/cme-arrival.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/cme-arrival.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/moon-position.test.ts",
+      "to": "packages/shared/src/engines/moon-position.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/moon-position.test.ts",
+      "to": "packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/moon-position.ts",
+      "to": "packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/moon-position.ts",
+      "to": "packages/shared/src/engines/sun-position.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/moon-position.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/neo.test.ts",
+      "to": "packages/shared/src/engines/neo.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/neo.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sky-dome.test.ts",
+      "to": "packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sky-dome.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/star-position.test.ts",
+      "to": "packages/shared/src/engines/star-position.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/star-position.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/star-position.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sun-position.test.ts",
+      "to": "packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sun-position.test.ts",
+      "to": "packages/shared/src/engines/sun-position.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sun-position.test.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sun-position.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sun-position.ts",
+      "to": "packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/sun-position.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/twilight.test.ts",
+      "to": "packages/shared/src/engines/twilight.ts"
+    },
+    {
+      "from": "packages/shared/src/engines/twilight.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/geo.test.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/geo.test.ts",
+      "to": "packages/shared/src/geo.ts"
+    },
+    {
+      "from": "packages/shared/src/geo.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/geo.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/index.test.ts",
+      "to": "packages/shared/src/index.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/constants.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/aurora.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/causal-engine.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/cme-arrival.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/moon-position.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/neo.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/sky-dome.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/star-position.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/sun-position.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/engines/twilight.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/geo.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/index.ts",
+      "to": "packages/shared/src/vector.ts"
+    },
+    {
+      "from": "packages/shared/src/math-utils.test.ts",
+      "to": "packages/shared/src/math-utils.ts"
+    },
+    {
+      "from": "packages/shared/src/vector.test.ts",
+      "to": "packages/shared/src/vector.ts"
+    }
+  ],
+  "analysis": {
+    "cycles": [],
+    "orphans": [
+      "apps/api/scripts/ingest-light-pollution.js",
+      "apps/api/scripts/ingest-stars.js",
+      "apps/api/src/app.test.ts",
+      "apps/api/src/brief/build-brief.test.ts",
+      "apps/api/src/brief/iss-card.test.ts",
+      "apps/api/src/brief/learning-moment.test.ts",
+      "apps/api/src/brief/neo-imagery-card.test.ts",
+      "apps/api/src/brief/sky-anchor-card.test.ts",
+      "apps/api/src/brief/space-weather-card.test.ts",
+      "apps/api/src/brief/visual-passes-cache.test.ts",
+      "apps/api/src/cache/store.test.ts",
+      "apps/api/src/clients/celestrak/celestrak.client.test.ts",
+      "apps/api/src/clients/gibs/gibs.client.test.ts",
+      "apps/api/src/clients/jpl-horizons/jpl-horizons.client.test.ts",
+      "apps/api/src/clients/n2yo/n2yo.client.test.ts",
+      "apps/api/src/clients/nasa/nasa.client.test.ts",
+      "apps/api/src/clients/open-meteo/open-meteo.client.test.ts",
+      "apps/api/src/clients/space-track/space-track.client.test.ts",
+      "apps/api/src/clients/static/light-pollution.client.test.ts",
+      "apps/api/src/clients/static/stars-catalog-integrity.test.ts",
+      "apps/api/src/clients/swpc/swpc.client.test.ts",
+      "apps/api/src/db/client.test.ts",
+      "apps/api/src/lib/fetch-with-retry.test.ts",
+      "apps/api/src/poller/fast-tier.test.ts",
+      "apps/api/src/poller/slow-tier.test.ts",
+      "apps/api/src/poller/store.test.ts",
+      "apps/api/src/predictions/accuracy.test.ts",
+      "apps/api/src/predictions/history.test.ts",
+      "apps/api/src/routes/brief.test.ts",
+      "apps/api/src/routes/health.test.ts",
+      "apps/api/src/routes/outage.test.ts",
+      "apps/api/src/routes/satellites.test.ts",
+      "apps/api/src/test-support/db.ts",
+      "apps/api/src/util/time-match.test.ts",
+      "apps/api/vitest.config.ts",
+      "apps/api/vitest.workspace.ts",
+      "apps/web/src/components/brief/CausalChainFlow.tsx",
+      "apps/web/src/components/brief/Hero.tsx",
+      "apps/web/src/components/brief/IssTrajectoryArc.tsx",
+      "apps/web/src/components/brief/MeteorShowerCard.test.ts",
+      "apps/web/src/components/brief/MoonPhaseGraphic.tsx",
+      "apps/web/src/components/brief/MoonTimeline.tsx",
+      "apps/web/src/components/brief/NeoDistanceScale.tsx",
+      "apps/web/src/components/brief/NeoSizeComparison.tsx",
+      "apps/web/src/components/brief/SolarWindTelemetry.tsx",
+      "apps/web/src/components/common/ConfidenceTicks.tsx",
+      "apps/web/src/components/common/DataSourcesList.test.ts",
+      "apps/web/src/components/common/FreshnessIndicator.tsx",
+      "apps/web/src/components/common/LivePulse.tsx",
+      "apps/web/src/components/explore/AuroralRing.tsx",
+      "apps/web/src/components/explore/CameraController.tsx",
+      "apps/web/src/components/explore/CardinalMarks.tsx",
+      "apps/web/src/components/explore/CelestialMarkers.tsx",
+      "apps/web/src/components/explore/ConstellationLines.tsx",
+      "apps/web/src/components/explore/DiegeticTextMirror.tsx",
+      "apps/web/src/components/explore/HeliospherePulse.tsx",
+      "apps/web/src/components/explore/OpeningSequence.tsx",
+      "apps/web/src/components/explore/SkyDome.tsx",
+      "apps/web/src/components/explore/StarField.tsx",
+      "apps/web/src/components/nav/PersistentNav.tsx",
+      "apps/web/src/hooks/useDeviceOrientation.test.ts",
+      "apps/web/src/hooks/useSatellites.ts",
+      "apps/web/src/hooks/useSpaceWeather.ts",
+      "apps/web/src/lib/brief-headline.test.ts",
+      "apps/web/src/lib/color.ts",
+      "apps/web/src/lib/constellation-lines.test.ts",
+      "apps/web/src/lib/dev-sim-satellites.test.ts",
+      "apps/web/src/lib/explore-interaction.test.ts",
+      "apps/web/src/lib/format-preferences.test.ts",
+      "apps/web/src/lib/horizon-band.test.ts",
+      "apps/web/src/lib/iss-position.test.ts",
+      "apps/web/src/lib/landing-page.test.ts",
+      "apps/web/src/lib/learning-moments.test.ts",
+      "apps/web/src/lib/meteor-showers.test.ts",
+      "apps/web/src/lib/motion.test.ts",
+      "apps/web/src/lib/opening-sequence.ts",
+      "apps/web/src/lib/pass-interpolation.ts",
+      "apps/web/src/lib/semantic-zoom.test.ts",
+      "apps/web/src/lib/sky-quality.test.ts",
+      "apps/web/src/lib/space-weather-status.test.ts",
+      "apps/web/src/main.tsx",
+      "apps/web/src/pages/AboutPage.tsx",
+      "apps/web/src/pages/BriefPage.tsx",
+      "apps/web/src/pages/ExplorePage.tsx",
+      "apps/web/src/pages/SettingsPage.tsx",
+      "apps/web/src/pages/StatusPage.test.ts",
+      "apps/web/src/store/store.test.ts",
+      "apps/web/vite.config.ts",
+      "apps/web/vitest.config.ts",
+      "packages/shared/src/engines/aurora.test.ts",
+      "packages/shared/src/engines/causal-engine.test.ts",
+      "packages/shared/src/engines/cme-arrival.test.ts",
+      "packages/shared/src/engines/moon-position.test.ts",
+      "packages/shared/src/engines/neo.test.ts",
+      "packages/shared/src/engines/sky-dome.test.ts",
+      "packages/shared/src/engines/star-position.test.ts",
+      "packages/shared/src/engines/sun-position.test.ts",
+      "packages/shared/src/engines/twilight.test.ts",
+      "packages/shared/src/geo.test.ts",
+      "packages/shared/src/index.test.ts",
+      "packages/shared/src/math-utils.test.ts",
+      "packages/shared/src/vector.test.ts",
+      "packages/shared/vitest.config.ts"
+    ],
+    "entryPoints": [
+      {
+        "id": "apps/api/src/index.ts",
+        "reason": "Directory index file with no incoming imports"
+      },
+      {
+        "id": "apps/api/src/integration/phase3-orchestration.test.ts",
+        "reason": "Express server entry (app.listen)"
+      },
+      {
+        "id": "apps/api/src/routes/brief.ts",
+        "reason": "Express route definition"
+      },
+      {
+        "id": "apps/api/src/routes/health.ts",
+        "reason": "Express route definition"
+      },
+      {
+        "id": "apps/api/src/routes/satellites.ts",
+        "reason": "Express route definition"
+      },
+      {
+        "id": "apps/api/src/routes/stream.test.ts",
+        "reason": "Express server entry (app.listen)"
+      },
+      {
+        "id": "apps/api/src/routes/stream.ts",
+        "reason": "Express route definition"
+      },
+      {
+        "id": "apps/web/src/index.ts",
+        "reason": "Directory index file with no incoming imports"
+      }
+    ],
+    "centrality": {
+      "topFanIn": [
+        {
+          "id": "apps/api/src/poller/store.ts",
+          "fanIn": 25
+        },
+        {
+          "id": "apps/api/src/clients/n2yo/index.ts",
+          "fanIn": 17
+        },
+        {
+          "id": "packages/shared/src/index.ts",
+          "fanIn": 17
+        },
+        {
+          "id": "apps/api/src/clients/swpc/index.ts",
+          "fanIn": 15
+        },
+        {
+          "id": "apps/api/src/db/client.ts",
+          "fanIn": 13
+        },
+        {
+          "id": "apps/api/src/clients/nasa/index.ts",
+          "fanIn": 11
+        },
+        {
+          "id": "packages/shared/src/math-utils.ts",
+          "fanIn": 11
+        },
+        {
+          "id": "packages/shared/src/constants.ts",
+          "fanIn": 9
+        },
+        {
+          "id": "apps/api/src/app.ts",
+          "fanIn": 8
+        },
+        {
+          "id": "apps/api/src/clients/jpl-horizons/index.ts",
+          "fanIn": 8
+        }
+      ],
+      "topFanOut": [
+        {
+          "id": "packages/shared/src/index.ts",
+          "fanOut": 13
+        },
+        {
+          "id": "apps/api/src/index.ts",
+          "fanOut": 12
+        },
+        {
+          "id": "apps/api/src/integration/phase3-orchestration.test.ts",
+          "fanOut": 12
+        },
+        {
+          "id": "apps/api/src/routes/outage.test.ts",
+          "fanOut": 11
+        },
+        {
+          "id": "apps/api/src/brief/build-brief.ts",
+          "fanOut": 8
+        },
+        {
+          "id": "apps/api/src/brief/compose-brief.ts",
+          "fanOut": 7
+        },
+        {
+          "id": "apps/api/src/poller/slow-tier.ts",
+          "fanOut": 7
+        },
+        {
+          "id": "apps/api/src/routes/brief.test.ts",
+          "fanOut": 7
+        },
+        {
+          "id": "apps/api/src/poller/slow-tier.test.ts",
+          "fanOut": 6
+        },
+        {
+          "id": "apps/api/src/poller/store.ts",
+          "fanOut": 6
+        }
+      ]
+    }
+  }
+}
