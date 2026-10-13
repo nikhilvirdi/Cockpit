@@ -1,12 +1,12 @@
 import * as path from 'path';
 import { ts } from 'ts-morph';
-import { TsConfigInfo } from './tsconfig';
+import { TsConfigInfo, loadTsConfigForFile } from './tsconfig';
 
 export interface ResolveOptions {
   rootDir: string;
   fromFilePath: string;
   specifier: string;
-  tsConfigInfo: TsConfigInfo;
+  tsConfigInfo?: TsConfigInfo; // Made optional - will load per-file if not provided
   projectFilesSet: Set<string>;
 }
 
@@ -123,7 +123,10 @@ function resolvePathAliases(
 }
 
 export function resolveImportTarget(options: ResolveOptions): string | null {
-  const { rootDir, fromFilePath, specifier, tsConfigInfo, projectFilesSet } = options;
+  const { rootDir, fromFilePath, specifier, projectFilesSet } = options;
+
+  // Load per-file tsconfig if not provided
+  const tsConfigInfo = options.tsConfigInfo || loadTsConfigForFile(fromFilePath, rootDir);
 
   if (!specifier || typeof specifier !== 'string') {
     return null;

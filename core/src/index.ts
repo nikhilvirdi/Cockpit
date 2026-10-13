@@ -3,13 +3,14 @@ export {
   analyzeDependencyGraph,
   detectCycles,
   detectOrphans,
+  detectNonImportInvoked,
   detectEntryPoints,
   computeCentrality
 } from './analysis';
 export { extractDeclaredEnvKeys, traceEnvUsage } from './envUsage';
 export { traceSymbolUsages, getEnclosingScopeName, isTypeOnlyReference } from './symbolUsage';
 export { resolveImportTarget, tryCandidatePath } from './resolver';
-export { loadTsConfig, TsConfigInfo } from './tsconfig';
+export { loadTsConfig, loadTsConfigForFile, TsConfigInfo } from './tsconfig';
 export { walkDirectory, isSourceFile, toPosixPath } from './scanner';
 export {
   DependencyGraph,

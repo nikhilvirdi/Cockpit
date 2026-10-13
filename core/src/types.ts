@@ -42,6 +42,7 @@ export interface AnalysisResult {
   orphans: string[];
   entryPoints: EntryPoint[];
   centrality: CentralityAnalysis;
+  nonImportInvoked?: Array<{ id: string; reason: string }>;
 }
 
 export interface DeclaredEnvKey {

@@ -420,24 +420,131 @@ export function detectEntryPoints(
 }
 
 /**
- * Detects orphan nodes: zero incoming edges and not an entry point.
+ * Check if a file should be excluded from orphan detection.
+ * Returns the exclusion reason if excluded, null otherwise.
+ */
+function getOrphanExclusionReason(nodeId: string, rootDir?: string): string | null {
+  const fileName = path.basename(nodeId);
+  const normalizedPath = nodeId.replace(/\\/g, '/');
+
+  // 1. Test files
+  if (
+    fileName.match(/\.(test|spec)\.(ts|tsx|js|jsx)$/) ||
+    normalizedPath.includes('/__tests__/')
+  ) {
+    return 'test file';
+  }
+
+  // 2. Config files at root level
+  const configPatterns = [
+    /^(vite|vitest|webpack|rollup|esbuild|tsup)\.config\.(ts|js|mjs|cjs)$/,
+    /^(tailwind|postcss)\.config\.(js|cjs|mjs|ts)$/,
+    /^(jest|babel|eslint|prettier)\.config\.(js|cjs|mjs|ts|json)$/,
+    /^\.eslintrc\.(js|cjs|mjs|json)$/,
+    /^(next|remix|astro|svelte|nuxt)\.config\.(ts|js|mjs)$/
+  ];
+
+  // Check if it's a root-level config
+  const pathParts = normalizedPath.split('/');
+  if (pathParts.length === 1 || (pathParts.length === 2 && pathParts[0] === '')) {
+    for (const pattern of configPatterns) {
+      if (pattern.test(fileName)) {
+        return 'config file';
+      }
+    }
+  }
+
+  // 3. Files referenced in package.json scripts
+  if (rootDir) {
+    const pkgJsonPath = path.join(rootDir, 'package.json');
+    if (fs.existsSync(pkgJsonPath)) {
+      try {
+        const pkgContent = fs.readFileSync(pkgJsonPath, 'utf8');
+        const pkg = JSON.parse(pkgContent);
+
+        if (pkg.scripts && typeof pkg.scripts === 'object') {
+          const allScripts = Object.values(pkg.scripts).join(' ');
+
+          // Check if this file path appears in any script
+          // Match both with and without extensions
+          const fileBase = nodeId.replace(/\.(ts|tsx|js|jsx|mjs|cjs)$/, '');
+          if (
+            allScripts.includes(nodeId) ||
+            allScripts.includes(fileBase) ||
+            allScripts.includes(fileName) ||
+            allScripts.includes(fileName.replace(/\.(ts|tsx|js|jsx|mjs|cjs)$/, ''))
+          ) {
+            return 'package.json script';
+          }
+        }
+      } catch {
+        // Ignore JSON parse errors
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Detects orphan nodes: zero incoming edges, not an entry point, and not excluded.
+ * Now returns both traditional orphans and non-import-invoked files separately.
  */
 export function detectOrphans(
   nodes: { id: string }[],
   fanInMap: Map<string, number>,
-  entryPoints: EntryPoint[]
+  entryPoints: EntryPoint[],
+  rootDir?: string
 ): string[] {
   const entryPointSet = new Set(entryPoints.map(ep => ep.id));
 
   const orphans: string[] = nodes
     .filter(node => {
       const fanIn = fanInMap.get(node.id) || 0;
-      return fanIn === 0 && !entryPointSet.has(node.id);
+      if (fanIn > 0 || entryPointSet.has(node.id)) {
+        return false;
+      }
+
+      // Check for exclusion
+      const exclusionReason = getOrphanExclusionReason(node.id, rootDir);
+      return exclusionReason === null; // Only include if NOT excluded
     })
     .map(node => node.id)
     .sort();
 
   return orphans;
+}
+
+/**
+ * Detects non-import-invoked files: zero incoming edges, not entry points,
+ * but excluded from being flagged as orphans due to legitimate non-import usage.
+ */
+export function detectNonImportInvoked(
+  nodes: { id: string }[],
+  fanInMap: Map<string, number>,
+  entryPoints: EntryPoint[],
+  rootDir?: string
+): Array<{ id: string; reason: string }> {
+  const entryPointSet = new Set(entryPoints.map(ep => ep.id));
+
+  const nonImportInvoked: Array<{ id: string; reason: string }> = [];
+
+  for (const node of nodes) {
+    const fanIn = fanInMap.get(node.id) || 0;
+    if (fanIn > 0 || entryPointSet.has(node.id)) {
+      continue;
+    }
+
+    const exclusionReason = getOrphanExclusionReason(node.id, rootDir);
+    if (exclusionReason) {
+      nonImportInvoked.push({
+        id: node.id,
+        reason: exclusionReason
+      });
+    }
+  }
+
+  return nonImportInvoked.sort((a, b) => a.id.localeCompare(b.id));
 }
 
 /**
@@ -460,7 +567,10 @@ export function analyzeDependencyGraph(
   const entryPoints = detectEntryPoints(nodes, fanInMap, options?.rootDir);
 
   // 3. Orphan detection
-  const orphans = detectOrphans(nodes, fanInMap, entryPoints);
+  const orphans = detectOrphans(nodes, fanInMap, entryPoints, options?.rootDir);
+
+  // 3b. Non-import-invoked detection
+  const nonImportInvoked = detectNonImportInvoked(nodes, fanInMap, entryPoints, options?.rootDir);
 
   // 4. Cycle detection
   const cycles = detectCycles(nodes, edges, options?.maxCycles);
@@ -469,7 +579,8 @@ export function analyzeDependencyGraph(
     cycles,
     orphans,
     entryPoints,
-    centrality
+    centrality,
+    nonImportInvoked
   };
 
   // 5. Env/config usage tracing

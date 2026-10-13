@@ -120,7 +120,7 @@ export function buildDependencyGraph(targetPath: string, options?: GraphEngineOp
         rootDir,
         fromFilePath,
         specifier,
-        tsConfigInfo,
+        // Don't pass tsConfigInfo - let resolver load per-file config
         projectFilesSet
       });
 
