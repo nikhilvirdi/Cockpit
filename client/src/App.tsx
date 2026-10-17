@@ -49,7 +49,7 @@ export default function App() {
 
   // UI toggles
   const [showDynamicModal, setShowDynamicModal] = useState<boolean>(false);
-  const [showLegend, setShowLegend] = useState<boolean>(true);
+  const [showLegend, setShowLegend] = useState<boolean>(false);
 
   // Engine toggle: 'cytoscape' | 'reagraph'
   const [engine, setEngine] = useState<'cytoscape' | 'reagraph'>(() => {
@@ -61,6 +61,7 @@ export default function App() {
   const {
     cycleNodesSet,
     cycleEdgesSet,
+    envUsageEdgesSet,
     orphanSet,
     entryPointMap,
     incomingMap,
@@ -78,6 +79,13 @@ export default function App() {
         const from = cycle[i];
         const to = cycle[(i + 1) % cycle.length];
         cycleEdges.add(`${from}->${to}`);
+      }
+    }
+
+    const envUsageEdges = new Set<string>();
+    for (const item of graphData.envUsage?.usages || []) {
+      if (item.kind === 'transitive' && item.via) {
+        envUsageEdges.add(`${item.file}->${item.via}`);
       }
     }
 
@@ -122,6 +130,7 @@ export default function App() {
     return {
       cycleNodesSet: cycleNodes,
       cycleEdgesSet: cycleEdges,
+      envUsageEdgesSet: envUsageEdges,
       orphanSet: orphans,
       entryPointMap: entryPoints,
       incomingMap: incoming,
@@ -262,12 +271,24 @@ export default function App() {
         setSelectedEdge(null);
         setSelectedNode(data);
         cyRef.current.batch(() => {
-          cyRef.current!.elements().removeClass('dimmed highlighted-connection highlighted-edge');
+          cyRef.current!.elements().removeClass('dimmed highlighted-connection highlighted-edge focused neighbor');
           const outgoingEdges = node.outgoers('edge');
-          const targetNodes = outgoingEdges.targets();
-          cyRef.current!.elements().not(node).not(outgoingEdges).not(targetNodes).addClass('dimmed');
-          outgoingEdges.addClass('highlighted-edge');
-          targetNodes.addClass('highlighted-connection');
+          const incomingEdges = node.incomers('edge');
+          const directEdges = outgoingEdges.union(incomingEdges);
+          const neighbors = directEdges.connectedNodes().not(node);
+
+          // Full dependency chain (blast-radius) - downstream dependencies
+          const successors = node.successors();
+          const activeChain = node.union(successors);
+          const activeEdges = activeChain.connectedEdges().filter((e: any) => {
+            return activeChain.contains(e.source()) && activeChain.contains(e.target());
+          });
+          const allActiveEles = activeChain.union(activeEdges).union(neighbors).union(directEdges);
+
+          cyRef.current!.elements().not(allActiveEles).addClass('dimmed');
+          node.addClass('focused');
+          neighbors.addClass('neighbor');
+          activeEdges.union(directEdges).addClass('highlighted-edge');
         });
       }
     }
@@ -293,7 +314,7 @@ export default function App() {
       const edge = cyRef.current.getElementById(edgeKey);
       cyRef.current.nodes().unselect();
       cyRef.current.edges().unselect();
-      cyRef.current.elements().removeClass('dimmed highlighted-connection highlighted-edge');
+      cyRef.current.elements().removeClass('dimmed highlighted-connection highlighted-edge focused neighbor');
 
       if (edge && edge.length > 0) {
         edge.select();
@@ -320,7 +341,7 @@ export default function App() {
     if (!cy) return;
 
     cy.batch(() => {
-      cy.elements().removeClass('highlighted-connection highlighted-edge');
+      cy.elements().removeClass('highlighted-connection highlighted-edge focused neighbor');
       cy.elements().removeClass('dimmed search-match env-active hidden');
 
       if (hideOrphans) cy.elements('node.orphan-node').addClass('hidden');
@@ -411,14 +432,14 @@ export default function App() {
 
       {/* Global Loading / Error Bar */}
       {loading && (
-        <div style={{ background: '#161616', color: '#e5e5e5', borderBottom: '1px solid #222222', padding: '6px 16px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ background: '#1C2128', color: '#8B96A5', borderBottom: '1px solid var(--border-default)', padding: '6px 16px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span>{loadingStatus}</span>
         </div>
       )}
       {errorMessage && (
-        <div style={{ background: '#1c1212', color: '#ef4444', borderBottom: '1px solid #3d1f1f', padding: '6px 16px', fontSize: '11px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ background: '#1C2128', color: '#E8A33D', borderBottom: '1px solid #E8A33D', padding: '6px 16px', fontSize: '11px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <span>{errorMessage}</span>
-          <button type="button" onClick={() => setErrorMessage(null)} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '13px', padding: '0 4px' }}>
+          <button type="button" onClick={() => setErrorMessage(null)} style={{ background: 'transparent', border: 'none', color: '#E8A33D', cursor: 'pointer', fontSize: '13px', padding: '0 4px' }}>
             ✕
           </button>
         </div>
@@ -458,6 +479,7 @@ export default function App() {
               graphData={graphData}
               cycleNodesSet={cycleNodesSet}
               cycleEdgesSet={cycleEdgesSet}
+              envUsageEdgesSet={envUsageEdgesSet}
               orphanSet={orphanSet}
               entryPointMap={entryPointMap}
               incomingMap={incomingMap}
@@ -473,6 +495,7 @@ export default function App() {
               graphData={graphData}
               cycleNodesSet={cycleNodesSet}
               cycleEdgesSet={cycleEdgesSet}
+              envUsageEdgesSet={envUsageEdgesSet}
               orphanSet={orphanSet}
               entryPointMap={entryPointMap}
               incomingMap={incomingMap}
@@ -505,16 +528,16 @@ export default function App() {
         <div className="modal-overlay" onClick={() => setShowDynamicModal(false)}>
           <div className="modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <span style={{ fontWeight: 700, fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px', color: '#f59e0b' }}>
+              <span style={{ fontWeight: 600, fontSize: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: '#E8A33D' }}>
                 <span>Dynamic Access Warnings ({dynamicAccesses.length})</span>
               </span>
               <button type="button" className="panel-close-btn" onClick={() => setShowDynamicModal(false)}>✕</button>
             </div>
             <div className="modal-body">
-              <div style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                These files use dynamic bracket syntax (e.g. <code>process.env[varName]</code>) that cannot be resolved statically. They represent analysis blind spots:
+              <div style={{ fontSize: '11px', color: '#8B96A5', lineHeight: '1.5' }}>
+                These files use dynamic bracket syntax (e.g. <code>process.env[varName]</code>) that cannot be resolved statically:
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {dynamicAccesses.map((item, idx) => (
                   <div
                     key={idx}
@@ -523,12 +546,12 @@ export default function App() {
                     style={{ cursor: 'pointer' }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <span style={{ fontFamily: 'var(--font-data)', fontWeight: 600, color: '#60a5fa' }}>
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#4A9EFF' }}>
                         {item.file}
                       </span>
                       <span className="metric-pill warning">Focus Node</span>
                     </div>
-                    <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-data)' }}>
+                    <div style={{ fontSize: '10px', color: '#57606A', fontFamily: 'var(--font-mono)' }}>
                       {item.note}
                     </div>
                   </div>
