@@ -19,6 +19,7 @@ interface GraphCanvasReagraphProps {
   graphData: GraphData;
   cycleNodesSet: Set<string>;
   cycleEdgesSet: Set<string>;
+  envUsageEdgesSet: Set<string>;
   orphanSet: Set<string>;
   entryPointMap: Map<string, string>;
   incomingMap: Map<string, string[]>;
@@ -30,37 +31,37 @@ interface GraphCanvasReagraphProps {
   onDeselect: () => void;
 }
 
-// Cockpit custom dark theme for Reagraph
+// Cockpit monochrome dark theme for Reagraph (Pipeline Anatomy palette)
 const cockpitReagraphTheme: Theme = {
   ...darkTheme,
   canvas: {
-    background: '#0a0a0a',
+    background: '#000000', // var(--bg-canvas)
   },
   node: {
     ...darkTheme.node,
-    fill: '#1e3a5f',
-    activeFill: '#ffffff',
+    fill: '#161616', // var(--node-bg)
+    activeFill: '#a0a0a0', // var(--connector-active)
     opacity: 1,
     selectedOpacity: 1,
-    inactiveOpacity: 0.15,
+    inactiveOpacity: 0.3, // opacity 0.3 requested
     label: {
-      stroke: '#0a0a0a',
-      color: '#e5e5e5',
-      activeColor: '#ffffff',
+      stroke: '#000000',
+      color: '#f0f0f0', // var(--text-primary)
+      activeColor: '#a0a0a0',
     },
   },
   edge: {
     ...darkTheme.edge,
-    fill: '#666666',
-    activeFill: '#ffffff',
-    opacity: 0.75,
+    fill: '#ffffff', // var(--connector-line)
+    activeFill: '#a0a0a0',
+    opacity: 1,
     selectedOpacity: 1,
-    inactiveOpacity: 0.1,
+    inactiveOpacity: 0.3, // opacity 0.3 requested
   },
   arrow: {
     ...darkTheme.arrow,
-    fill: '#666666',
-    activeFill: '#ffffff',
+    fill: '#ffffff',
+    activeFill: '#a0a0a0',
   },
 };
 
@@ -68,6 +69,7 @@ export default function GraphCanvasReagraph({
   graphData,
   cycleNodesSet,
   cycleEdgesSet,
+  envUsageEdgesSet,
   orphanSet,
   entryPointMap,
   incomingMap,
@@ -86,19 +88,18 @@ export default function GraphCanvasReagraph({
       const isEntryPoint = entryPointMap.has(node.id);
       const label = node.id.split('/').pop() || node.id;
 
-      let fill = '#1e3a5f';
-      let size = 11;
+      let fill = '#161616';
+      let size = 12;
 
       if (isCycle) {
-        fill = '#ef4444';
+        fill = '#f85149'; // var(--accent-error)
         size = 13;
       } else if (isEntryPoint) {
-        fill = '#f59e0b';
-        // Distinct size and diamond shape
+        fill = '#ffffff'; // var(--node-border)
         size = 18;
       } else if (isOrphan) {
-        fill = '#383838';
-        size = 8;
+        fill = '#8a8a8a'; // var(--text-muted)
+        size = 9;
       }
 
       return {
@@ -117,31 +118,46 @@ export default function GraphCanvasReagraph({
     });
   }, [graphData.nodes, cycleNodesSet, orphanSet, entryPointMap]);
 
-  // Map Cockpit edges to Reagraph edges
+  // Map Cockpit edges to Reagraph edges (5 edge types)
   const reagraphEdges = useMemo<ReagraphEdge[]>(() => {
     return (graphData.edges || []).map((edge) => {
       const edgeKey = `${edge.from}->${edge.to}`;
       const isCycle = cycleEdgesSet.has(edgeKey);
+      const isEnvUsage = envUsageEdgesSet.has(edgeKey);
       const symbols = symbolUsageByEdgeMap.get(edgeKey) || [];
       const hasSymbols = symbols.length > 0;
       const isTypeOnly = hasSymbols && symbols.every((s) => s.typeOnly);
+      const hasRuntimeSymbols = hasSymbols && symbols.some((s) => !s.typeOnly);
 
-      let fill = '#666666';
-      let size = 1;
+      let fill = '#ffffff'; // var(--connector-line)
+      let size = 1.5;
       let dashed = false;
 
       if (isCycle) {
-        fill = '#ef4444';
-        size = 3;
-      } else if (hasSymbols) {
-        if (isTypeOnly) {
-          fill = '#a78bfa';
-          size = 1.8;
-          dashed = true;
-        } else {
-          fill = '#60a5fa';
-          size = 2.2;
-        }
+        // Cycle edges: dashed '6 4', 1.5px, var(--accent-error)
+        fill = '#f85149';
+        size = 1.5;
+        dashed = true;
+      } else if (isEnvUsage) {
+        // Env-usage edges: dashed '6 4', 1.5px, var(--accent-warning)
+        fill = '#d29922';
+        size = 1.5;
+        dashed = true;
+      } else if (hasRuntimeSymbols) {
+        // Symbol-usage edges: solid, 1.5px, var(--accent-info)
+        fill = '#58a6ff';
+        size = 1.5;
+        dashed = false;
+      } else if (isTypeOnly || !hasSymbols) {
+        // Type-only/untraced edges: dashed '6 4', 1.5px, var(--text-muted)
+        fill = '#8a8a8a';
+        size = 1.5;
+        dashed = true;
+      } else {
+        // Import (traced default flow): solid, 1.5px, var(--connector-line)
+        fill = '#ffffff';
+        size = 1.5;
+        dashed = false;
       }
 
       return {
@@ -153,14 +169,15 @@ export default function GraphCanvasReagraph({
         dashed,
         data: {
           isCycle,
+          isEnvUsage,
           hasSymbols,
           symbols,
         },
       };
     });
-  }, [graphData.edges, cycleEdgesSet, symbolUsageByEdgeMap]);
+  }, [graphData.edges, cycleEdgesSet, envUsageEdgesSet, symbolUsageByEdgeMap]);
 
-  // Calculate active highlighted set for selected node
+  // Calculate active highlighted set for selected node (blast radius)
   const activeIds = useMemo(() => {
     if (!selectedNodeId) return undefined;
     const incoming = incomingMap.get(selectedNodeId) || [];
@@ -184,7 +201,7 @@ export default function GraphCanvasReagraph({
   // Custom node renderer: Render diamond for entry points, standard sphere for others
   const renderCustomNode = (props: NodeRendererProps) => {
     if (props.node.data?.isEntryPoint) {
-      const color = props.selected ? '#ffffff' : (props.node.fill || '#f59e0b');
+      const color = props.selected ? '#a0a0a0' : (props.node.fill || '#ffffff');
       return (
         <mesh rotation={[0, 0, Math.PI / 4]}>
           <boxGeometry args={[props.size * 1.4, props.size * 1.4, props.size * 0.4]} />
