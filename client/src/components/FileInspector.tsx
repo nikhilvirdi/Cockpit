@@ -41,13 +41,13 @@ export default function FileInspector({
           {/* Node Identity Card */}
           <div className="inspector-card">
             <div className="card-title">File Node</div>
-            <div className="card-value" style={{ fontWeight: 600, color: '#e0f2fe' }}>
+            <div className="card-value" style={{ fontWeight: 600, color: 'var(--accent-info)', fontFamily: 'var(--font-mono)' }}>
               {selectedNode.id}
             </div>
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-data)' }}>
+            <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
               {selectedNode.fullPath}
             </div>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
+            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}>
               {selectedNode.isEntryPoint && (
                 <span className="metric-pill warning">Entry Point ({selectedNode.entryPointReason})</span>
               )}
@@ -65,7 +65,7 @@ export default function FileInspector({
               {selectedNodeEnvUsages.length > 0 && <span className="badge-env-direct">Active</span>}
             </div>
             {selectedNodeEnvUsages.length > 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {selectedNodeEnvUsages.map((env, i) => (
                   <div key={i} className="env-usage-row">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -76,7 +76,7 @@ export default function FileInspector({
                     </div>
                     {env.kind === 'direct' ? (
                       <div className="env-chain">
-                        Pattern: <strong style={{ color: '#f8fafc' }}>{env.pattern}</strong>
+                        Pattern: <strong style={{ color: 'var(--text-primary)' }}>{env.pattern}</strong>
                       </div>
                     ) : (
                       <div className="env-chain">
@@ -94,7 +94,7 @@ export default function FileInspector({
                 ))}
               </div>
             ) : (
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
                 No environment variables referenced directly or transitively in this file.
               </div>
             )}
@@ -118,14 +118,14 @@ export default function FileInspector({
                         style={{
                           flex: 1,
                           background: 'var(--bg-input)',
-                          border: '1px solid var(--border-subtle)',
+                          border: '1px solid var(--border-default)',
                           color: 'var(--text-secondary)',
-                          padding: '6px 8px',
-                          borderRadius: '0',
+                          padding: '5px 8px',
+                          borderRadius: 'var(--radius-sm)',
                           textAlign: 'left',
                           fontSize: '11px',
                           cursor: 'pointer',
-                          fontFamily: 'var(--font-data)',
+                          fontFamily: 'var(--font-mono)',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
@@ -139,13 +139,13 @@ export default function FileInspector({
                         onClick={() => onSelectEdge(edgeKey)}
                         title={symbols.length > 0 ? `Inspect ${symbols.length} traced symbols on this import edge` : 'Inspect import edge'}
                         style={{
-                          background: symbols.length > 0 ? '#12161c' : 'var(--bg-input)',
-                          border: `1px solid ${symbols.length > 0 ? '#1e2838' : 'var(--border-subtle)'}`,
-                          color: symbols.length > 0 ? '#7fa9d9' : 'var(--text-muted)',
-                          padding: '6px 8px',
-                          borderRadius: '0',
+                          background: symbols.length > 0 ? 'var(--node-bg)' : 'transparent',
+                          border: `1px solid ${symbols.length > 0 ? 'var(--accent-info)' : 'var(--border-default)'}`,
+                          color: symbols.length > 0 ? 'var(--accent-info)' : 'var(--text-muted)',
+                          padding: '5px 8px',
+                          borderRadius: 'var(--radius-sm)',
                           fontSize: '10px',
-                          fontWeight: 600,
+                          fontWeight: 500,
                           cursor: 'pointer',
                           whiteSpace: 'nowrap',
                         }}
@@ -157,7 +157,7 @@ export default function FileInspector({
                 })}
               </div>
             ) : (
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>No internal imports.</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>No internal imports.</div>
             )}
           </div>
 
@@ -179,14 +179,14 @@ export default function FileInspector({
                         style={{
                           flex: 1,
                           background: 'var(--bg-input)',
-                          border: '1px solid var(--border-subtle)',
+                          border: '1px solid var(--border-default)',
                           color: 'var(--text-secondary)',
-                          padding: '6px 8px',
-                          borderRadius: '0',
+                          padding: '5px 8px',
+                          borderRadius: 'var(--radius-sm)',
                           textAlign: 'left',
                           fontSize: '11px',
                           cursor: 'pointer',
-                          fontFamily: 'var(--font-data)',
+                          fontFamily: 'var(--font-mono)',
                           overflow: 'hidden',
                           textOverflow: 'ellipsis',
                           whiteSpace: 'nowrap',
@@ -200,13 +200,13 @@ export default function FileInspector({
                         onClick={() => onSelectEdge(edgeKey)}
                         title={symbols.length > 0 ? `Inspect ${symbols.length} traced symbols on this import edge` : 'Inspect import edge'}
                         style={{
-                          background: symbols.length > 0 ? '#12161c' : 'var(--bg-input)',
-                          border: `1px solid ${symbols.length > 0 ? '#1e2838' : 'var(--border-subtle)'}`,
-                          color: symbols.length > 0 ? '#7fa9d9' : 'var(--text-muted)',
-                          padding: '6px 8px',
-                          borderRadius: '0',
+                          background: symbols.length > 0 ? 'var(--node-bg)' : 'transparent',
+                          border: `1px solid ${symbols.length > 0 ? 'var(--accent-info)' : 'var(--border-default)'}`,
+                          color: symbols.length > 0 ? 'var(--accent-info)' : 'var(--text-muted)',
+                          padding: '5px 8px',
+                          borderRadius: 'var(--radius-sm)',
                           fontSize: '10px',
-                          fontWeight: 600,
+                          fontWeight: 500,
                           cursor: 'pointer',
                           whiteSpace: 'nowrap',
                         }}
@@ -218,7 +218,7 @@ export default function FileInspector({
                 })}
               </div>
             ) : (
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>No incoming dependencies.</div>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>No incoming dependencies.</div>
             )}
           </div>
         </div>
@@ -241,28 +241,28 @@ export default function FileInspector({
           <div className="inspector-card">
             <div className="card-title">Dependency Edge</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
                 Consumer File (Importing):
                 <div
                   className="via-link"
-                  style={{ fontFamily: 'var(--font-data)', fontWeight: 600, fontSize: '12px' }}
+                  style={{ fontFamily: 'var(--font-mono)', fontWeight: 500, fontSize: '11px', color: 'var(--accent-info)' }}
                   onClick={() => onFocusNode(selectedEdge.source)}
                 >
                   {selectedEdge.source}
                 </div>
               </div>
-              <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
                 Supplier File (Exporting):
                 <div
                   className="via-link"
-                  style={{ fontFamily: 'var(--font-data)', fontWeight: 600, fontSize: '12px' }}
+                  style={{ fontFamily: 'var(--font-mono)', fontWeight: 500, fontSize: '11px', color: 'var(--accent-info)' }}
                   onClick={() => onFocusNode(selectedEdge.target)}
                 >
                   {selectedEdge.target}
                 </div>
               </div>
             </div>
-            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '6px' }}>
+            <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '6px' }}>
               {selectedEdge.isCycle && <span className="metric-pill danger">Circular Edge</span>}
               {selectedEdge.hasTracedSymbols ? (
                 <span className="badge-runtime">Traced Symbols: {selectedEdge.symbolUsages.length}</span>
@@ -278,7 +278,7 @@ export default function FileInspector({
               <span>Traced Symbols ({selectedEdge.symbolUsages.length})</span>
             </div>
             {selectedEdge.symbolUsages.length > 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                 {selectedEdge.symbolUsages.map((sym, i) => (
                   <div key={i} className="symbol-usage-row">
                     <div className="symbol-name-bar">
@@ -288,12 +288,12 @@ export default function FileInspector({
                       </span>
                     </div>
                     <div className="symbol-meta">
-                      <span>Scope: <strong style={{ color: '#f8fafc' }}>{sym.usedInScope}</strong></span>
+                      <span>Scope: <strong style={{ color: 'var(--text-primary)' }}>{sym.usedInScope}</strong></span>
                       <span>•</span>
                       <span>Line: {sym.line}</span>
                     </div>
                     {sym.note && (
-                      <div style={{ fontSize: '10px', color: 'var(--accent-amber)', fontStyle: 'italic' }}>
+                      <div style={{ fontSize: '10px', color: 'var(--accent-warning)', fontStyle: 'italic' }}>
                         Note: {sym.note}
                       </div>
                     )}
@@ -301,7 +301,7 @@ export default function FileInspector({
                 ))}
               </div>
             ) : (
-              <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>
+              <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.4' }}>
                 No specific symbol references were traced across this import edge (barrel re-export, side-effect import, or dynamic access).
               </div>
             )}
@@ -322,13 +322,8 @@ export default function FileInspector({
 
       <div className="panel-body">
         <div className="inspector-card">
-          <div style={{ textAlign: 'center', padding: '16px 8px' }}>
-            <div style={{ fontWeight: 600, fontSize: '13px', color: 'var(--text-primary)', marginBottom: '8px' }}>
-              Select a Node or Edge
-            </div>
-            <div style={{ fontSize: '12px', color: 'var(--text-muted)', lineHeight: '1.4' }}>
-              Click any file node to trace environment variables & dependencies, or click an edge to inspect symbol-level scopes.
-            </div>
+          <div style={{ textAlign: 'center', padding: '12px 8px', fontSize: '11px', color: 'var(--text-muted)' }}>
+            Select a file node or import edge to inspect details.
           </div>
         </div>
 
@@ -351,8 +346,8 @@ export default function FileInspector({
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span className="env-key-name">{dk.key}</span>
                       <span
-                        className={isUsed ? 'badge-env-direct' : 'badge-env-transitive'}
-                        style={{ color: isUsed ? '#f59e0b' : '#ef4444' }}
+                        className={isUsed ? 'badge-runtime' : 'badge-env-direct'}
+                        style={{ color: isUsed ? 'var(--text-muted)' : 'var(--accent-warning)', borderColor: isUsed ? 'var(--border-default)' : 'var(--accent-warning)' }}
                       >
                         {isUsed ? 'Referenced' : 'Unused'}
                       </span>
