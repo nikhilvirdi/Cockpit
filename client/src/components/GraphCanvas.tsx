@@ -12,6 +12,7 @@ interface GraphCanvasProps {
   graphData: GraphData;
   cycleNodesSet: Set<string>;
   cycleEdgesSet: Set<string>;
+  envUsageEdgesSet: Set<string>;
   orphanSet: Set<string>;
   entryPointMap: Map<string, string>;
   incomingMap: Map<string, string[]>;
@@ -33,7 +34,7 @@ function enforceZeroOverlap(cyInstance: Core) {
   const nodes = cyInstance.nodes().filter((n: any) => !n.hasClass('hidden')).toArray();
   if (nodes.length <= 1) return;
 
-  const PADDING = 18; // visual buffer between node bounding boxes
+  const PADDING = 20; // visual buffer between node bounding boxes
   const MAX_ITERATIONS = 120;
 
   // Pre-calculate effective dynamic dimensions and current positions
@@ -45,12 +46,14 @@ function enforceZeroOverlap(cyInstance: Core) {
     let dynH: number;
 
     if (isEntryPoint) {
-      dynW = Math.max(100, Math.min(260, label.length * 8.5 + 40));
-      dynH = Math.max(90, Math.round(dynW * 0.95));
+      // Entry point node: diamond inside 160px x 160px box
+      dynW = 160;
+      dynH = 160;
     } else {
-      dynW = Math.max(70, Math.min(220, label.length * 7.5 + 24));
-      const lines = Math.ceil(label.length / 16);
-      dynH = Math.max(38, Math.min(76, 28 + lines * 14));
+      // Standard file node: min-w 190px max-w 280px
+      dynW = Math.max(190, Math.min(280, label.length * 10 + 40));
+      const lines = Math.ceil((label.length * 9.5) / 240);
+      dynH = Math.max(50, Math.min(84, 34 + lines * 18));
     }
 
     const w = Math.max(n.outerWidth() || 0, dynW) + PADDING;
@@ -114,6 +117,7 @@ export default function GraphCanvas({
   graphData,
   cycleNodesSet,
   cycleEdgesSet,
+  envUsageEdgesSet,
   orphanSet,
   entryPointMap,
   incomingMap,
@@ -164,21 +168,32 @@ export default function GraphCanvas({
       });
     }
 
-    // Build Edges
+    // Build Edges with 5 Edge Types
     for (const edge of graphData.edges || []) {
       const edgeKey = `${edge.from}->${edge.to}`;
       const isCycle = cycleEdgesSet.has(edgeKey);
+      const isEnvUsage = envUsageEdgesSet.has(edgeKey);
       const symbols = symbolUsageByEdgeMap.get(edgeKey) || [];
       const hasSymbols = symbols.length > 0;
       const isTypeOnly = hasSymbols && symbols.every(s => s.typeOnly);
+      const hasRuntimeSymbols = hasSymbols && symbols.some(s => !s.typeOnly);
 
       const classes: string[] = [];
       if (isCycle) {
+        // 1. Cycle edges: dashed '6 4', 1.5px, var(--accent-error)
         classes.push('cycle-edge');
-      } else if (hasSymbols) {
-        classes.push(isTypeOnly ? 'type-only-edge' : 'traced-edge');
+      } else if (isEnvUsage) {
+        // 2. Env-usage edges: dashed '6 4', 1.5px, var(--accent-warning)
+        classes.push('env-usage-edge');
+      } else if (hasRuntimeSymbols) {
+        // 3. Symbol-usage edges: solid, 1.5px, var(--accent-info)
+        classes.push('symbol-usage-edge');
+      } else if (isTypeOnly || !hasSymbols) {
+        // 4. Type-only or untraced edges: dashed '6 4', 1.5px, var(--text-muted)
+        classes.push(isTypeOnly ? 'type-only-edge' : 'untraced-edge');
       } else {
-        classes.push('untraced-edge');
+        // 5. Import (traced, default flow): solid, 1.5px, var(--connector-line)
+        classes.push('import-edge');
       }
 
       elements.push({
@@ -188,6 +203,7 @@ export default function GraphCanvas({
           source: edge.from,
           target: edge.to,
           isCycle,
+          isEnvUsage,
           hasSymbols,
           isTypeOnly,
           symbolCount: symbols.length,
@@ -200,233 +216,251 @@ export default function GraphCanvas({
       container: containerRef.current,
       elements,
       style: [
-        // Standard Nodes
+        // ── 3. Standard File Node: rounded rect, 6px radius, 1px solid var(--node-border), bg var(--node-bg), min-w 190px max-w 280px
         {
           selector: 'node',
           style: {
             label: 'data(label)',
-            'background-color': '#1e3a5f',
-            color: '#e5e5e5',
+            'background-color': '#161616', // var(--node-bg)
+            color: '#f0f0f0', // var(--text-primary)
             'text-valign': 'center',
             'text-halign': 'center',
-            'font-size': '11px',
-            'font-family': 'Rubik, sans-serif',
+            'font-size': '15px',
+            'font-weight': 500,
+            'font-family': 'Nunito, -apple-system, BlinkMacSystemFont, sans-serif',
             width: (node: any): any => {
               const label = node.data('label') || '';
-              return Math.max(70, Math.min(220, label.length * 7.5 + 24));
+              return Math.max(190, Math.min(280, label.length * 10 + 40));
             },
             height: (node: any): any => {
               const label = node.data('label') || '';
-              const lines = Math.ceil(label.length / 16);
-              return Math.max(38, Math.min(76, 28 + lines * 14));
+              const lines = Math.ceil((label.length * 9.5) / 240);
+              return Math.max(50, Math.min(84, 34 + lines * 18));
             },
-            padding: '10px',
-            shape: 'rectangle',
-            'border-width': 2,
-            'border-color': '#4a9eff',
+            padding: '16px',
+            shape: 'round-rectangle',
+            'corner-radius': '6px',
+            'border-width': 1,
+            'border-color': '#ffffff', // var(--node-border)
+            'border-opacity': 1,
             'text-wrap': 'wrap',
             'text-max-width': (node: any): any => {
               const label = node.data('label') || '';
-              return Math.max(70, Math.min(220, label.length * 7.5 + 24)) - 20;
+              return Math.max(190, Math.min(280, label.length * 10 + 40)) - 32;
             },
+            'transition-property': 'opacity, border-color, width, height',
+            'transition-duration': 0.3,
+            'transition-timing-function': 'ease-out',
           },
         },
-        // Entry Point Nodes: Amber Diamond
+        // ── Entry Point Node: diamond 113x113 in 160x160 box, same border/bg tokens, bold text
         {
           selector: 'node.entry-point-node',
           style: {
             shape: 'diamond',
-            width: (node: any): any => {
-              const label = node.data('label') || '';
-              return Math.max(100, Math.min(260, label.length * 8.5 + 40));
-            },
-            height: (node: any): any => {
-              const label = node.data('label') || '';
-              const baseWidth = Math.max(100, Math.min(260, label.length * 8.5 + 40));
-              return Math.max(90, Math.round(baseWidth * 0.95));
-            },
-            'border-width': 3,
-            'border-color': '#f59e0b',
-            'background-color': '#92400e',
-            color: '#e5e5e5',
-            'font-weight': 600,
-            'font-family': 'Rubik, sans-serif',
+            width: 160,
+            height: 160,
+            'border-width': 1,
+            'border-color': '#ffffff',
+            'border-opacity': 1,
+            'background-color': '#161616',
+            color: '#f0f0f0',
+            'font-weight': 700,
+            'font-size': '15px',
+            'font-family': 'Nunito, -apple-system, BlinkMacSystemFont, sans-serif',
             'text-valign': 'center',
             'text-halign': 'center',
             'text-wrap': 'wrap',
-            'text-max-width': (node: any): any => {
-              const label = node.data('label') || '';
-              const baseWidth = Math.max(100, Math.min(260, label.length * 8.5 + 40));
-              return Math.round(baseWidth * 0.58);
-            },
+            'text-max-width': '100px',
           },
         },
-        // Cycle Nodes: Red
+        // ── Cycle Node
         {
           selector: 'node.cycle-node',
           style: {
-            'background-color': '#7f1d1d',
-            'border-color': '#ef4444',
-            'border-width': 3,
-            color: '#e5e5e5',
+            shape: 'round-rectangle',
+            'corner-radius': '6px',
+            'background-color': '#161616',
+            'border-color': '#f85149', // var(--accent-error)
+            'border-width': 1,
+            'border-opacity': 1,
+            color: '#f85149',
             'font-weight': 600,
-            'font-family': 'Rubik, sans-serif',
+            'font-family': 'Nunito, -apple-system, BlinkMacSystemFont, sans-serif',
           },
         },
-        // Orphan Nodes: Dimmed Gray
+        // ── Orphan Node: dashed border var(--text-muted), fill opacity ~0.5
         {
           selector: 'node.orphan-node',
           style: {
-            'background-color': '#1a1a1a',
-            'border-color': '#4a4a4a',
+            shape: 'round-rectangle',
+            'corner-radius': '6px',
+            'background-color': '#161616',
+            'background-opacity': 0.5,
+            'border-color': '#8a8a8a', // var(--text-muted)
             'border-style': 'dashed',
-            color: '#888888',
-            opacity: 0.65,
-            'font-family': 'Rubik, sans-serif',
+            'border-dash-pattern': [6, 4],
+            'border-width': 1,
+            'border-opacity': 0.8,
+            color: '#8a8a8a',
+            'font-size': '15px',
+            'font-weight': 500,
+            'font-family': 'Nunito, -apple-system, BlinkMacSystemFont, sans-serif',
           },
         },
-        // Selected Node
+        // ── 5. Hover/Focus Interaction States
+        // Focused node gets border-color var(--connector-active) + box-shadow 0 0 0 1px var(--connector-active)
         {
-          selector: 'node:selected',
+          selector: 'node.focused, node:selected',
           style: {
-            'border-width': 3.5,
-            'border-color': '#e5e5e5',
-            'underlay-color': '#e5e5e5',
-            'underlay-padding': 5,
-            'underlay-opacity': 0.15,
+            'border-width': 1,
+            'border-color': '#a0a0a0', // var(--connector-active)
+            'border-opacity': 1,
+            'underlay-color': '#a0a0a0',
+            'underlay-padding': 1,
+            'underlay-opacity': 0.8,
+            'underlay-shape': 'round-rectangle',
             'z-index': 99,
           },
         },
-        // Env Active Highlight
+        // Direct neighbors of focused node get border-color var(--accent-primary) + matching box-shadow
         {
-          selector: 'node.env-active',
+          selector: 'node.neighbor, node.highlighted-connection',
           style: {
-            'border-width': 3.5,
-            'border-color': '#f59e0b',
-            'underlay-color': '#f59e0b',
-            'underlay-padding': 6,
-            'underlay-opacity': 0.25,
-            'z-index': 80,
-          },
-        },
-        // Search Match
-        {
-          selector: 'node.search-match',
-          style: {
-            'border-width': 3.5,
-            'border-color': '#10b981',
-            'underlay-color': '#10b981',
-            'underlay-padding': 6,
-            'underlay-opacity': 0.25,
-            'z-index': 85,
-          },
-        },
-        // Dimmed
-        { selector: 'node.dimmed', style: { opacity: 0.15 } },
-        { selector: 'node.hidden', style: { display: 'none' } },
-        // Highlighted Connection
-        {
-          selector: 'node.highlighted-connection',
-          style: {
-            'border-width': 3,
-            'border-color': '#ffffff',
-            'underlay-color': '#ffffff',
-            'underlay-padding': 8,
-            'underlay-opacity': 0.3,
+            'border-width': 1,
+            'border-color': '#a0a0a0', // var(--accent-primary)
+            'border-opacity': 1,
+            'underlay-color': '#a0a0a0',
+            'underlay-padding': 1,
+            'underlay-opacity': 0.5,
+            'underlay-shape': 'round-rectangle',
             'z-index': 95,
           },
         },
-        // Base Edges
+        // Env active highlight
+        {
+          selector: 'node.env-active',
+          style: {
+            'border-width': 1,
+            'border-color': '#d29922', // var(--accent-warning)
+            'border-opacity': 1,
+            'underlay-color': '#d29922',
+            'underlay-padding': 1,
+            'underlay-opacity': 0.6,
+            'z-index': 80,
+          },
+        },
+        // Search match
+        {
+          selector: 'node.search-match',
+          style: {
+            'border-width': 1,
+            'border-color': '#58a6ff', // var(--accent-info)
+            'border-opacity': 1,
+            'underlay-color': '#58a6ff',
+            'underlay-padding': 1,
+            'underlay-opacity': 0.6,
+            'z-index': 85,
+          },
+        },
+        // Dimmed nodes (opacity 0.3)
+        { selector: 'node.dimmed', style: { opacity: 0.3 } },
+        { selector: 'node.hidden', style: { display: 'none' } },
+
+        // ── 2. EDGE COLOR-TO-MEANING MAPPING (5 Edge Types)
+        // Base edge settings (all arrowheads: solid triangle matching edge stroke color)
         {
           selector: 'edge',
           style: {
-            width: 2,
-            'line-color': '#cccccc',
-            'target-arrow-color': '#cccccc',
+            width: 1.5,
+            'line-color': '#ffffff', // var(--connector-line)
+            'target-arrow-color': '#ffffff',
             'target-arrow-shape': 'triangle',
+            'target-arrow-fill': 'filled',
             'curve-style': 'bezier',
-            'arrow-scale': 1.2,
-            opacity: 0.7,
-            'underlay-color': '#e5e5e5',
-            'underlay-padding': 6,
+            'arrow-scale': 1.1,
+            opacity: 1,
             'underlay-opacity': 0,
+            'transition-property': 'opacity, line-color, target-arrow-color, width',
+            'transition-duration': 0.3,
+            'transition-timing-function': 'ease-out',
           },
         },
-        // Traced Runtime Symbol Edges
+        // 1) Import (traced, default flow): solid, 1.5px, var(--connector-line) [#ffffff]
         {
-          selector: 'edge.traced-edge',
+          selector: 'edge.import-edge',
           style: {
-            width: 2.5,
-            'line-color': '#60a5fa',
-            'target-arrow-color': '#60a5fa',
+            width: 1.5,
+            'line-color': '#ffffff',
+            'target-arrow-color': '#ffffff',
             'line-style': 'solid',
-            opacity: 0.9,
-            'z-index': 5,
+            opacity: 1,
+            'z-index': 3,
           },
         },
-        // Type-Only Import Edges
+        // 2) Symbol-usage edges: solid, 1.5px, var(--accent-info) [#58a6ff]
         {
-          selector: 'edge.type-only-edge',
+          selector: 'edge.symbol-usage-edge, edge.traced-edge',
           style: {
-            width: 2.2,
-            'line-color': '#a78bfa',
-            'target-arrow-color': '#a78bfa',
-            'line-style': 'dotted',
-            opacity: 0.8,
+            width: 1.5,
+            'line-color': '#58a6ff',
+            'target-arrow-color': '#58a6ff',
+            'line-style': 'solid',
+            opacity: 1,
             'z-index': 4,
           },
         },
-        // Untraced Import Edges
+        // 3) Env-usage edges: dashed '6 4', 1.5px, var(--accent-warning) [#d29922]
         {
-          selector: 'edge.untraced-edge',
+          selector: 'edge.env-usage-edge',
           style: {
-            width: 1.8,
-            'line-color': '#999999',
-            'target-arrow-color': '#999999',
+            width: 1.5,
+            'line-color': '#d29922',
+            'target-arrow-color': '#d29922',
             'line-style': 'dashed',
-            opacity: 0.5,
-            'z-index': 2,
+            'line-dash-pattern': [6, 4],
+            opacity: 1,
+            'z-index': 5,
           },
         },
-        // Cycle Edges
+        // 4) Cycle edges: dashed '6 4', 1.5px, var(--accent-error) [#f85149]
         {
           selector: 'edge.cycle-edge',
           style: {
-            width: 3.5,
-            'line-color': '#ef4444',
-            'target-arrow-color': '#ef4444',
-            'line-style': 'solid',
-            'arrow-scale': 1.5,
+            width: 1.5,
+            'line-color': '#f85149',
+            'target-arrow-color': '#f85149',
+            'line-style': 'dashed',
+            'line-dash-pattern': [6, 4],
             opacity: 1,
             'z-index': 10,
           },
         },
-        // Selected Edge
+        // 5) Type-only / untraced edges: dashed '6 4', 1.5px, var(--text-muted) [#8a8a8a]
         {
-          selector: 'edge:selected',
+          selector: 'edge.type-only-edge, edge.untraced-edge',
           style: {
-            width: 3.5,
-            'line-color': '#e5e5e5',
-            'target-arrow-color': '#e5e5e5',
-            'arrow-scale': 1.4,
+            width: 1.5,
+            'line-color': '#8a8a8a',
+            'target-arrow-color': '#8a8a8a',
+            'line-style': 'dashed',
+            'line-dash-pattern': [6, 4],
+            opacity: 1,
+            'z-index': 2,
+          },
+        },
+        // Selected / Highlighted Edges
+        {
+          selector: 'edge:selected, edge.highlighted-edge',
+          style: {
+            width: 2,
             opacity: 1,
             'z-index': 99,
           },
         },
-        { selector: 'edge.dimmed', style: { opacity: 0.08 } },
+        // Dimmed edges (opacity 0.3)
+        { selector: 'edge.dimmed', style: { opacity: 0.3 } },
         { selector: 'edge.hidden', style: { display: 'none' } },
-        // Highlighted Edge
-        {
-          selector: 'edge.highlighted-edge',
-          style: {
-            width: 4,
-            'line-color': '#ffffff',
-            'target-arrow-color': '#ffffff',
-            'arrow-scale': 1.6,
-            opacity: 1,
-            'z-index': 95,
-          },
-        },
       ],
       layout: { name: 'null' },
       minZoom: 0.2,
@@ -466,19 +500,32 @@ export default function GraphCanvas({
     layout.run();
     runPostLayoutPass();
 
-    // Node tap
+    // Node tap handler (powers focus + neighbor + blast-radius highlighting)
     cy.on('tap', 'node', (evt: EventObject) => {
       const node = evt.target as cytoscape.NodeSingular;
       const data = node.data() as SelectedNodeInfo;
       onSelectNode(data);
 
       cy.batch(() => {
-        cy.elements().removeClass('dimmed highlighted-connection highlighted-edge');
+        cy.elements().removeClass('dimmed highlighted-connection highlighted-edge focused neighbor');
         const outgoingEdges = node.outgoers('edge');
-        const targetNodes = outgoingEdges.targets();
-        cy.elements().not(node).not(outgoingEdges).not(targetNodes).addClass('dimmed');
-        outgoingEdges.addClass('highlighted-edge');
-        targetNodes.addClass('highlighted-connection');
+        const incomingEdges = node.incomers('edge');
+        const directEdges = outgoingEdges.union(incomingEdges);
+        const neighbors = directEdges.connectedNodes().not(node);
+
+        // Blast radius: full downstream dependency chain
+        const successors = node.successors();
+        const activeChain = node.union(successors);
+        const activeEdges = activeChain.connectedEdges().filter((e: any) => {
+          return activeChain.contains(e.source()) && activeChain.contains(e.target());
+        });
+        const allActiveEles = activeChain.union(activeEdges).union(neighbors).union(directEdges);
+
+        // Dim unrelated nodes and edges to opacity 0.3
+        cy.elements().not(allActiveEles).addClass('dimmed');
+        node.addClass('focused');
+        neighbors.addClass('neighbor');
+        activeEdges.union(directEdges).addClass('highlighted-edge');
       });
     });
 
@@ -497,14 +544,14 @@ export default function GraphCanvas({
         hasTracedSymbols: symbols.length > 0,
         symbolUsages: symbols,
       });
-      cy.elements().removeClass('dimmed highlighted-connection highlighted-edge');
+      cy.elements().removeClass('dimmed highlighted-connection highlighted-edge focused neighbor');
     });
 
     // Background tap (deselect)
     cy.on('tap', (evt: EventObject) => {
       if (evt.target === cy) {
         onDeselect();
-        cy.elements().removeClass('dimmed highlighted-connection highlighted-edge');
+        cy.elements().removeClass('dimmed highlighted-connection highlighted-edge focused neighbor');
       }
     });
 
@@ -512,7 +559,7 @@ export default function GraphCanvas({
       cy.destroy();
       cyRef.current = null;
     };
-  }, [graphData, cycleNodesSet, cycleEdgesSet, orphanSet, entryPointMap, incomingMap, outgoingMap, symbolUsageByEdgeMap]);
+  }, [graphData, cycleNodesSet, cycleEdgesSet, envUsageEdgesSet, orphanSet, entryPointMap, incomingMap, outgoingMap, symbolUsageByEdgeMap]);
 
   return (
     <div className="graph-canvas-container">
