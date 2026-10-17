@@ -1,6 +1,3 @@
-git add -A
-git commit -m "Move Engine toggle to top-left of header"
-git push origin main
 import type { GraphData, DeclaredEnvKey, DynamicAccess } from '../types';
 
 interface HeaderProps {
@@ -34,24 +31,26 @@ export default function Header({
           alignItems: 'center',
           background: 'var(--bg-input)',
           border: '1px solid var(--border-default)',
+          borderRadius: 'var(--radius-sm)',
           padding: '2px',
-          gap: '4px',
+          gap: '3px',
           fontFamily: 'var(--font-data)',
           fontSize: '11px',
           flexShrink: 0,
         }}
       >
-        <span style={{ color: 'var(--text-muted)', fontSize: '10px', paddingLeft: '4px', paddingRight: '2px' }}>
-          Engine:
+        <span style={{ color: 'var(--text-muted)', fontSize: '10px', paddingLeft: '4px', paddingRight: '2px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          Engine
         </span>
         <button
           id="engine-btn-cytoscape"
           type="button"
           onClick={() => onSetEngine('cytoscape')}
           style={{
-            background: engine === 'cytoscape' ? '#1c1c1c' : 'transparent',
-            color: engine === 'cytoscape' ? '#ffffff' : '#888888',
-            border: engine === 'cytoscape' ? '1px solid #444444' : '1px solid transparent',
+            background: engine === 'cytoscape' ? 'var(--node-bg)' : 'transparent',
+            color: engine === 'cytoscape' ? 'var(--accent-warning)' : 'var(--text-muted)',
+            border: engine === 'cytoscape' ? '1px solid var(--accent-warning)' : '1px solid transparent',
+            borderRadius: 'var(--radius-sm)',
             padding: '3px 8px',
             fontSize: '11px',
             fontWeight: engine === 'cytoscape' ? 600 : 400,
@@ -66,9 +65,10 @@ export default function Header({
           type="button"
           onClick={() => onSetEngine('reagraph')}
           style={{
-            background: engine === 'reagraph' ? '#1c1c1c' : 'transparent',
-            color: engine === 'reagraph' ? '#ffffff' : '#888888',
-            border: engine === 'reagraph' ? '1px solid #444444' : '1px solid transparent',
+            background: engine === 'reagraph' ? 'var(--node-bg)' : 'transparent',
+            color: engine === 'reagraph' ? 'var(--accent-warning)' : 'var(--text-muted)',
+            border: engine === 'reagraph' ? '1px solid var(--accent-warning)' : '1px solid transparent',
+            borderRadius: 'var(--radius-sm)',
             padding: '3px 8px',
             fontSize: '11px',
             fontWeight: engine === 'reagraph' ? 600 : 400,

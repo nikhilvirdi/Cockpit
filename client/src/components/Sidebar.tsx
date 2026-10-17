@@ -68,22 +68,23 @@ export default function Sidebar({
       {/* Input Mode: GitHub / Local */}
       <div className="sidebar-section">
         <div className="sidebar-section-title">Analyze</div>
-        <div style={{ display: 'flex', background: 'var(--bg-input)', padding: '2px', border: '1px solid var(--border-default)', marginBottom: '6px' }}>
+        <div style={{ display: 'flex', background: '#12161C', padding: '2px', border: '1px solid var(--border-default)', borderRadius: '3px', marginBottom: '6px' }}>
           <button
             type="button"
             id="mode-github-tab"
             onClick={() => onSetInputMode('github')}
             style={{
               flex: 1,
-              background: inputMode === 'github' ? '#1c1c1c' : 'transparent',
-              color: inputMode === 'github' ? '#e5e5e5' : '#888888',
-              border: inputMode === 'github' ? '1px solid #444444' : '1px solid transparent',
+              background: inputMode === 'github' ? '#1C2128' : 'transparent',
+              color: inputMode === 'github' ? '#E8A33D' : '#8B96A5',
+              border: inputMode === 'github' ? '1px solid #E8A33D' : '1px solid transparent',
               padding: '4px 10px',
-              borderRadius: '0',
+              borderRadius: '3px',
               fontSize: '11px',
-              fontWeight: 600,
+              fontWeight: inputMode === 'github' ? 500 : 400,
               cursor: 'pointer',
               boxShadow: 'none',
+              fontFamily: 'var(--font-data)',
             }}
           >
             GitHub
@@ -94,15 +95,16 @@ export default function Sidebar({
             onClick={() => onSetInputMode('folder')}
             style={{
               flex: 1,
-              background: inputMode === 'folder' ? '#1c1c1c' : 'transparent',
-              color: inputMode === 'folder' ? '#e5e5e5' : '#888888',
-              border: inputMode === 'folder' ? '1px solid #444444' : '1px solid transparent',
+              background: inputMode === 'folder' ? '#1C2128' : 'transparent',
+              color: inputMode === 'folder' ? '#E8A33D' : '#8B96A5',
+              border: inputMode === 'folder' ? '1px solid #E8A33D' : '1px solid transparent',
               padding: '4px 10px',
-              borderRadius: '0',
+              borderRadius: '3px',
               fontSize: '11px',
-              fontWeight: 600,
+              fontWeight: inputMode === 'folder' ? 500 : 400,
               cursor: 'pointer',
               boxShadow: 'none',
+              fontFamily: 'var(--font-data)',
             }}
           >
             Local
@@ -121,11 +123,11 @@ export default function Sidebar({
               style={{
                 width: '100%',
                 boxSizing: 'border-box',
-                background: 'var(--bg-input)',
-                color: 'var(--text-primary)',
+                background: '#12161C',
+                color: '#8B96A5',
                 border: '1px solid var(--border-default)',
-                borderRadius: '0',
-                padding: '5px 10px',
+                borderRadius: '3px',
+                padding: '5px 8px',
                 fontSize: '11px',
                 outline: 'none',
                 fontFamily: 'var(--font-data)',
@@ -137,16 +139,17 @@ export default function Sidebar({
               type="submit"
               disabled={loading || !repoUrl.trim()}
               style={{
-                background: loading ? '#0e0e0e' : '#1c1c1c',
-                color: loading ? '#666666' : '#e5e5e5',
-                border: '1px solid #444444',
-                borderRadius: '0',
-                padding: '5px 14px',
+                background: loading ? 'var(--bg-input)' : 'var(--node-bg)',
+                color: loading ? 'var(--text-muted)' : 'var(--text-primary)',
+                border: '1px solid var(--border-default)',
+                borderRadius: 'var(--radius-sm)',
+                padding: '5px 12px',
                 fontSize: '11px',
-                fontWeight: 600,
+                fontWeight: 500,
                 cursor: loading || !repoUrl.trim() ? 'not-allowed' : 'pointer',
                 boxShadow: 'none',
                 width: '100%',
+                fontFamily: 'var(--font-data)',
               }}
             >
               {loading ? 'Analyzing...' : 'Analyze'}
@@ -159,16 +162,17 @@ export default function Sidebar({
             onClick={onPickLocalFolder}
             disabled={loading}
             style={{
-              background: loading ? '#0e0e0e' : '#1c1c1c',
-              color: loading ? '#666666' : '#e5e5e5',
-              border: '1px solid #444444',
-              borderRadius: '0',
-              padding: '5px 14px',
+              background: loading ? 'var(--bg-input)' : 'var(--node-bg)',
+              color: loading ? 'var(--text-muted)' : 'var(--text-primary)',
+              border: '1px solid var(--border-default)',
+              borderRadius: 'var(--radius-sm)',
+              padding: '5px 12px',
               fontSize: '11px',
-              fontWeight: 600,
+              fontWeight: 500,
               cursor: loading ? 'not-allowed' : 'pointer',
               boxShadow: 'none',
               width: '100%',
+              fontFamily: 'var(--font-data)',
             }}
           >
             {loading ? 'Processing...' : 'Select Folder'}
@@ -208,7 +212,11 @@ export default function Sidebar({
           className="select-filter"
           value={selectedEnvFilter}
           onChange={(e) => onSetEnvFilter(e.target.value)}
-          style={{ width: '100%' }}
+          style={{
+            width: '100%',
+            borderColor: selectedEnvFilter !== 'none' ? 'var(--accent-warning)' : undefined,
+            color: selectedEnvFilter !== 'none' ? 'var(--accent-warning)' : undefined,
+          }}
         >
           <option value="none">All (No Filter)</option>
           {allEnvKeys.map(k => (
@@ -228,7 +236,11 @@ export default function Sidebar({
             className="select-filter"
             value={selectedCycleFilter}
             onChange={(e) => onSetCycleFilter(e.target.value)}
-            style={{ width: '100%' }}
+            style={{
+              width: '100%',
+              borderColor: selectedCycleFilter !== 'all' ? 'var(--accent-warning)' : undefined,
+              color: selectedCycleFilter !== 'all' ? 'var(--accent-warning)' : undefined,
+            }}
           >
             <option value="all">All Cycles ({graphData.analysis?.cycles?.length})</option>
             {graphData.analysis.cycles.map((cycle, idx) => (
@@ -299,43 +311,47 @@ export default function Sidebar({
               <div className="sidebar-legend-title">Nodes</div>
               <div className="sidebar-legend-grid">
                 <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#1e3a5f', border: '2px solid #4a9eff' }} />
+                  <span className="legend-dot" style={{ background: 'var(--node-bg)', border: '1px solid var(--node-border)', borderRadius: '2px' }} />
                   <span>Standard</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#7f1d1d', border: '2px solid #ef4444' }} />
-                  <span>Cycle</span>
+                  <span className="legend-dot" style={{ background: 'var(--node-bg)', border: '1px solid var(--node-border)', transform: 'rotate(45deg)', borderRadius: '1px' }} />
+                  <span>Entry Point</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#92400e', border: '2px solid #f59e0b', transform: 'rotate(45deg)' }} />
-                  <span>Entry</span>
-                </div>
-                <div className="legend-item">
-                  <span className="legend-dot" style={{ background: '#1a1a1a', border: '1px dashed #888' }} />
+                  <span className="legend-dot" style={{ background: 'rgba(22, 22, 22, 0.5)', border: '1px dashed var(--text-muted)', borderRadius: '2px' }} />
                   <span>Orphan</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-dot" style={{ background: 'var(--node-bg)', border: '1px solid var(--accent-error)', borderRadius: '2px' }} />
+                  <span>Cycle</span>
                 </div>
               </div>
             </div>
 
-            {/* Edges Group */}
+            {/* Edges Group (5 edge types) */}
             <div className="sidebar-legend-group">
               <div className="sidebar-legend-title">Edges</div>
-              <div className="sidebar-legend-grid">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 <div className="legend-item">
-                  <span className="legend-line" style={{ background: '#60a5fa' }} />
-                  <span>Traced</span>
+                  <span className="legend-line" style={{ background: 'var(--connector-line)', height: '1.5px' }} />
+                  <span>Import (default)</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-line" style={{ borderTop: '2px dotted #a78bfa' }} />
-                  <span>Type-Only</span>
+                  <span className="legend-line" style={{ background: 'var(--accent-info)', height: '1.5px' }} />
+                  <span>Symbol Usage</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-line" style={{ borderTop: '2px dashed #999' }} />
-                  <span>Untraced</span>
+                  <span className="legend-line" style={{ borderTop: '1.5px dashed var(--accent-warning)' }} />
+                  <span>Env Usage</span>
                 </div>
                 <div className="legend-item">
-                  <span className="legend-line" style={{ background: '#ef4444', height: '3px' }} />
+                  <span className="legend-line" style={{ borderTop: '1.5px dashed var(--accent-error)' }} />
                   <span>Cycle</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-line" style={{ borderTop: '1.5px dashed var(--text-muted)' }} />
+                  <span>Type-Only / Untraced</span>
                 </div>
               </div>
             </div>
